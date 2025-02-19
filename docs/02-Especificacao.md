@@ -11,7 +11,7 @@ Esta seção apresenta uma visão geral da especificação do Match Finder, desc
 |Desenvolvedor de Software|
 |João é um entusiasta de tecnologia e entretenimento digital. Trabalhando como desenvolvedor de software, ele passa grande parte do dia em frente ao computador e, no seu tempo livre, gosta de explorar novos jogos e séries. Além de consumir conteúdo, João também gosta de compartilhar suas opiniões detalhadas sobre as obras que experimenta, seja em fóruns ou redes sociais. Ele busca uma plataforma confiável onde possa encontrar rapidamente recomendações baseadas na opinião de outros usuários e registrar suas próprias análises para ajudar a comunidade.|
 
-|![Mariana Souza](images/Mariana%20Souza.jpg)|
+<img src="images/João%20Silva.jpg" alt="João Silva" width="150" />
 |-------------|
 |Mariana Souza|
 |29 Anos|
