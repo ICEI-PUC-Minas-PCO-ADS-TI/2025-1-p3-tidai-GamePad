@@ -1,25 +1,25 @@
-# Nome do projeto
+# Match Finder
 
 `CURSO: Análise e Desenvolvimento de Sistemas`
 
 `DISCIPLINA: Trabalho Interdisciplinar Desenvolvimento de Aplicação Interativa`
 
-`Xº semestre/ANO`
+`3º semestre/2025`
 
-Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
+Nosso projeto visa a criação de uma plataforma voltada para lazer e entretenimento, onde os usuários podem avaliar e compartilhar suas opiniões sobre diferentes mídias, como jogos, filmes e séries. Através de notas e comentários, a plataforma facilita a descoberta de obras bem avaliadas, ajudando os usuários a tomarem decisões mais rápidas e assertivas sobre o que consumir, economizando tempo na busca por conteúdos de qualidade. Nosso objetivo é criar um espaço interativo e colaborativo, onde a troca de experiências enriquece a comunidade e melhora a experiência de entretenimento de todos.
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
-* Nome completo do aluno 5
-* Nome completo do aluno 6
+* Alex Mendes dos Santos
+* Andry Marques Pereira da Silveira
+* Isaac Souza Fernandes
+* Pablo Marques Cordeiro
+* Ramon Pereira de Souza
+* Yalle Ramos Ferrari de Magalhaes
 
 ## Professor
 
-* Nome completo do(a) professor(a)
+* Kleber Jacques Ferreira de Souza
 
 ## Instruções de utilização
 
