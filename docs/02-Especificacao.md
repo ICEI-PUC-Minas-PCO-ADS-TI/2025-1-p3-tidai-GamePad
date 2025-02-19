@@ -4,7 +4,7 @@ Esta seção apresenta uma visão geral da especificação do Match Finder, desc
 
 ## Personas
 
-|![Mariana Souza](images/Mariana%20Souza.jpg)|
+|![Mariana Souza](images/João%20Silva.jpg)|
 |-------------|
 |João Silva|
 |24 Anos|
@@ -18,7 +18,7 @@ Esta seção apresenta uma visão geral da especificação do Match Finder, desc
 |Designer Gráfica|
 |Mariana é uma profissional criativa com uma rotina agitada. Trabalhando em projetos gráficos para diferentes clientes, ela precisa otimizar seu tempo de lazer e, por isso, prefere assistir a filmes e ler quadrinhos que já tenham boas recomendações. Ela se sente frustrada ao perder tempo com obras que não correspondem às suas expectativas e busca uma plataforma que facilite sua escolha. Além disso, Mariana gosta de compartilhar breves resenhas sobre os conteúdos que consome, ajudando outras pessoas a tomarem decisões mais assertivas.|
 
-|![Mariana Souza](images/Mariana%20Souza.jpg)|
+|![Mariana Souza](images/Lucas%20Ferreira.png)|
 |-------------|
 |Lucas Ferreira|
 |19 Anos|
