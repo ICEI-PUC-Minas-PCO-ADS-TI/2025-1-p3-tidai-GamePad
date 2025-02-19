@@ -3,7 +3,7 @@
 Esta seção apresenta uma visão geral da especificação do Match Finder, descrevendo as técnicas e ferramentas utilizadas para definir os requisitos e funcionalidades do projeto. Para isso, foram utilizadas metodologias como análise de personas, histórias de usuários e levantamento de requisitos funcionais e não funcionais. A especificação busca garantir que a plataforma atenda às necessidades dos usuários, proporcionando uma experiência intuitiva e eficiente.
 
 ## Personas
-|-------------|
+
 
 |![Mariana Souza](images/João%20Silva.jpg)|
 |-------------|
@@ -26,7 +26,7 @@ Esta seção apresenta uma visão geral da especificação do Match Finder, desc
 |Estudante Universitário|
 |Lucas é um jovem apaixonado por cultura geek, especialmente animes e mangás. Ele adora descobrir novas histórias e acompanhar tendências do momento, mas sente dificuldade em encontrar obras que realmente correspondam aos seus gostos. Lucas gostaria de um espaço onde pudesse ver as avaliações de outros fãs antes de começar um novo mangá ou anime. Além disso, ele quer compartilhar suas próprias impressões e criar um histórico das obras que já consumiu, ajudando outros leitores a encontrar conteúdos interessantes.|
 
-|-------------|
+
 
 
 ## Histórias de usuários
