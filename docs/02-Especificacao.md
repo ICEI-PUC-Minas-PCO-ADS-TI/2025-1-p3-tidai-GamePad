@@ -4,21 +4,21 @@ Esta seção apresenta uma visão geral da especificação do Match Finder, desc
 
 ## Personas
 
-|![João Silva](images/João%20Silva.jpg)|
+|![Mariana Souza](images/Mariana%20Souza.jpg)|
 |-------------|
 |João Silva|
 |24 Anos|
 |Desenvolvedor de Software|
 |João é um entusiasta de tecnologia e entretenimento digital. Trabalhando como desenvolvedor de software, ele passa grande parte do dia em frente ao computador e, no seu tempo livre, gosta de explorar novos jogos e séries. Além de consumir conteúdo, João também gosta de compartilhar suas opiniões detalhadas sobre as obras que experimenta, seja em fóruns ou redes sociais. Ele busca uma plataforma confiável onde possa encontrar rapidamente recomendações baseadas na opinião de outros usuários e registrar suas próprias análises para ajudar a comunidade.|
 
-<img src="images/João%20Silva.jpg" alt="João Silva" width="150" />
+|![Mariana Souza](images/Mariana%20Souza.jpg)|
 |-------------|
 |Mariana Souza|
 |29 Anos|
 |Designer Gráfica|
 |Mariana é uma profissional criativa com uma rotina agitada. Trabalhando em projetos gráficos para diferentes clientes, ela precisa otimizar seu tempo de lazer e, por isso, prefere assistir a filmes e ler quadrinhos que já tenham boas recomendações. Ela se sente frustrada ao perder tempo com obras que não correspondem às suas expectativas e busca uma plataforma que facilite sua escolha. Além disso, Mariana gosta de compartilhar breves resenhas sobre os conteúdos que consome, ajudando outras pessoas a tomarem decisões mais assertivas.|
 
-|![Lucas Ferreira](images/Lucas%20Ferreira.png)|
+|![Mariana Souza](images/Mariana%20Souza.jpg)|
 |-------------|
 |Lucas Ferreira|
 |19 Anos|
