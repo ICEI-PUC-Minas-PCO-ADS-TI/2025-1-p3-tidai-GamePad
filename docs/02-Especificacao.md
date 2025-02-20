@@ -10,30 +10,17 @@ Esta seção apresenta uma visão geral da especificação do Match Finder, desc
   <img src="images/JoãoSilva_Dark.png" alt="Imagem adaptável">
 </picture>
 
+<picture>
+  <source srcset="images/MarianaSouza_Dark.png" media="(prefers-color-scheme: dark)">
+  <source srcset="images/MarianaSouza_Light.png" media="(prefers-color-scheme: light)">
+  <img src="images/MarianaSouza_Dark.png" alt="Imagem adaptável">
+</picture>
 
-|![Mariana Souza](images/João%20Silva.jpg)|
-|-------------|
-|João Silva|
-|24 Anos|
-|Desenvolvedor de Software|
-|João é um entusiasta de tecnologia e entretenimento digital. Trabalhando como desenvolvedor de software, ele passa grande parte do dia em frente ao computador e, no seu tempo livre, gosta de explorar novos jogos e séries. Além de consumir conteúdo, João também gosta de compartilhar suas opiniões detalhadas sobre as obras que experimenta, seja em fóruns ou redes sociais. Ele busca uma plataforma confiável onde possa encontrar rapidamente recomendações baseadas na opinião de outros usuários e registrar suas próprias análises para ajudar a comunidade.|
-
-|![Mariana Souza](images/Mariana%20Souza.jpg)|
-|-------------|
-|Mariana Souza|
-|29 Anos|
-|Designer Gráfica|
-|Mariana é uma profissional criativa com uma rotina agitada. Trabalhando em projetos gráficos para diferentes clientes, ela precisa otimizar seu tempo de lazer e, por isso, prefere assistir a filmes e ler quadrinhos que já tenham boas recomendações. Ela se sente frustrada ao perder tempo com obras que não correspondem às suas expectativas e busca uma plataforma que facilite sua escolha. Além disso, Mariana gosta de compartilhar breves resenhas sobre os conteúdos que consome, ajudando outras pessoas a tomarem decisões mais assertivas.|
-
-|![Mariana Souza](images/Lucas%20Ferreira.png)|
-|-------------|
-|Lucas Ferreira|
-|19 Anos|
-|Estudante Universitário|
-|Lucas é um jovem apaixonado por cultura geek, especialmente animes e mangás. Ele adora descobrir novas histórias e acompanhar tendências do momento, mas sente dificuldade em encontrar obras que realmente correspondam aos seus gostos. Lucas gostaria de um espaço onde pudesse ver as avaliações de outros fãs antes de começar um novo mangá ou anime. Além disso, ele quer compartilhar suas próprias impressões e criar um histórico das obras que já consumiu, ajudando outros leitores a encontrar conteúdos interessantes.|
-
-
-
+<picture>
+  <source srcset="images/LucasFerreira_Dark.png" media="(prefers-color-scheme: dark)">
+  <source srcset="images/LucasFerreira_Light.png" media="(prefers-color-scheme: light)">
+  <img src="images/LucasFerreira_Dark.png" alt="Imagem adaptável">
+</picture>
 
 ## Histórias de usuários
 
