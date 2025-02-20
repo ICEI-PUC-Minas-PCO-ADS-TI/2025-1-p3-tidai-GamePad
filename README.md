@@ -6,7 +6,7 @@
 
 `3º semestre/2025`
 
-Nosso projeto visa a criação de uma plataforma voltada para lazer e entretenimento, onde os usuários podem avaliar e compartilhar suas opiniões sobre diferentes mídias, como jogos, filmes e séries. Através de notas e comentários, a plataforma facilita a descoberta de obras bem avaliadas, ajudando os usuários a tomarem decisões mais rápidas e assertivas sobre o que consumir, economizando tempo na busca por conteúdos de qualidade. Nosso objetivo é criar um espaço interativo e colaborativo, onde a troca de experiências enriquece a comunidade e melhora a experiência de entretenimento de todos.
+Nosso projeto visa a criação de uma plataforma voltada para lazer e entretenimento, onde os usuários podem avaliar e compartilhar suas opiniões sobre jogos. Através de notas e comentários, a plataforma facilita a descoberta de jogos bem avaliados, ajudando os usuários a tomarem decisões mais rápidas e assertivas sobre o que jogar, economizando tempo na busca por títulos de qualidade. Nosso objetivo é criar um espaço interativo e colaborativo, onde a troca de experiências enriquece a comunidade e melhora a experiência de entretenimento de todos.
 
 ## Integrantes
 
