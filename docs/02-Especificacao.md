@@ -32,11 +32,16 @@ Com base na análise das personas, foram identificadas as seguintes histórias d
 
 |EU COMO... | QUERO/PRECISO ...  |PARA ...                  |
 |--------------------|------------------------------------|----------------------------------------|
-|João Silva | Buscar mídias com base em avaliações | Encontrar rapidamente conteúdos bem avaliados|
-|Mariana Silva | Deixar comentários e avaliações sobre mídias consumidas | Compartilhar minha opinião com outros usuários |
-|Lucas Ferreira | Visualizar conteúdos mais populares e lançamentos da semana | Descobrir novas tendências |
-|João Silva | Criar um perfil com minhas avaliações | Ter um histórico organizado das minhas experiências |
-|Mariana Silva | Filtrar pesquisas por categorias e gêneros | Encontrar conteúdos específicos que me interessam |
+|Usuário comum | Buscar jogos com base em avaliações | Encontrar rapidamente jogos bem avaliados|
+|Usuário comum | DDeixar comentários e avaliações sobre jogos jogados | Compartilhar minha opinião com outros usuários |
+|Usuário comum | Visualizar os jogos mais populares e lançamentos da semana | Descobrir novas tendências |
+|Usuário registrado | Criar um perfil com minhas avaliações | Ter um histórico organizado das minhas experiências |
+|Usuário avançado | Filtrar pesquisas por categorias e gêneros | Encontrar conteúdos específicos que me interessam |
+|Usuário registrado | Criar e compartilhar playlists de jogos | Organizar e sugerir jogos para amigos |
+|Usuário competitivo | Acompanhar notícias e atualizações de eSports | Ficar por dentro de torneios e mudanças no cenário competitivo |
+|Usuário entusiasta | Assistir a trailers e gameplays curtos na plataforma | Avaliar melhor se um jogo vale a pena antes de comprá-lo |
+|Criador de conteúdo | Compartilhar vídeos e transmissões ao vivo de jogos | Ampliar seu público e engajar com a comunidade |
+|Usuário comum | Descobrir novos criadores de conteúdo de jogos específicos | Acompanhar vídeos e transmissões de seus jogos favoritos |
 
 ## Requisitos
 
@@ -46,14 +51,17 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário busque mídias pelo nome | ALTA | 
-|RF-002| Permitir que o usuário avalie mídias com notas e comentários | ALTA |
-|RF-003| Exibir conteúdos mais populares e bem avaliados da semana | ALTA |
+|RF-001| Permitir que o usuário busque jogos pelo nome | ALTA | 
+|RF-002| Permitir que o usuário avalie jogos com notas e comentários | ALTA |
+|RF-003| Exibir jogos mais populares e bem avaliados da semana | ALTA |
 |RF-004| Permitir a criação de perfis de usuários | ALTA |
 |RF-005| Possibilitar filtragem de pesquisas por categorias | MÉDIA |
-|RF-006| Exibir conteúdos mais engajados no momento | MÉDIA |
-|RF-007| Exibir novos conteúdos e novos lançamentos | MÉDIA |
-|RF-008| Categorizar gosto do usuário por tag em seu perfil | BAIXA |
+|RF-006| Permitir a criação e compartilhamento de playlists de jogos | MÉDIA |
+|RF-007| Exibir notícias e atualizações sobre eSports | MÉDIA |
+|RF-008| Incluir trailers e prévias de gameplay na plataforma | MÉDIA |
+|RF-009| Permitir criadores de conteúdo compartilharem vídeos e lives | ALTA |
+|RF-010| Permitir que usuários descubram criadores de conteúdo baseado em jogos de interesse | ALTA |
+
 
 ### Requisitos não funcionais
 
