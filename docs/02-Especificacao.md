@@ -4,6 +4,12 @@ Esta seção apresenta uma visão geral da especificação do Match Finder, desc
 
 ## Personas
 
+<picture>
+  <source srcset="images/JoãoSilva_Dark.png" media="(prefers-color-scheme: dark)">
+  <source srcset="images/JoãoSilva_Light.png" media="(prefers-color-scheme: light)">
+  <img src="images/JoãoSilva_Dark.png" alt="Imagem adaptável">
+</picture>
+
 
 |![Mariana Souza](images/João%20Silva.jpg)|
 |-------------|
