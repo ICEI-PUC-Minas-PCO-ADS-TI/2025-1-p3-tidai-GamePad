@@ -10,11 +10,15 @@ Esta seção apresenta uma visão geral da especificação do Match Finder, desc
   <img src="images/JoãoSilva_Dark.png" alt="Imagem adaptável">
 </picture>
 
+---
+
 <picture>
   <source srcset="images/MarianaSouza_Dark.png" media="(prefers-color-scheme: dark)">
   <source srcset="images/MarianaSouza_Light.png" media="(prefers-color-scheme: light)">
   <img src="images/MarianaSouza_Dark.png" alt="Imagem adaptável">
 </picture>
+
+---
 
 <picture>
   <source srcset="images/LucasFerreira_Dark.png" media="(prefers-color-scheme: dark)">
