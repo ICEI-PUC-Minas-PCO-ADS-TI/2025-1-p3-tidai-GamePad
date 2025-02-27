@@ -1,4 +1,4 @@
-# Match Finder
+# Game Pede
 
 `CURSO: Análise e Desenvolvimento de Sistemas`
 
