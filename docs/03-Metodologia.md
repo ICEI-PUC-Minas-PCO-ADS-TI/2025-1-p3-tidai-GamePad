@@ -16,7 +16,7 @@ Os artefatos do projeto são desenvolvidos e gerenciados em diferentes plataform
 | Ambiente               | Plataforma/Ferramenta | Link de Acesso |
 |------------------------|----------------------|---------------|
 | Repositório de Código | GitHub               | [Link do Repositório](https://github.com/ICEI-PUC-Minas-PCO-ADS-TI/2025-1-p3-tidai-grupo4-d4) |
-| Documentação          | GitHub | [Link da Documentação](#) |
+| Documentação          | GitHub | [Link da Documentação](https://github.com/ICEI-PUC-Minas-PCO-ADS-TI/2025-1-p3-tidai-grupo4-d4/blob/main/docs/01-Contexto.md) |
 | Gerenciamento de Tarefas | GitHub Projects     | [Link do Kanban](https://github.com/orgs/ICEI-PUC-Minas-PCO-ADS-TI/projects/31) |
 | Prototipação de UI    | Figma                | [Link do Figma](https://www.figma.com/design/tKjdo8AeLVv0W64nULEtwd/G4?m=auto&t=yGZu7frZzkrPTH5k-1) |
 | Hospedage    | Vercel                | [Link do Vercel](#) |
@@ -92,7 +92,7 @@ Exemplo: os artefatos do projeto são desenvolvidos a partir de diversas platafo
 | Ambiente               | Plataforma/Ferramenta | Link de Acesso |
 |------------------------|----------------------|---------------|
 | Repositório de Código | GitHub               | [Link do Repositório](https://github.com/ICEI-PUC-Minas-PCO-ADS-TI/2025-1-p3-tidai-grupo4-d4) |
-| Documentação          | GitHub | [Link da Documentação](#) |
+| Documentação          | GitHub | [Link da Documentação](https://github.com/ICEI-PUC-Minas-PCO-ADS-TI/2025-1-p3-tidai-grupo4-d4/blob/main/docs/01-Contexto.md) |
 | Gerenciamento de Tarefas | GitHub Projects     | [Link do Kanban](https://github.com/orgs/ICEI-PUC-Minas-PCO-ADS-TI/projects/31) |
 | Prototipação de UI    | Figma                | [Link do Figma](https://www.figma.com/design/tKjdo8AeLVv0W64nULEtwd/G4?m=auto&t=yGZu7frZzkrPTH5k-1) |
 | Hospedage    | Vercel                | [Link do Vercel](#) |
