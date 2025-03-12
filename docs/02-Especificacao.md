@@ -95,4 +95,9 @@ O projeto está restrito aos itens apresentados na tabela a seguir.
 
 ## Diagrama de casos de uso
 
-🚧 Em construção 🚧
+
+<picture>
+  <source srcset="images/Game_Ped_UML.png" media="(prefers-color-scheme: dark)">
+  <source srcset="images/Game_Ped_UML.png" media="(prefers-color-scheme: light)">
+  <img src="images/Game_ped_UML.png" alt="Imagem adaptável">
+</picture>
