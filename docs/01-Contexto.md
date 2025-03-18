@@ -1,10 +1,10 @@
 # Introdução
 
-O Game Pede é uma plataforma voltada para lazer e entretenimento, projetada para ajudar os usuários a encontrar e avaliar jogos. A ideia central do projeto é proporcionar um ambiente interativo onde os usuários possam compartilhar suas experiências, avaliar jogos e descobrir novos títulos bem avaliados, economizando tempo na busca por jogos de qualidade.
+O Game Ped é uma plataforma voltada para lazer e entretenimento, projetada para ajudar os usuários a encontrar e avaliar jogos. A ideia central do projeto é proporcionar um ambiente interativo onde os usuários possam compartilhar suas experiências, avaliar jogos e descobrir novos títulos bem avaliados, economizando tempo na busca por jogos de qualidade.
 
 Com a grande quantidade de opções de jogos disponíveis, pode ser difícil escolher o que jogar. Plataformas de jogos e serviços de entretenimento oferecem milhares de títulos, tornando a seleção uma tarefa complexa e demorada. Muitas vezes, os usuários recorrem a sites de avaliação e redes sociais para buscar recomendações, mas nem sempre encontram informações organizadas e confiáveis.
 
-O Game Pede também visa criar uma forte conexão entre os membros da comunidade gamer, permitindo que os usuários interajam, compartilhem suas descobertas e experiências, e ajudem uns aos outros a tomar decisões sobre o que jogar.
+O Game Ped também visa criar uma forte conexão entre os membros da comunidade gamer, permitindo que os usuários interajam, compartilhem suas descobertas e experiências, e ajudem uns aos outros a tomar decisões sobre o que jogar.
 
 ## Problema
 
@@ -12,7 +12,7 @@ A dificuldade de encontrar jogos bem avaliados de maneira rápida e eficiente ge
 
 ## Objetivos
 
-O Game Pede busca solucionar esses problemas ao fornecer uma plataforma intuitiva e interativa, onde os usuários podem:
+O Game Ped busca solucionar esses problemas ao fornecer uma plataforma intuitiva e interativa, onde os usuários podem:
 
 - Pesquisar jogos com base em avaliações, comentários e recomendações de outros jogadores;
 
@@ -26,12 +26,12 @@ O Game Pede busca solucionar esses problemas ao fornecer uma plataforma intuitiv
 
 ## Justificativa
 
-A existência de uma plataforma como o Game Pede se justifica pela necessidade crescente de otimizar o tempo gasto na busca por jogos de qualidade. Ao centralizar avaliações, comentários e recomendações personalizadas de jogos em um único local, a plataforma se torna uma ferramenta valiosa para qualquer gamer que deseja descobrir rapidamente jogos bem avaliados e alinhados com seus interesses. Além disso, ao promover a conexão entre jogadores e criadores de conteúdo focados em games, o Game Pede facilita o acesso a notícias e atualizações sobre o mundo dos jogos, ampliando as opções de entretenimento e possibilitando que os usuários se conectem com a comunidade gamer de maneira mais eficiente.
+A existência de uma plataforma como o Game Ped se justifica pela necessidade crescente de otimizar o tempo gasto na busca por jogos de qualidade. Ao centralizar avaliações, comentários e recomendações personalizadas de jogos em um único local, a plataforma se torna uma ferramenta valiosa para qualquer gamer que deseja descobrir rapidamente jogos bem avaliados e alinhados com seus interesses. Além disso, ao promover a conexão entre jogadores e criadores de conteúdo focados em games, o Game Ped facilita o acesso a notícias e atualizações sobre o mundo dos jogos, ampliando as opções de entretenimento e possibilitando que os usuários se conectem com a comunidade gamer de maneira mais eficiente.
 
 
 ## Público-alvo
 
-O Game Pede é voltado para qualquer pessoa interessada no universo dos jogos, especialmente:
+O Game Ped é voltado para qualquer pessoa interessada no universo dos jogos, especialmente:
 
 - Jogadores em busca de novos títulos bem avaliados e descobertas rápidas de jogos que atendam às suas expectativas;
 
