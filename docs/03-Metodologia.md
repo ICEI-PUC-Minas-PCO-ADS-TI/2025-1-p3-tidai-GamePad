@@ -85,10 +85,11 @@ Essa abordagem garantirá um acompanhamento claro das atividades e possibilitar�
 ## Tecnologias Utilizadas ⚒️
 
 ### Front-end
-![badge-react] ![badge-vite] ![badge-axios]
+![image]({https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB})
+
 
 ### Back-end
-![badge-nestjs] ![badge-typeorm] ![badge-sqlite] 
+
 
 ### Ferramentas
 
