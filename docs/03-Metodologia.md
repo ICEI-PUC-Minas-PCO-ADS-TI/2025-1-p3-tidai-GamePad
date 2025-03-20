@@ -61,7 +61,8 @@ Atualizado em: 19/03/2025
 | Pablo Marques      | Contexto | 12/02/2025     | 12/03/2025 | ✔️    | 17/02/2025      |
 | Pablo Marques      | Especificacao | 12/02/2025     | 12/03/2025 | ✔️    | 17/02/2025      |
 | Andry Marques      | Especificacao | 06/03/2025     | 12/03/2025 | ✔️    | 10/03/2025      |
- | Yalle Ramos      | Metodologia | 06/03/2025     | 12/03/2025 | ✔️    | 19/03/2025      |
+| Yalle Ramos      | Metodologia | 06/03/2025     | 12/03/2025 | ✔️    | 19/03/2025      |
+| Alex Mendes      | Apresentação | 12/03/2025     | 12/03/2025 | ✔️    | 12/03/2025      |
  
 
 ###  Divisão de papéis
