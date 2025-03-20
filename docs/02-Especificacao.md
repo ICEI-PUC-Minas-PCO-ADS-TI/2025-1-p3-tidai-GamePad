@@ -95,4 +95,4 @@ O projeto está restrito aos itens apresentados na tabela a seguir.
 
 ## Diagrama de casos de uso
 
-<img src="images/Caso de uso.jpg" alt="Caso de uso">
+
