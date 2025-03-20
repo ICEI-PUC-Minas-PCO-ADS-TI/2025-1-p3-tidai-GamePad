@@ -81,7 +81,14 @@ O desenvolvimento será conduzido utilizando **Scrum**, e as tarefas serão gere
 4. **Kanban no GitHub Projects** – Utilizado para controle de fluxo das tarefas e visibilidade do progresso.
 
 Essa abordagem garantirá um acompanhamento claro das atividades e possibilitará ajustes rápidos conforme necessário para atender às demandas do projeto.
- 
+
+## Tecnologias Utilizadas ⚒️
+
+### Front-end
+![badge-react] ![badge-vite] ![badge-axios]
+
+### Back-end
+![badge-nestjs] ![badge-typeorm] ![badge-sqlite] 
 
 ### Ferramentas
 
