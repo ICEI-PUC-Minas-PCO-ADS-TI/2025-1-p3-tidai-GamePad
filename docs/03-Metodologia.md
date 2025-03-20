@@ -47,22 +47,49 @@ Quanto à gerência de issues, o projeto adota a seguinte convenção para etiqu
 
 #### Sprint 1
 - _Scrum master_: Andry Marques
-- Protótipos: Pablo Marques Cordeiro
-- Documentação: Alex Mendes, Pablo Marques, Andry Marques, Ramon Pereira, Yalle Ramos  e Isaac Souza
-
+- Documentação: Alex Mendes, Pablo Marques, Andry Marques, Ramon Pereira e Yalle Ramos
 
 ###  Quadro de tarefas
 
 
 #### Sprint 1
 
-Atualizado em: 24/02/2025
+Atualizado em: 19/03/2025
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
 | Pablo Marques      | Contexto | 12/02/2025     | 12/03/2025 | ✔️    | 17/02/2025      |
 | Pablo Marques      | Especificacao | 12/02/2025     | 12/03/2025 | ✔️    | 17/02/2025      |
 | Andry Marques      | Especificacao | 06/03/2025     | 12/03/2025 | ✔️    | 10/03/2025      |
+ | Yalle Ramos      | Metodologia | 06/03/2025     | 12/03/2025 | ✔️    | 19/03/2025      |
+ 
+
+###  Divisão de papéis
+
+#### Sprint 2
+- _Scrum master_: Andry Marques
+- Protótipos: Pablo Marques Cordeiro
+- Documentação: Alex Mendes, Pablo Marques, Andry Marques, Ramon Pereira e Yalle Ramos
+
+- Front-end: Alex Mendes, Pablo Marques, Andry Marques, Ramon Pereira e Yalle Ramos
+
+- Back-end: Alex Mendes, Pablo Marques, Andry Marques, Ramon Pereira e Yalle Ramos
+
+- Banco de dados: Alex Mendes, Pablo Marques, Andry Marques, Ramon Pereira e Yalle Ramos
+
+Apesar de todos serem responsáveis pelo seu próprio CRUD, teremos pessoas com mais experiência em algumas tecnologias que ficarão responsáveis pela revisão de algumas áreas.
+- Front-end: Pablo Marques
+- Banco de dados: Yalle Ramos
+
+###  Quadro de tarefas
+
+
+#### Sprint 2
+
+Atualizado em: 19/03/2025
+
+| Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
+| :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
 
 
 
@@ -83,20 +110,25 @@ O desenvolvimento será conduzido utilizando **Scrum**, e as tarefas serão gere
 
 Essa abordagem garantirá um acompanhamento claro das atividades e possibilitará ajustes rápidos conforme necessário para atender às demandas do projeto.
 
-## Tecnologias Utilizadas ⚒️
+## Tecnologias Utilizadas 
 
 ### Front-end
-![image]({https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB})
-
+![badge-react]
+![badge-axios]
+![badge-vite]
 
 ### Back-end
+![badge-nodejs]
+![badge-sql]
 
+### Deploy
+![badge-azure]
+![badge-vercel]
 
 ### Ferramentas
 
-Liste todas as ferramentas que foram empregadas no projeto, justificando a escolha delas, sempre que possível.
 
-Exemplo: os artefatos do projeto são desenvolvidos a partir de diversas plataformas e a relação dos ambientes com seu respectivo propósito é apresentada na tabela que se segue.
+
 
 | Ambiente               | Plataforma/Ferramenta | Link de Acesso |
 |------------------------|----------------------|---------------|
@@ -106,3 +138,18 @@ Exemplo: os artefatos do projeto são desenvolvidos a partir de diversas platafo
 | Prototipação de UI    | Figma                | [Link do Figma](https://www.figma.com/design/tKjdo8AeLVv0W64nULEtwd/G4?m=auto&t=yGZu7frZzkrPTH5k-1) |
 | Hospedage    | Vercel                | [Link do Vercel](#) |
  
+<!--badges-->
+
+[badge-react]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+
+[badge-azure]: https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white
+
+[badge-nodejs]: https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
+
+[badge-vite]: https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E
+
+[badge-axios]: https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white
+
+[badge-vercel]: https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white
+
+[badge-sql]: https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white
