@@ -1,12 +1,7 @@
 # Template padrão da aplicação
+O template padrão apresenta, no topo, uma área de navegação (o header) que é simples e fácil de usar, e proporciona aos usuários uma experiência prática ao navegar pelo site. Na parte direita da barra de navegação (navbar), há 2 botões que levam ao registro ou login dos usuários. Logo abaixo, encontra-se um retângulo, que é destinado a exibir uma imagem acompanhada de um texto sobre a página em questão, em seguida há uma representação do conteúdo daquela página. Na parte mais embaixo da página, há o rodapé (o footer) que oferece ao usuário funcionalidades intuitivas que facilitam a navegação e o acesso à informações.
 
-<span style="color:red">Pré-requisitos: <a href="02-Especificacao.md"> Especificação do projeto</a></span>, <a href="03-Metodologia.md"> Metodologia</a>, <a href="04-Projeto-interface.md"> Projeto de interface</a>
+Template padrão:
+![template_padrao](https://github.com/user-attachments/assets/6b05ac16-c6d9-4076-bd90-1cac8f7b4496)
 
-Layout padrão da aplicação que será utilizado em todas as páginas com a definição de identidade visual, aspectos de responsividade e iconografia.
 
-> **Links úteis**:
->
-> - [CSS website layout (W3Schools)](https://www.w3schools.com/css/css_website_layout.asp)
-> - [Website page layouts](http://www.cellbiol.com/bioinformatics_web_development/chapter-3-your-first-web-page-learning-html-and-css/website-page-layouts/)
-> - [Perfect liquid layout](https://matthewjamestaylor.com/perfect-liquid-layouts)
-> - [How and why icons improve your web design](https://usabilla.com/blog/how-and-why-icons-improve-you-web-design/)
