@@ -33,7 +33,7 @@ Os wireframes a seguir ilustram a estrutura e a navegação da nossa aplicação
 <img src="images/Login.png" alt="Tela de login">
 
 **Tela de Registro**
-<img src="images/registro.png" alt="Tela de registro">
+<img src="images/Registro.png" alt="Tela de registro">
 
 **Tela Principal**
 <img src="images/Home.png" alt="Tela de inicio">
