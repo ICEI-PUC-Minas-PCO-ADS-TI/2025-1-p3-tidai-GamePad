@@ -1,4 +1,4 @@
-# Game Pede
+# Game Ped
 
 `CURSO: Análise e Desenvolvimento de Sistemas`
 
