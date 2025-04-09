@@ -1,11 +1,6 @@
 
 # Projeto de interface
 
-<span style="color:red">Pré-requisitos: <a href="02-Especificacao.md"> Especificação do projeto</a></span>
-
-Visão geral da interação do usuário pelas telas do sistema e protótipo interativo das telas com as funcionalidades que fazem parte do sistema (wireframes).
-
- Apresente as principais interfaces da plataforma. Discuta como ela foi elaborada de forma a atender os requisitos funcionais, não funcionais e histórias de usuário abordados na <a href="02-Especificacao.md"> Especificação do projeto</a></span>.
 
  ## User flow
 
@@ -30,21 +25,24 @@ O diagrama de fluxo pode ser desenvolvido com “boxes” que possuem, intername
 > - [Como criar um diagrama de fluxo de usuário](https://www.lucidchart.com/blog/how-to-make-a-user-flow-diagram)
 > - [Fluxograma online: seis sites para fazer gráfico sem instalar nada](https://www.techtudo.com.br/listas/2019/03/fluxograma-online-seis-sites-para-fazer-grafico-sem-instalar-nada.ghtml)
 
-## Wireframes
+## Protótipos de tela
 
-São protótipos usados no design de interface para sugerir a estrutura de um site web e seu relacionamento entre suas páginas. Um wireframe web é uma ilustração que mostra o layout dos elementos fundamentais na interface.
+Os wireframes a seguir ilustram a estrutura e a navegação da nossa aplicação, destacando as principais funcionalidades e o design pensado para facilitar a experiência do usuário na gestão e acompanhamento do processo de exportação.
 
-![Exemplo de wireframe](images/wireframe.png)
- 
-> **Links úteis**:
-> - [Protótipos: baixa, média ou alta fidelidade?](https://medium.com/ladies-that-ux-br/prot%C3%B3tipos-baixa-m%C3%A9dia-ou-alta-fidelidade-71d897559135)
-> - [Protótipos vs wireframes](https://www.nngroup.com/videos/prototypes-vs-wireframes-ux-projects/)
-> - [Ferramentas de wireframes](https://rockcontent.com/blog/wireframes/)
-> - [MarvelApp](https://marvelapp.com/developers/documentation/tutorials/)
-> - [Figma](https://www.figma.com/)
-> - [Adobe XD](https://www.adobe.com/br/products/xd.html#scroll)
-> - [Axure](https://www.axure.com/edu) (Licença Educacional)
-> - [InvisionApp](https://www.invisionapp.com/) (Licença Educacional)
+**Tela de Login**
+<img src="images/Login.png" alt="Tela de login">
+
+**Tela de Registro**
+<img src="images/registro.png" alt="Tela de registro">
+
+**Tela Principal**
+<img src="images/Home.png" alt="Tela de inicio">
+
+**Tela de Regras da comunidade**
+<img src="images/Regras.png" alt="Tela de regras">
+
+**Tela do Feed**
+<img src="images/Feed.png" alt="Tela de feed">
 
 
 ## Interface do sistema
