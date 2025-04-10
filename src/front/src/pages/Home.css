@@ -1,0 +1,369 @@
+.Header {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('../assets/gameplay.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    text-align: center;
+   
+}
+
+.link{
+text-decoration: none;
+}
+
+.Header h1 {
+    font-size: 4em;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.Header h1 span {
+    color: #00F6FF;
+}
+
+.HeaderBtn {
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    background: linear-gradient(90deg, #7700ff 0%, #ff00dd 100%);
+    padding: 0.6rem 2rem;
+    border: none;
+    outline: 1.5px solid transparent;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.HeaderBtn:hover {
+    color: #7700ff;
+    background: #bdbdbd;
+    outline: 1.5px solid #ff00bf;
+}
+
+.Header button:hover {
+    opacity: 0.8;
+}
+
+
+.mainContent {
+    width: 100%;
+    position: relative;
+}
+  
+  .cardsRow {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin: 0px; 
+    
+  }
+  
+  .gameCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    padding: 1rem;
+    max-width: 500px;
+
+  }
+  
+  .gameCard img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .confiraBtn {
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    background: linear-gradient(90deg, #7700ff 0%, #ff00dd 100%);
+    padding: 0.6rem 2rem;
+    border: none;
+    outline: 1.5px solid transparent;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.confiraBtn:hover {
+    color: #7700ff;
+    background: #bdbdbd;
+    outline: 1.5px solid #ff00bf;
+}
+  
+
+section .subContent {
+    padding: 0;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    min-height: 50vh;
+    gap: 2rem; 
+}
+
+.cardsRowNoticias {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin: 0px; 
+    
+  }
+  
+  .noticiasCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    padding: 1rem;
+    max-width: 500px;
+
+  }
+  
+  .noticiasCard img {
+    width: 100%;
+    height: 350px; 
+    object-fit: cover; 
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+
+
+
+section .subContent > * {
+    margin: 5rem;
+}
+
+.content {
+    color: black;
+}
+
+.mainContent .subContent .titulo {
+    font-weight: 200;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    position: relative;
+    text-align: center; 
+}
+
+
+.mainContent .subContent .text {
+    font-weight: 200;
+    font-size: 2rem;
+    text-align: center; 
+}
+
+.mainContent .subContent .border {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: black;
+    bottom: 0;
+    left: 0;
+}
+
+
+
+
+.etapas {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 40vh;
+    text-align: center;
+}
+
+.etapas h1 {
+    font-size: 3em;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.etapas h1 span {
+    color: #00F6FF;
+}
+
+.etapas button {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000000;
+    background: linear-gradient(90deg, #7700ff 0%, #ff00dd 100%);
+    padding: 0.6rem 2rem;
+    border: none;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.etapas button:hover {
+    color: #7700ff;
+    background: #bdbdbd;
+    outline: 1.5px solid #ff00bf;
+}
+
+
+
+
+
+
+
+
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .Header h1 {
+        font-size: 3em;
+    }
+
+    .HeaderBtn {
+        padding: 0.5rem 1.5rem;
+    }
+    .etapas h1 {
+        font-size: 2.5em;
+    }
+
+    .etapas button {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    section .subContent {
+        grid-template-columns: 1fr; /* Torna o layout com uma coluna em telas menores */
+        padding: 3rem;
+    }
+
+    section .subContent > * {
+        margin: 3rem;
+    }
+
+    .mainContent .subContent .titulo {
+        font-size: 3rem;
+        text-align: center; /* Centraliza o texto em telas menores */
+    }
+
+    .mainContent .subContent .text {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .Header {
+        height: 80vh;
+    }
+
+    .Header h1 {
+        font-size: 2.5em;
+    }
+
+    .HeaderBtn {
+        font-size: 0.8rem;
+        padding: 0.4rem 1.2rem;
+    }
+    .etapas {
+        height: 50vh;
+        padding: 0.5rem;
+    }
+
+    .etapas h1 {
+        font-size: 2em;
+    }
+
+    .etapas button {
+        padding: 0.4rem 1rem;
+        font-size: 0.8rem;
+    }
+    section .subContent {
+        padding: 2rem;
+        gap: 1.5rem;
+    }
+
+    section .subContent > * {
+        margin: 2rem;
+    }
+
+    .mainContent .subContent .titulo {
+        font-size: 2.5rem;
+    }
+
+    .mainContent .subContent .text {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .Header {
+        height: 70vh;
+        padding: 0 0.5rem;
+    }
+
+    .Header h1 {
+        font-size: 2em;
+    }
+
+    .HeaderBtn {
+        font-size: 0.7rem;
+        padding: 0.3rem 1rem;
+    }
+    .etapas {
+        height: 60vh;
+    }
+
+    .etapas h1 {
+        font-size: 1.5em;
+    }
+
+    .etapas button {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.7rem;
+    }
+    section .subContent {
+        padding: 1rem;
+    }
+
+    section .subContent > * {
+        margin: 1.5rem;
+    }
+
+    .mainContent .subContent .titulo {
+        font-size: 2rem;
+    }
+
+    .mainContent .subContent .text {
+        font-size: 1rem;
+    }
+
+    .mainContent img {
+        max-width: 100%;
+        margin-bottom: 1rem; /* Espaço abaixo da imagem */
+    }
+}

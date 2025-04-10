@@ -12,26 +12,32 @@ footer{
     color: var(--color-neutral-40);
 
 }
+p{
+    color: black;
+}
 
 .footer-link{
     text-decoration: none;
 }
 
 #footer_content{
-    background-color: var(--color-neutral-10);
+    background-color: white;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     padding: 3rem 3.5rem;
+    color: black;
 }
 
 #footer_contacts h1{
     margin-bottom: 0.75rem;
+    color: black;
 }
 
 #footer_social_media {
     display: flex;
     gap: 2rem;
     margin-top: 1.5rem;
+    
 }
 
 #footer_social_media .footer-link{
@@ -63,6 +69,7 @@ footer{
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    
     list-style: none;
 }
 .footer_list .footer-link{
@@ -71,7 +78,7 @@ footer{
 }
 
 .footer_list .footer-link:hover {
-    color: #00F6FF;
+    color: #e100ff;
 }
 
 #footer_subscribe{
@@ -82,13 +89,15 @@ footer{
 
 #footer_subscribe p {
     color: var(--color-neutral-20);
+    color: black;
 }
 
 #input_group{
     display: flex;
     align-items: center;
-    background-color: var(--color-neutral-0);
+    background-color: var(--color-neutral-40);
     border-radius: 4px;
+    
 }
 
 #input_group input{
@@ -98,7 +107,7 @@ footer{
 }
 
 #input_group button{
-    background-color: #00F6FF;
+    background-color: #cc00ff;
     border: none;
     color: var(--color-neutral-40);
     padding: 0px 1.25rem;
@@ -117,7 +126,7 @@ footer{
 #footer_copyright{
     display: flex;
     justify-content: center;
-    background-color: var(--color-neutral-0);
+    background-color: var(--color-neutral-40);
     font-size: 0.9rem;
     padding: 1.5rem;
     font-weight: 100;
