@@ -87,11 +87,14 @@ Apesar de todos serem responsáveis pelo seu próprio CRUD, teremos pessoas com 
 
 #### Sprint 2
 
-Atualizado em: 19/03/2025
+Atualizado em: 09/04/2025
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-
+| Alex Mendes         |    Wireframe de Regras e Feed         |    02/04/2025      | 09/04/2025     | ✔️ | 06/04/2025          |
+| Alex Mendes         |    Template padrão (imagem)         |    07/04/2025      | 09/04/2025     | ✔️ | 07/04/2025          |
+| Ramon Pereira        |    Tela de Avaliação e Comentários         |    07/04/2025      | 09/04/2025     | ✔️ | 07/04/2025          |
+| Yalle Ramos        |    Tela de Notícias         |    07/04/2025      | 09/04/2025     | ✔️ | 07/04/2025          |
 
 
 Legenda:
