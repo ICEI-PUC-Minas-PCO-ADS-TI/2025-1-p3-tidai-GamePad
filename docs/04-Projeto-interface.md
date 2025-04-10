@@ -30,13 +30,13 @@ Os wireframes a seguir ilustram a estrutura e a navegação da nossa aplicação
 <img src="images/Home.png" alt="Tela de inicio">
 
 **Tela Game Ideal**
-<img src="images/Home.png" alt="Tela de inicio">
+<img src="images/GameIdeal.png" alt="Tela de inicio">
 
 **Tela Sugestão**
-<img src="images/Home.png" alt="Tela de inicio">
+<img src="images/Sugestão.png" alt="Tela de inicio">
 
 **Tela Games**
-<img src="images/Home.png" alt="Tela de inicio">
+<img src="images/Games.png" alt="Tela de inicio">
 
 **Tela de Regras da comunidade**
 <img src="images/Regras.png" alt="Tela de regras">
