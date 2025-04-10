@@ -54,4 +54,5 @@ Visão geral da interação do usuário por meio das telas do sistema.
 ### Tela Principal do Sistema
 
 Página na qual o usuário será recebido na nossa plataforma, e poderá acessar outras páginas como games, notícias e a comunidade.
+
 <img src="images/Home.png" alt="Tela home">
