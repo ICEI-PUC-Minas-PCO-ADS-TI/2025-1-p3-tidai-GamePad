@@ -95,7 +95,7 @@ p{
 #input_group{
     display: flex;
     align-items: center;
-    background-color: var(--color-neutral-40);
+    background-color: var(--color-neutral-20);
     border-radius: 4px;
     
 }

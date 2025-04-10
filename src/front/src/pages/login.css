@@ -1,0 +1,146 @@
+.containerLogin{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+}
+
+.containerImage{
+    background-image: url('../assets/gameplay2.jpg');
+    background-position: center;
+    background-size: cover;
+    width: 50%;
+    height: 100%;
+}
+
+.containerFormLogin{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 12%;
+    
+}
+
+.headerTitle {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+
+
+.headerTitle h1{
+    
+    margin-bottom: 18px;
+}
+
+.headerTitle p{
+    color: rgb(186, 186, 186);
+}
+
+.containerFormLogin form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 54px;
+}
+
+.contentInput{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
+
+.contentInput input{
+    border: none;
+    outline: none;
+    border: 1px solid rgb(186, 186, 186);
+    padding: 15px 10px;
+    border-radius: 15px;
+    color: rgb(88, 88, 88);
+    font-size: 16px;
+}
+
+.contentInput label{
+    color: rgb(186, 186, 186);
+
+}
+
+
+.containerFormLogin  button {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    padding: 15px;
+    width: 100%;
+    background: linear-gradient(90deg, #7700ff 0%, #ff00dd 100%);
+    padding: 0.6rem 2rem;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 24px;
+}
+
+.containerFormLogin  button:hover {
+    color: #7700ff;
+    background: #bdbdbd;
+    outline: 1.5px solid #ff00bf;
+    opacity: 0.9;
+}
+
+.containerNav{
+    display: flex;
+    width: 100%;
+    
+}
+
+.containerNav p {
+    color: rgb(186, 186, 186);
+}
+
+.containerNav a{
+    color: #7700ff;
+    text-decoration: none;
+}
+@media (max-width: 768px) {
+    .containerLogin {
+        flex-direction: column; 
+    }
+
+    .containerImage {
+        width: 100%; 
+        height: 50%; 
+    }
+
+    .containerFormLogin {
+        width: 100%; 
+        padding: 0 5%; 
+    }
+
+    .headerTitle h1 {
+        font-size: 1.5rem; 
+    }
+
+    .headerTitle p {
+        font-size: 0.9rem; 
+    }
+
+    .contentInput input {
+        font-size: 14px;
+        padding: 12px; 
+    }
+
+    .containerFormLogin button {
+        font-size: 16px; 
+        padding: 12px; 
+    }
+
+    .containerNav p {
+        font-size: 0.9rem; 
+    }
+}

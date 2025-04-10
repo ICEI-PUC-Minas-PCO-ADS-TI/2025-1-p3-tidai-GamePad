@@ -95,6 +95,9 @@ Atualizado em: 09/04/2025
 | Alex Mendes         |    Template padrão (imagem)         |    07/04/2025      | 09/04/2025     | ✔️ | 07/04/2025          |
 | Ramon Pereira        |    Tela de Avaliação e Comentários         |    07/04/2025      | 09/04/2025     | ✔️ | 07/04/2025          |
 | Yalle Ramos        |    Tela de Notícias         |    07/04/2025      | 09/04/2025     | ✔️ | 07/04/2025          |
+| Pablo Marques      |    Prototipação no Figma        |    01/04/2025      | 09/04/2025     | ✔️ | 09/04/2025          |
+| Pablo Marques      |    Telas padrão        |    01/04/2025      | 09/04/2025     | ✔️ | 09/04/2025          |
+| Pablo Marques      |   Estruturação básica do projeto        |    01/04/2025      | 09/04/2025     | ✔️ | 09/04/2025          |
 
 
 Legenda:
