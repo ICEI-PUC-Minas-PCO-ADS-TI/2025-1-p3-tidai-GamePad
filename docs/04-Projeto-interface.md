@@ -44,6 +44,10 @@ Os wireframes a seguir ilustram a estrutura e a navegação da nossa aplicação
 **Tela do Feed**
 <img src="images/Feed.png" alt="Tela de feed">
 
+**Tela de Comentarios e Avaliação**
+<img src="images/Avaliacao.png" alt="Tela de avaliacao">
+
+
 **Link para o protótipo interativo no figma:**:
 > https://www.figma.com/design/P72RHgUpA2DFWqFwvnFG5y/GamePede---WireFrames?node-id=0-1&t=mvC1i2TlLHJ7GU3x-1
 
