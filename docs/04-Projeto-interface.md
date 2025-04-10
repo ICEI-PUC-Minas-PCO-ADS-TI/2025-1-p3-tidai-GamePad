@@ -14,11 +14,7 @@ O diagrama apresenta o estudo do fluxo de interação do usuário com o sistema 
 
 O diagrama de fluxo pode ser desenvolvido com “boxes” que possuem, internamente, a indicação dos principais elementos de interface — tais como menus e acessos — e funcionalidades, como editar, pesquisar, filtrar e configurar, além da conexão entre esses boxes a partir do processo de interação.
 
-![Exemplo de diagrama de fluxo](images/diagrama_fluxo.jpg)
-
-> **Links úteis**:
-> - [Como criar um diagrama de fluxo de usuário](https://www.lucidchart.com/blog/how-to-make-a-user-flow-diagram)
-> - [Fluxograma online: seis sites para fazer gráfico sem instalar nada](https://www.techtudo.com.br/listas/2019/03/fluxograma-online-seis-sites-para-fazer-grafico-sem-instalar-nada.ghtml)
+<img src="images/diagrama_fluxo.png" alt="Diagrama de fluxo do usuário">
 
 ## Protótipos de tela
 
@@ -31,6 +27,15 @@ Os wireframes a seguir ilustram a estrutura e a navegação da nossa aplicação
 <img src="images/Registro.png" alt="Tela de registro">
 
 **Tela Principal**
+<img src="images/Home.png" alt="Tela de inicio">
+
+**Tela Game Ideal**
+<img src="images/Home.png" alt="Tela de inicio">
+
+**Tela Sugestão**
+<img src="images/Home.png" alt="Tela de inicio">
+
+**Tela Games**
 <img src="images/Home.png" alt="Tela de inicio">
 
 **Tela de Regras da comunidade**
