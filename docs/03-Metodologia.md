@@ -94,7 +94,7 @@ Atualizado em: 09/04/2025
 | Alex Mendes         |    Wireframe de Regras e Feed         |    02/04/2025      | 09/04/2025     | ✔️ | 06/04/2025          |
 | Alex Mendes         |    Template padrão (imagem)         |    07/04/2025      | 09/04/2025     | ✔️ | 07/04/2025          |
 | Ramon Pereira        |    Tela de Avaliação e Comentários         |    07/04/2025      | 09/04/2025     | ✔️ | 07/04/2025          |
-
+| Yalle Ramos        |    Tela de Notícias         |    07/04/2025      | 09/04/2025     | ✔️ | 07/04/2025          |
 
 
 Legenda:
