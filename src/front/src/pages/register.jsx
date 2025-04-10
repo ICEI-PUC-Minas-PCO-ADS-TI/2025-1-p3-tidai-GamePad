@@ -18,15 +18,15 @@ const Register = () => {
             <input type="text" name="name-text" id="name-text" />
           </div>
           <div className="contentInputRegister">
-            <label htmlFor="cnpj-text">CNPJ</label>
+            <label htmlFor="cnpj-text">E-mail</label>
             <input type="text" name="cnpj-text" id="cnpj-text" />
           </div>
           <div className="contentInputRegister">
-            <label htmlFor="email-text">E-mail</label>
+            <label htmlFor="email-text">Senha</label>
             <input type="email" name="email-text" id="email-text" />
           </div>
           <div className="contentInputRegister">
-            <label htmlFor="senha-text">Senha</label>
+            <label htmlFor="senha-text">Repetir a senha</label>
             <input type="password" name="senha-text" id="senha-text" />
           </div>
           <button type="submit">Cadastrar</button>
