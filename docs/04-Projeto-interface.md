@@ -44,9 +44,14 @@ Os wireframes a seguir ilustram a estrutura e a navegação da nossa aplicação
 **Tela do Feed**
 <img src="images/Feed.png" alt="Tela de feed">
 
+**Link para o protótipo interativo no figma:**:
+> https://www.figma.com/design/P72RHgUpA2DFWqFwvnFG5y/GamePede---WireFrames?node-id=0-1&t=mvC1i2TlLHJ7GU3x-1
 
 ## Interface do sistema
 
 Visão geral da interação do usuário por meio das telas do sistema. 
 
-> Apresente as principais interfaces da plataforma em sua versão final.
+### Tela Principal do Sistema
+
+Página na qual o usuário será recebido na nossa plataforma, e poderá acessar outras páginas como games, notícias e a comunidade.
+<img src="images/Home.png" alt="Tela home">
