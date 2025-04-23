@@ -59,8 +59,9 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-006| Permitir a criação e compartilhamento de playlists de jogos | MÉDIA |
 |RF-007| Exibir notícias e atualizações sobre eSports | MÉDIA |
 |RF-008| Incluir trailers e prévias de gameplay na plataforma | MÉDIA |
-|RF-009| Permitir criadores de conteúdo compartilharem vídeos e lives | ALTA |
+|RF-009| Permitir criadores de conteúdo compartilharem lives e comunicados| ALTA |
 |RF-010| Permitir que usuários descubram criadores de conteúdo baseado em jogos de interesse | ALTA |
+|RF-011| Permitir que usuários de sugestão de jogos | ALTA |
 
 
 ### Requisitos não funcionais
