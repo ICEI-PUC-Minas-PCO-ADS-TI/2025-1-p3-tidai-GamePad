@@ -1,9 +1,14 @@
 
+<<<<<<< HEAD
 using System.Text;
 using GamePad_TIDAI_2025.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+=======
+using GamePad_TIDAI_2025.Models;
+using Microsoft.EntityFrameworkCore;
+>>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
 
 namespace GamePadAPI
 {
@@ -22,6 +27,7 @@ namespace GamePadAPI
             builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+<<<<<<< HEAD
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -41,6 +47,8 @@ namespace GamePadAPI
     });
 
 
+=======
+>>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -56,8 +64,11 @@ namespace GamePadAPI
             }
 
             app.UseHttpsRedirection();
+<<<<<<< HEAD
             
             app.UseAuthentication();
+=======
+>>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
 
             app.UseAuthorization();
 

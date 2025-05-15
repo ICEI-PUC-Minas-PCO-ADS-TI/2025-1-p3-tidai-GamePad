@@ -53,7 +53,7 @@ namespace GamePadAPI.Controllers
 
 
         // GET: api/Usuarios/tipo/{tipo}
-        [HttpGet("tipo/{Tipo}")]
+        [HttpGet("tipo/{tipo}")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuariosPorTipo(string tipo)
         {
             var usuarios = await _context.Usuarios
@@ -126,7 +126,7 @@ namespace GamePadAPI.Controllers
 
             _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
-            
+
             return NoContent();
         }
 

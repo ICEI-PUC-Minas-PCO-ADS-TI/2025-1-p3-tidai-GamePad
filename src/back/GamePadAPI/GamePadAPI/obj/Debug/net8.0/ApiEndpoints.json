@@ -572,6 +572,7 @@
   },
   {
     "ContainingType": "GamePadAPI.Controllers.UsuariosController",
+<<<<<<< HEAD
     "Method": "Authenticate",
     "RelativePath": "api/Usuarios/authenticate",
     "HttpMethod": "POST",
@@ -590,6 +591,10 @@
     "ContainingType": "GamePadAPI.Controllers.UsuariosController",
     "Method": "GetUsuariosPorTipo",
     "RelativePath": "api/Usuarios/tipo/{Tipo}",
+=======
+    "Method": "GetUsuariosPorTipo",
+    "RelativePath": "api/Usuarios/tipo/{tipo}",
+>>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
