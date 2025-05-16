@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { Footer } from '../components/Footer/Footer.jsx';
-import { Navbar } from '../components/NavBar/Navbar.jsx';
+import { Footer } from '../../components/Footer/Footer.jsx';
+import { Navbar } from '../../components/NavBar/Navbar.jsx';
 import "./Home.css";
 import img2 from '../assets/gameplay2.jpg'
 
