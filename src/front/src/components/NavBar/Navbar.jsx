@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import { Menu } from "lucide-react";
-import logo from "../../assets/logo2.png";
+import logo from "../../assets/gamepadHeader.png";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -31,7 +31,8 @@ const Navbar = () => {
       </ul>
 
       <div className="relative hidden md:flex items-center justify-center gap-3 ">
-        <SearchBar/>
+        <SearchBar />
+        <button className="">botao</button>
       </div>
 
       <Menu
@@ -61,4 +62,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;  
+export default Navbar;
