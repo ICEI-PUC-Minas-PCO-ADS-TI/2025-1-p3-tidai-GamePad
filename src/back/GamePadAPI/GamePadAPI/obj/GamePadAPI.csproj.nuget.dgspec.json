@@ -1,37 +1,23 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "C:\\TI3\\2025-1-p3-tidai-GamePed\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj": {}
+    "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj": {}
   },
   "projects": {
-    "C:\\TI3\\2025-1-p3-tidai-GamePed\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj": {
+    "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\TI3\\2025-1-p3-tidai-GamePed\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj",
+        "projectUniqueName": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj",
         "projectName": "GamePadAPI",
-        "projectPath": "C:\\TI3\\2025-1-p3-tidai-GamePed\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj",
-        "packagesPath": "C:\\Users\\yalle\\.nuget\\packages\\",
-        "outputPath": "C:\\TI3\\2025-1-p3-tidai-GamePed\\src\\back\\GamePadAPI\\GamePadAPI\\obj\\",
-=======
-    "C:\\Users\\yalle\\Downloads\\GamePad-API\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\yalle\\Downloads\\GamePad-API\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\yalle\\Downloads\\GamePad-API\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj",
-        "projectName": "GamePadAPI",
-        "projectPath": "C:\\Users\\yalle\\Downloads\\GamePad-API\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj",
-        "packagesPath": "C:\\Users\\yalle\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yalle\\Downloads\\GamePad-API\\GamePadAPI\\GamePadAPI\\obj\\",
->>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
+        "projectPath": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj",
+        "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
+        "outputPath": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\yalle\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -64,7 +50,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-<<<<<<< HEAD
             "BCrypt.Net-Next": {
               "target": "Package",
               "version": "[4.0.3, )"
@@ -73,8 +58,6 @@
               "target": "Package",
               "version": "[8.0.16, )"
             },
-=======
->>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.15, )"

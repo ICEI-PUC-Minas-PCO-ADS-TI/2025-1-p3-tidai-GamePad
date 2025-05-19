@@ -978,11 +978,7 @@
         }
       }
     },
-<<<<<<< HEAD
-    "/api/Usuarios/tipo/{Tipo}": {
-=======
     "/api/Usuarios/tipo/{tipo}": {
->>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
       "get": {
         "tags": [
           "Usuarios"
@@ -1029,7 +1025,6 @@
           }
         }
       }
-<<<<<<< HEAD
     },
     "/api/Usuarios/authenticate": {
       "post": {
@@ -1061,8 +1056,6 @@
           }
         }
       }
-=======
->>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
     }
   },
   "components": {
