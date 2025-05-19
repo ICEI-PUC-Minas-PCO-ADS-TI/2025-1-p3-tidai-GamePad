@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using GamePad_TIDAI_2025.Models;
 
-namespace GamePadAPI.Models
+namespace GamePad_TIDAI_2025.Models
 {
     [Table("Avaliacoes")]
     public class Avaliacao
@@ -19,17 +19,11 @@ namespace GamePadAPI.Models
             [Display(Name = "Data")]
             public DateTime Data { get; set; }
 
-            [ForeignKey("Usuarios")]
             public int UsuarioId { get; set; }
-            [ForeignKey("Jogos")]
-            public int JogoId { get; set; }
-
-
-
-
-
-
+            
+            [ForeignKey("UsuarioId")]
+            public Usuario Usuario { get; set; }
 
     }
-    }
+}
 
