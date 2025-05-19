@@ -1,0 +1,15 @@
+.vs/
+
+bin/
+obj/
+
+*.user
+*.suo
+
+/Debug/
+/Release/
+
+*.log
+*.tmp
+
+TestResults/
