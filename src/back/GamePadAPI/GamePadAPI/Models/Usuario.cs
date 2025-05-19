@@ -24,7 +24,6 @@ namespace GamePad_TIDAI_2025.Models
         public string ImgUser { get; set; }
         public string Tipo { get; set; }
 
-<<<<<<< HEAD
         //public Perfil Perfil { get; set; }
 
     }
@@ -35,12 +34,6 @@ namespace GamePad_TIDAI_2025.Models
             User
         }
         */
-=======
-
-
-
-    }
->>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
 }
 
         //public Usuario(int id, string nome, string email, string senha, string imgUser, string tipo)

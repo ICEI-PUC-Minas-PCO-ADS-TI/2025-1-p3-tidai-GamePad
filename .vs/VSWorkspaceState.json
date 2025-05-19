@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\back",
+    "\\src\\back\\GamePadAPI",
+    "\\src\\back\\GamePadAPI\\GamePadAPI"
   ],
-  "SelectedNode": "\\GamePadAPI.sln",
+  "SelectedNode": "\\src\\back\\GamePadAPI\\GamePadAPI.sln",
   "PreviewInSolutionExplorer": false
 }

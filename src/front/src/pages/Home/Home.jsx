@@ -2,13 +2,11 @@ import { Link } from 'react-router-dom'
 import { Footer } from '../../components/Footer/Footer.jsx';
 import { Navbar } from '../../components/NavBar/Navbar.jsx';
 import "./Home.css";
-import img2 from '../assets/gameplay2.jpg'
 
 
 export default function Home() {
   return (
     <>
-      <Navbar />
       <main>
         <div class="Header">
           <h1>Especifique, filtre e jogue </h1>
@@ -81,8 +79,6 @@ export default function Home() {
         </section>
 
       </main>
-
-      <Footer />
     </>
   );
 }

@@ -1,8 +1,7 @@
 import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import './Footer.css'
-import { faInstagram, faFacebook, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope, faCopyright }  from "@fortawesome/free-regular-svg-icons";
+
 
 
 export const Footer = () => {
@@ -14,13 +13,13 @@ export const Footer = () => {
                 <p>Acompanhe nosso projeto nas redes abaixo</p>
                 <div id="footer_social_media">
                     <a href="#" className="footer-link" id="instagram">
-                        <i><FontAwesomeIcon icon = {faInstagram} /></i>
+                        <i></i>
                     </a>
                     <a href="#" className="footer-link" id="facebook">
-                        <i ><FontAwesomeIcon icon = {faFacebook} /></i>
+                        <i ></i>
                     </a>
                     <a href="#" className="footer-link" id="whatsapp">
-                        <i ><FontAwesomeIcon icon = {faWhatsapp} /></i>
+                        <i ></i>
                     </a>
                 </div>
             </div>
@@ -63,14 +62,14 @@ export const Footer = () => {
                 <div id="input_group">
                     <input type="email" id="email"/>
                     <button>
-                        <i><FontAwesomeIcon icon={faEnvelope}/></i>
+                        <i></i>
                     </button>
                 </div>
             </div>
         </div>
 
         <div id="footer_copyright">
-            <p><FontAwesomeIcon icon={faCopyright} /></p>
+            <p></p>
             <p>2024 todos os direitos reservados</p>
         </div>
 
