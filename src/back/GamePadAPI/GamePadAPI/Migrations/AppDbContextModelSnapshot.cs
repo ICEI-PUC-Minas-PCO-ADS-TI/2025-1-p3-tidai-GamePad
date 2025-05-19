@@ -75,35 +75,6 @@ namespace GamePadAPI.Migrations
                     b.ToTable("Jogos");
                 });
 
-            modelBuilder.Entity("GamePadAPI.Models.Post", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Titulo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Posts");
-                });
-
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Avaliacao", b =>
                 {
                     b.Property<int>("Id")
@@ -131,6 +102,66 @@ namespace GamePadAPI.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Avaliacoes");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Titulo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Sugestao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Sugestoes");
                 });
 
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Usuario", b =>
@@ -175,9 +206,35 @@ namespace GamePadAPI.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Post", b =>
+                {
+                    b.HasOne("GamePad_TIDAI_2025.Models.Usuario", "Usuario")
+                        .WithMany("Posts")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Sugestao", b =>
+                {
+                    b.HasOne("GamePad_TIDAI_2025.Models.Usuario", "Usuario")
+                        .WithMany("Sugestoes")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Usuario", b =>
                 {
                     b.Navigation("Avaliacoes");
+
+                    b.Navigation("Posts");
+
+                    b.Navigation("Sugestoes");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,28 +5,25 @@ using GamePadAPI.Models.Interfaces;
 
 namespace GamePad_TIDAI_2025.Models
 {
-    [Table("Posts")]
-    public class Post : IPost
+    [Table("Sugestoes")]
+    public class Sugestao
     {
         [Key]
-        [Display(Name = "id")]
+        [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Display(Name = "Título")]
-        public string Titulo { get; set; }
+        [Display(Name = "Nome")]
+        [Required(ErrorMessage = "O campo Nome deve ser preenchido")]
+        public string Nome { get; set; }
 
-        [Required(ErrorMessage = "A descrição não pode ser vazia.")]
         [Display(Name = "Descrição")]
+        [Required(ErrorMessage = "A descrição não pode ser vazia.")]
         public string Descricao { get; set; }
 
-        [Display(Name = "Link")]
-        public string Link { get; set; }
-
-        [Required(ErrorMessage = "Erro data")]
         [Display(Name = "Data")]
+        [Required(ErrorMessage = "Erro na data")]
         public DateTime Data { get; set; }
 
-        
         public int UsuarioId { get; set; }
         [ForeignKey("UsuarioId")]
         public Usuario Usuario { get; set; }

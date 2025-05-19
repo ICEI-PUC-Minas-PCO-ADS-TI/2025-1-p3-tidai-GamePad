@@ -264,3 +264,5 @@ D:\Workspace\TIDAI\gameped\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\refin
 D:\Workspace\TIDAI\gameped\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\GamePadAPI.pdb
 D:\Workspace\TIDAI\gameped\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\GamePadAPI.genruntimeconfig.cache
 D:\Workspace\TIDAI\gameped\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\ref\GamePadAPI.dll
+D:\Workspace\TIDAI\gameped\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\GamePadAPI.RazorAssemblyInfo.cache
+D:\Workspace\TIDAI\gameped\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\GamePadAPI.RazorAssemblyInfo.cs

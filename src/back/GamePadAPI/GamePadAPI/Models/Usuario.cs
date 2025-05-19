@@ -27,7 +27,8 @@ namespace GamePad_TIDAI_2025.Models
 
         // configurando as foreign keys
         public List<Avaliacao> Avaliacoes { get; set; }
-
+        public List<Post> Posts { get; set; }
+        public List<Sugestao> Sugestoes { get; set; }
 
     /*
 
