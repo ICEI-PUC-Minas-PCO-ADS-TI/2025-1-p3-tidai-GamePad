@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { Search } from "lucide-react";
+import SearchBar from "../SearchBar/SearchBar";
 import { Menu } from "lucide-react";
 import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
@@ -31,16 +31,7 @@ const Navbar = () => {
       </ul>
 
       <div className="relative hidden md:flex items-center justify-center gap-3 ">
-        <Search
-          size={20}
-          color="#9c9c9c"
-          className="absolute left-3 text-2x1 "
-        />
-        <input
-          type="text"
-          placeholder="Busque um jogo..."
-          className="py-2 pl-10 rounded-xl border-2 border-blue-100 focus:bg-slate-100 focus:outline-blue-300"
-        />
+        <SearchBar/>
       </div>
 
       <Menu
