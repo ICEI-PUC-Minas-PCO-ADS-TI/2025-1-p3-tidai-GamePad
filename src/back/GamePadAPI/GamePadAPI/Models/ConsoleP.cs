@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GamePadAPI.Models
+namespace GamePad_TIDAI_2025.Models
 {
 
     [Table("Consoles")]

@@ -1,7 +1,24 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|d:\\workspace\\tidai\\gameped\\src\\back\\gamepadapi\\gamepadapi\\controllers\\sugestoescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|solutionrelative:gamepadapi\\controllers\\sugestoescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|d:\\workspace\\tidai\\gameped\\src\\back\\gamepadapi\\gamepadapi\\models\\avaliacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|solutionrelative:gamepadapi\\models\\avaliacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|d:\\workspace\\tidai\\gameped\\src\\back\\gamepadapi\\gamepadapi\\models\\jogo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|solutionrelative:gamepadapi\\models\\jogo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|d:\\workspace\\tidai\\gameped\\src\\back\\gamepadapi\\gamepadapi\\models\\sugestao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|solutionrelative:gamepadapi\\models\\sugestao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,15 +26,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SugestoesController.cs",
+              "DocumentMoniker": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\SugestoesController.cs",
+              "RelativeDocumentMoniker": "GamePadAPI\\Controllers\\SugestoesController.cs",
+              "ToolTip": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\SugestoesController.cs",
+              "RelativeToolTip": "GamePadAPI\\Controllers\\SugestoesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T15:19:55.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Jogo.cs",
+              "DocumentMoniker": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Jogo.cs",
+              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Jogo.cs",
+              "ToolTip": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Jogo.cs",
+              "RelativeToolTip": "GamePadAPI\\Models\\Jogo.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAA5wCUAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T03:11:55.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Avaliacao.cs",
+              "DocumentMoniker": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Avaliacao.cs",
+              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Avaliacao.cs",
+              "ToolTip": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Avaliacao.cs",
+              "RelativeToolTip": "GamePadAPI\\Models\\Avaliacao.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T03:10:53.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Sugestao.cs",
+              "DocumentMoniker": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Sugestao.cs",
+              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Sugestao.cs",
+              "ToolTip": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Sugestao.cs",
+              "RelativeToolTip": "GamePadAPI\\Models\\Sugestao.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABAAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T14:47:33.582Z",
+              "EditorCaption": ""
             }
           ]
         }

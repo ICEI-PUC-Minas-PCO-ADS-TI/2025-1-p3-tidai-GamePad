@@ -22,7 +22,41 @@ namespace GamePadAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GamePadAPI.Models.ConsoleP", b =>
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Avaliacao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comentario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("JogoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nota")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JogoId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Avaliacoes");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.ConsoleP", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +77,7 @@ namespace GamePadAPI.Migrations
                     b.ToTable("Consoles");
                 });
 
-            modelBuilder.Entity("GamePadAPI.Models.Jogo", b =>
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Jogo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,35 +107,6 @@ namespace GamePadAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Jogos");
-                });
-
-            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Avaliacao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Comentario")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nota")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Avaliacoes");
                 });
 
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Post", b =>
@@ -197,11 +202,19 @@ namespace GamePadAPI.Migrations
 
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Avaliacao", b =>
                 {
+                    b.HasOne("GamePad_TIDAI_2025.Models.Jogo", "Jogo")
+                        .WithMany("Avaliacoes")
+                        .HasForeignKey("JogoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GamePad_TIDAI_2025.Models.Usuario", "Usuario")
                         .WithMany("Avaliacoes")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Jogo");
 
                     b.Navigation("Usuario");
                 });
@@ -226,6 +239,11 @@ namespace GamePadAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Jogo", b =>
+                {
+                    b.Navigation("Avaliacoes");
                 });
 
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Usuario", b =>
