@@ -10,7 +10,7 @@ const SearchBar = ({ placeholder = "Busque um jogo..." }) => (
     <input
       type="text"
       placeholder={placeholder}
-      className="py-2 pl-10 rounded-xl border-2 border-blue-100 focus:bg-slate-100 focus:outline-blue-300"
+      className="py-2 pl-10 rounded-xl border-2 placeholder:text-zinc-400 border-zinc-500 focus:bg-zinc-900 focus:outline-blue-300"
     />
   </div>
 );

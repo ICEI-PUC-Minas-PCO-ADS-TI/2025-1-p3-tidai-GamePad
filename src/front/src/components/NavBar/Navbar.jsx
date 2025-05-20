@@ -4,12 +4,13 @@ import SearchBar from "../SearchBar/SearchBar";
 import { Menu } from "lucide-react";
 import logo from "../../assets/gamepadHeader.png";
 import { Link } from "react-router-dom";
+import { Button } from "../../components/Button/Button";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="flex justify-between items-center text-black py-5 px-8 md:px-32 bg-white drop-shadow-md">
+    <nav className="flex justify-between items-center text-black py-5 px-8 md:px-48 dark:bg-zinc-900 pdrop-shadow-md hover:">
       <a href="">
         <img
           src={logo}
@@ -19,20 +20,20 @@ const Navbar = () => {
       </a>
 
       <ul className="hidden xl:flex items-center gap-12 font-semibold text-base">
-        <li className="p-3 hover:-skew-y-3 hover:bg-pink-500 hover:text-white rounded-md transition-all cursor-pointer">
+        <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
           <Link to="/">Home</Link>
         </li>
-        <li className="p-3 hover:-skew-y-3 hover:bg-pink-500 hover:text-white rounded-md transition-all cursor-pointer">
+        <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
           <Link to="/games">Jogos</Link>
         </li>
-        <li className="p-3 hover:-skew-y-3 hover:bg-pink-500 hover:text-white rounded-md transition-all cursor-pointer">
+        <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
           <Link to="/news">Notícias</Link>
         </li>
       </ul>
 
       <div className="relative hidden md:flex items-center justify-center gap-3 ">
         <SearchBar />
-        <button className="">botao</button>
+        <Button className="">Entrar</Button>
       </div>
 
       <Menu
@@ -57,6 +58,8 @@ const Navbar = () => {
         <li className="list-none w-full text-center p-4 hover:text-pink-500 active:text-pink-500 transition-all">
           <Link to="/news">Notícias</Link>
         </li>
+        
+
       </div>
     </nav>
   );
