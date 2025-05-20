@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GamePadAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+64e35db3dcd460188f7802e7766d77123275c4bb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8edd20d1e023c6d875ce31a95808d3a3d88c191")]
 [assembly: System.Reflection.AssemblyProductAttribute("GamePadAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GamePadAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

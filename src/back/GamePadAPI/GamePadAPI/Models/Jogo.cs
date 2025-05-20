@@ -29,10 +29,9 @@ namespace GamePad_TIDAI_2025.Models
         [Display(Name = "Genero")]
         public string Genero { get; set; }
 
-
-
-        [ForeignKey("Consoles")]
         public int ConsolePId { get; set; }
+        [ForeignKey("ConsolePId")]
+        public ConsoleP ConsoleP { get; set; }
 
         // configurando as foreign keys
         public List<Avaliacao> Avaliacoes { get; set; }

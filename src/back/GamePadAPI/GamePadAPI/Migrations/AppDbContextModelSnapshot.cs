@@ -106,6 +106,8 @@ namespace GamePadAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ConsolePId");
+
                     b.ToTable("Jogos");
                 });
 
@@ -219,6 +221,17 @@ namespace GamePadAPI.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Jogo", b =>
+                {
+                    b.HasOne("GamePad_TIDAI_2025.Models.ConsoleP", "ConsoleP")
+                        .WithMany("Jogos")
+                        .HasForeignKey("ConsolePId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ConsoleP");
+                });
+
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Post", b =>
                 {
                     b.HasOne("GamePad_TIDAI_2025.Models.Usuario", "Usuario")
@@ -239,6 +252,11 @@ namespace GamePadAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.ConsoleP", b =>
+                {
+                    b.Navigation("Jogos");
                 });
 
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Jogo", b =>
