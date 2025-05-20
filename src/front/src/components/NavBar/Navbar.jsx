@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="flex justify-between items-center text-black py-5 px-8 md:px-48 dark:bg-zinc-900 pdrop-shadow-md hover:">
+    <nav className="flex justify-between items-center text-black py-5 px-8 md:px-48 bg-zinc-900 pdrop-shadow-md hover:">
       <a href="">
         <img
           src={logo}

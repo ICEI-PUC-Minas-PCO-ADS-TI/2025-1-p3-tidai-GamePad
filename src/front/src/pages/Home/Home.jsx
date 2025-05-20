@@ -62,7 +62,7 @@ export default function Home() {
             <img
               src={gamepad1}
               alt="Controle"
-              className="w-128 h-128 object-cover rounded-2xl "
+              className="w-128 h-128 md:w-108 md:h-108 object-cover rounded-2xl "
             />
           </div>
           {/* Coluna Direita: grid dos botões glass com imagem sobreposta atrás */}
@@ -76,28 +76,28 @@ export default function Home() {
             {/* Botão 1: Salvar/Avaliar */}
             <div className="backdrop-blur-md bg-white/20 border border-white/20 rounded-full flex items-center justify-center p-6 shadow-lg z-10 gap-4 cursor-pointer group transition-all duration-300 hover:scale-105 hover:bg-gradient-to-br hover:from-cyan-500/30 hover:to-purple-500/30 hover:border-cyan-400 hover:shadow-2xl hover:ring-2 hover:ring-cyan-400/40">
               <Save className="w-8 h-8 text-cyan-400 flex-shrink-0 transition-colors duration-300 group-hover:text-white" />
-              <span className="text-xl font-semibold text-white text-left transition-colors duration-300 group-hover:text-cyan-100">
+              <span className="md:text-sm text-xl  text-white text-left transition-colors duration-300 group-hover:text-cyan-100">
                 Registrar e avaliar seus jogos favoritos.
               </span>
             </div>
             {/* Botão 2: Descobrir */}
             <div className="backdrop-blur-md bg-white/20 border border-white/20 rounded-full flex items-center justify-center p-6 shadow-lg z-10 gap-4 cursor-pointer group transition-all duration-300 hover:scale-105 hover:bg-gradient-to-br hover:from-yellow-400/30 hover:to-orange-500/30 hover:border-yellow-400 hover:shadow-2xl hover:ring-2 hover:ring-yellow-400/40">
               <Telescope className="w-8 h-8 text-yellow-400 flex-shrink-0 transition-colors duration-300 group-hover:text-white" />
-              <span className="text-xl font-semibold text-white text-left transition-colors duration-300 group-hover:text-yellow-100">
+              <span className="md:text-sm text-xl  text-white text-left transition-colors duration-300 group-hover:text-yellow-100">
                 Descobrir novos títulos.
               </span>
             </div>
             {/* Botão 3: Economizar tempo */}
             <div className="backdrop-blur-md bg-white/20 border border-white/20 rounded-full flex items-center justify-center p-6 shadow-lg z-10 gap-4 cursor-pointer group transition-all duration-300 hover:scale-105 hover:bg-gradient-to-br hover:from-pink-400/30 hover:to-purple-500/30 hover:border-pink-400 hover:shadow-2xl hover:ring-2 hover:ring-pink-400/40">
-              <Hourglass className="w-8 h-8 text-pink-400 flex-shrink-0 transition-colors duration-300 group-hover:text-white" />
-              <span className="text-xl font-semibold text-white text-left transition-colors duration-300 group-hover:text-pink-100">
+              <Hourglass className=" w-8 h-8 text-pink-400 flex-shrink-0 transition-colors duration-300 group-hover:text-white" />
+              <span className="md:text-sm text-xl md:text-  text-white text-left transition-colors duration-300 group-hover:text-pink-100">
                 Economizar tempo vendo os jogos do momento
               </span>
             </div>
             {/* Botão 4: Ler avaliações */}
             <div className="backdrop-blur-md bg-white/20 border border-white/20 rounded-full flex items-center justify-center p-6 shadow-lg z-10 gap-4 cursor-pointer group transition-all duration-300 hover:scale-105 hover:bg-gradient-to-br hover:from-green-400/30 hover:to-blue-500/30 hover:border-green-400 hover:shadow-2xl hover:ring-2 hover:ring-green-400/40">
               <HeartPlus className="w-8 h-8 text-green-400 flex-shrink-0 transition-colors duration-300 group-hover:text-white" />
-              <span className="text-xl font-semibold text-white text-left transition-colors duration-300 group-hover:text-green-100">
+              <span className="md:text-sm text-xl  text-white text-left transition-colors duration-300 group-hover:text-green-100">
                 Ler avaliação dos seus jogos favoritos
               </span>
             </div>
