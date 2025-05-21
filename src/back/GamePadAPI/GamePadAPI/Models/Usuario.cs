@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GamePadAPI.Models.Interfaces;
 
@@ -24,6 +25,13 @@ namespace GamePad_TIDAI_2025.Models
         public string ImgUser { get; set; }
         public string Tipo { get; set; }
 
+        // configurando as foreign keys
+        public List<Avaliacao> Avaliacoes { get; set; }
+        public List<Post> Posts { get; set; }
+        public List<Sugestao> Sugestoes { get; set; }
+
+    /*
+
         //public Perfil Perfil { get; set; }
 
     }
@@ -33,8 +41,15 @@ namespace GamePad_TIDAI_2025.Models
             Admin,
             User
         }
+        
         */
-}
+
+
+
+    }
+
+    }
+
 
         //public Usuario(int id, string nome, string email, string senha, string imgUser, string tipo)
         //{

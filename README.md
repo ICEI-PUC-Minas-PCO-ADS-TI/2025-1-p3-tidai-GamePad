@@ -1,4 +1,4 @@
-# Game Ped
+# Game Pad
 
 `CURSO: Análise e Desenvolvimento de Sistemas`
 

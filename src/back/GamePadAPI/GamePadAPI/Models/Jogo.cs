@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GamePadAPI.Models
+namespace GamePad_TIDAI_2025.Models
 {
     [Table("Jogos")]
     public class Jogo
@@ -29,11 +29,12 @@ namespace GamePadAPI.Models
         [Display(Name = "Genero")]
         public string Genero { get; set; }
 
-
-
-        [ForeignKey("Consoles")]
         public int ConsolePId { get; set; }
+        [ForeignKey("ConsolePId")]
+        public ConsoleP ConsoleP { get; set; }
 
+        // configurando as foreign keys
+        public List<Avaliacao> Avaliacoes { get; set; }
 
         //Devol???
         //Avaliacao fazer depois

@@ -22,7 +22,7 @@ namespace GamePadAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GamePadAPI.Models.Avaliacao", b =>
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Avaliacao", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,10 +49,14 @@ namespace GamePadAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("JogoId");
+
+                    b.HasIndex("UsuarioId");
+
                     b.ToTable("Avaliacoes");
                 });
 
-            modelBuilder.Entity("GamePadAPI.Models.ConsoleP", b =>
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.ConsoleP", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,7 +77,7 @@ namespace GamePadAPI.Migrations
                     b.ToTable("Consoles");
                 });
 
-            modelBuilder.Entity("GamePadAPI.Models.Jogo", b =>
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Jogo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,10 +106,12 @@ namespace GamePadAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ConsolePId");
+
                     b.ToTable("Jogos");
                 });
 
-            modelBuilder.Entity("GamePadAPI.Models.Post", b =>
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -131,7 +137,38 @@ namespace GamePadAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UsuarioId");
+
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Sugestao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Sugestoes");
                 });
 
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Usuario", b =>
@@ -163,6 +200,77 @@ namespace GamePadAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Avaliacao", b =>
+                {
+                    b.HasOne("GamePad_TIDAI_2025.Models.Jogo", "Jogo")
+                        .WithMany("Avaliacoes")
+                        .HasForeignKey("JogoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GamePad_TIDAI_2025.Models.Usuario", "Usuario")
+                        .WithMany("Avaliacoes")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Jogo");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Jogo", b =>
+                {
+                    b.HasOne("GamePad_TIDAI_2025.Models.ConsoleP", "ConsoleP")
+                        .WithMany("Jogos")
+                        .HasForeignKey("ConsolePId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ConsoleP");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Post", b =>
+                {
+                    b.HasOne("GamePad_TIDAI_2025.Models.Usuario", "Usuario")
+                        .WithMany("Posts")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Sugestao", b =>
+                {
+                    b.HasOne("GamePad_TIDAI_2025.Models.Usuario", "Usuario")
+                        .WithMany("Sugestoes")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.ConsoleP", b =>
+                {
+                    b.Navigation("Jogos");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Jogo", b =>
+                {
+                    b.Navigation("Avaliacoes");
+                });
+
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Usuario", b =>
+                {
+                    b.Navigation("Avaliacoes");
+
+                    b.Navigation("Posts");
+
+                    b.Navigation("Sugestoes");
                 });
 #pragma warning restore 612, 618
         }

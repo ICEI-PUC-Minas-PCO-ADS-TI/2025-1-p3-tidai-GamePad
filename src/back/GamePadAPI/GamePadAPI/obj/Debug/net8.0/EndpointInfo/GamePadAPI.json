@@ -5,191 +5,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Avaliacoes": {
-      "get": {
-        "tags": [
-          "Avaliacoes"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Avaliacao"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Avaliacao"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Avaliacao"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Avaliacoes"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Avaliacao"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Avaliacao"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Avaliacao"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Avaliacao"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Avaliacao"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Avaliacao"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Avaliacoes/{id}": {
-      "get": {
-        "tags": [
-          "Avaliacoes"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Avaliacao"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Avaliacao"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Avaliacao"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Avaliacoes"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Avaliacao"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Avaliacao"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Avaliacao"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Avaliacoes"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/ConsoleP": {
       "get": {
         "tags": [
@@ -608,191 +423,6 @@
         }
       }
     },
-    "/api/Posts": {
-      "get": {
-        "tags": [
-          "Posts"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Post"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Post"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Post"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Posts"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Post"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Post"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Post"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Post"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Post"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Post"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Posts/{id}": {
-      "get": {
-        "tags": [
-          "Posts"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Post"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Post"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Post"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Posts"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Post"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Post"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Post"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Posts"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Usuarios": {
       "get": {
         "tags": [
@@ -978,11 +608,7 @@
         }
       }
     },
-<<<<<<< HEAD
-    "/api/Usuarios/tipo/{Tipo}": {
-=======
     "/api/Usuarios/tipo/{tipo}": {
->>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
       "get": {
         "tags": [
           "Usuarios"
@@ -1029,7 +655,6 @@
           }
         }
       }
-<<<<<<< HEAD
     },
     "/api/Usuarios/authenticate": {
       "post": {
@@ -1061,8 +686,6 @@
           }
         }
       }
-=======
->>>>>>> b168b98bb57547558680d3e20c4430142b3754f1
     }
   },
   "components": {
@@ -1094,9 +717,15 @@
             "type": "integer",
             "format": "int32"
           },
+          "usuario": {
+            "$ref": "#/components/schemas/Usuario"
+          },
           "jogoId": {
             "type": "integer",
             "format": "int32"
+          },
+          "jogo": {
+            "$ref": "#/components/schemas/Jogo"
           }
         },
         "additionalProperties": false
@@ -1155,6 +784,13 @@
           "consolePId": {
             "type": "integer",
             "format": "int32"
+          },
+          "avaliacoes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Avaliacao"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1189,6 +825,43 @@
           "usuarioId": {
             "type": "integer",
             "format": "int32"
+          },
+          "usuario": {
+            "$ref": "#/components/schemas/Usuario"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Sugestao": {
+        "required": [
+          "data",
+          "descricao",
+          "nome"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nome": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "descricao": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "data": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "usuarioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usuario": {
+            "$ref": "#/components/schemas/Usuario"
           }
         },
         "additionalProperties": false
@@ -1225,6 +898,27 @@
           },
           "tipo": {
             "type": "string",
+            "nullable": true
+          },
+          "avaliacoes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Avaliacao"
+            },
+            "nullable": true
+          },
+          "posts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Post"
+            },
+            "nullable": true
+          },
+          "sugestoes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sugestao"
+            },
             "nullable": true
           }
         },

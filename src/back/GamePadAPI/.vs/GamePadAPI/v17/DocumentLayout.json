@@ -1,77 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\",
+  "WorkspaceRootPath": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\UsuariosController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Controllers\\UsuariosController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Migrations\\20250520174635_UpdateTableJogos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Migrations\\20250520174635_UpdateTableJogos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/localhost_SQLEXPRESS/GamePadDb/True/SqlTable/dbo.Usuarios.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+      "AbsoluteMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|d:\\workspace\\tidai\\gameped\\src\\back\\gamepadapi\\gamepadapi\\models\\consolep.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|solutionrelative:gamepadapi\\models\\consolep.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\GamePadAPI.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|d:\\workspace\\tidai\\gameped\\src\\back\\gamepadapi\\gamepadapi\\models\\jogo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|solutionrelative:gamepadapi\\models\\jogo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\JogosController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Controllers\\JogosController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|d:\\workspace\\tidai\\gameped\\src\\back\\gamepadapi\\gamepadapi\\models\\avaliacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|solutionrelative:gamepadapi\\models\\avaliacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Interfaces\\IUsuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Models\\Interfaces\\IUsuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Avaliacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Models\\Avaliacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\AppDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Models\\AppDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\AvaliacoesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Controllers\\AvaliacoesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\ConsoleP.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Models\\ConsoleP.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Jogo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Models\\Jogo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Interfaces\\IPost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Models\\Interfaces\\IPost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Models\\Usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\PostsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Controllers\\PostsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Models\\Post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Migrations\\20250510184041_CreateTablePosts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Migrations\\20250510184041_CreateTablePosts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\ConsolePController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Controllers\\ConsolePController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Migrations\\20250510165241_CreateDB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GamePadAPI\\Migrations\\20250510165241_CreateDB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|d:\\workspace\\tidai\\gameped\\src\\back\\gamepadapi\\gamepadapi\\models\\sugestao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98C0DDBE-13CE-4F2A-B53A-D46710E1F2D3}|GamePadAPI\\GamePadAPI.csproj|solutionrelative:gamepadapi\\models\\sugestao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -81,8 +30,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20250520174635_UpdateTableJogos.cs",
+              "DocumentMoniker": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Migrations\\20250520174635_UpdateTableJogos.cs",
+              "RelativeDocumentMoniker": "GamePadAPI\\Migrations\\20250520174635_UpdateTableJogos.cs",
+              "ToolTip": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Migrations\\20250520174635_UpdateTableJogos.cs",
+              "RelativeToolTip": "GamePadAPI\\Migrations\\20250520174635_UpdateTableJogos.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T17:46:35.636Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ConsoleP.cs",
+              "DocumentMoniker": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\ConsoleP.cs",
+              "RelativeDocumentMoniker": "GamePadAPI\\Models\\ConsoleP.cs",
+              "ToolTip": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\ConsoleP.cs",
+              "RelativeToolTip": "GamePadAPI\\Models\\ConsoleP.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T17:43:55.382Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
@@ -90,224 +65,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "GamePadAPI.csproj",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj",
-              "RelativeDocumentMoniker": "GamePadAPI\\GamePadAPI.csproj",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\GamePadAPI.csproj",
-              "RelativeToolTip": "GamePadAPI\\GamePadAPI.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-15T00:19:49.7Z"
+              "Title": "Jogo.cs",
+              "DocumentMoniker": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Jogo.cs",
+              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Jogo.cs",
+              "ToolTip": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Jogo.cs",
+              "RelativeToolTip": "GamePadAPI\\Models\\Jogo.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCMAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T03:11:55.899Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "JogosController.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\JogosController.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Controllers\\JogosController.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\JogosController.cs",
-              "RelativeToolTip": "GamePadAPI\\Controllers\\JogosController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACAAAABaAAAAAAAAAA==",
+              "Title": "Avaliacao.cs",
+              "DocumentMoniker": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Avaliacao.cs",
+              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Avaliacao.cs",
+              "ToolTip": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Avaliacao.cs",
+              "RelativeToolTip": "GamePadAPI\\Models\\Avaliacao.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABwAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T00:46:57.749Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UsuariosController.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\UsuariosController.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Controllers\\UsuariosController.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\UsuariosController.cs",
-              "RelativeToolTip": "GamePadAPI\\Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAAAJoAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T23:13:13.224Z",
+              "WhenOpened": "2025-05-20T03:10:53.885Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "IUsuario.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Interfaces\\IUsuario.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Interfaces\\IUsuario.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Interfaces\\IUsuario.cs",
-              "RelativeToolTip": "GamePadAPI\\Models\\Interfaces\\IUsuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Title": "Sugestao.cs",
+              "DocumentMoniker": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Sugestao.cs",
+              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Sugestao.cs",
+              "ToolTip": "D:\\Workspace\\TIDAI\\gameped\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Sugestao.cs",
+              "RelativeToolTip": "GamePadAPI\\Models\\Sugestao.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABAAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T22:50:23.92Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Avaliacao.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Avaliacao.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Avaliacao.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Avaliacao.cs",
-              "RelativeToolTip": "GamePadAPI\\Models\\Avaliacao.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T23:00:23.9Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Models\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\AppDbContext.cs",
-              "RelativeToolTip": "GamePadAPI\\Models\\AppDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T00:25:19.079Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AvaliacoesController.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\AvaliacoesController.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Controllers\\AvaliacoesController.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\AvaliacoesController.cs",
-              "RelativeToolTip": "GamePadAPI\\Controllers\\AvaliacoesController.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T00:48:51.57Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ConsoleP.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\ConsoleP.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Models\\ConsoleP.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\ConsoleP.cs",
-              "RelativeToolTip": "GamePadAPI\\Models\\ConsoleP.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T14:47:37.088Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Jogo.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Jogo.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Jogo.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Jogo.cs",
-              "RelativeToolTip": "GamePadAPI\\Models\\Jogo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T23:30:12.054Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "IPost.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Interfaces\\IPost.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Interfaces\\IPost.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Interfaces\\IPost.cs",
-              "RelativeToolTip": "GamePadAPI\\Models\\Interfaces\\IPost.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T18:28:07.233Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Program.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Program.cs",
-              "RelativeToolTip": "GamePadAPI\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAACPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T22:53:21.347Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Usuario.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Usuario.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Usuario.cs",
-              "RelativeToolTip": "GamePadAPI\\Models\\Usuario.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBoAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T14:37:44.041Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "PostsController.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\PostsController.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Controllers\\PostsController.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\PostsController.cs",
-              "RelativeToolTip": "GamePadAPI\\Controllers\\PostsController.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACIAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T18:39:30.884Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Post.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Post.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Models\\Post.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Models\\Post.cs",
-              "RelativeToolTip": "GamePadAPI\\Models\\Post.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T18:19:27.412Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "20250510184041_CreateTablePosts.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Migrations\\20250510184041_CreateTablePosts.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Migrations\\20250510184041_CreateTablePosts.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Migrations\\20250510184041_CreateTablePosts.cs",
-              "RelativeToolTip": "GamePadAPI\\Migrations\\20250510184041_CreateTablePosts.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T18:40:41.179Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "ConsolePController.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\ConsolePController.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Controllers\\ConsolePController.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Controllers\\ConsolePController.cs",
-              "RelativeToolTip": "GamePadAPI\\Controllers\\ConsolePController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T15:07:36.295Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "20250510165241_CreateDB.cs",
-              "DocumentMoniker": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Migrations\\20250510165241_CreateDB.cs",
-              "RelativeDocumentMoniker": "GamePadAPI\\Migrations\\20250510165241_CreateDB.cs",
-              "ToolTip": "C:\\Users\\pablo\\Desktop\\Github Projects\\2025-1-p3-tidai-GamePad\\src\\back\\GamePadAPI\\GamePadAPI\\Migrations\\20250510165241_CreateDB.cs",
-              "RelativeToolTip": "GamePadAPI\\Migrations\\20250510165241_CreateDB.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwCcAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T16:52:41.834Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "dbo.Usuarios.sql",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/localhost_SQLEXPRESS/GamePadDb/True/SqlTable/dbo.Usuarios.sql",
-              "ToolTip": "ViewDataWindow_MSSQL__/localhost_SQLEXPRESS/GamePadDb/True/SqlTable/dbo.Usuarios.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-05-03T23:26:10.78Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "WhenOpened": "2025-05-19T14:47:33.582Z"
             }
           ]
         }

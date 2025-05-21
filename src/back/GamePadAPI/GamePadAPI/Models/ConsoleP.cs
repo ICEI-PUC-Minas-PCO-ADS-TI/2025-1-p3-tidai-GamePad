@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GamePadAPI.Models
+namespace GamePad_TIDAI_2025.Models
 {
 
     [Table("Consoles")]
@@ -19,6 +19,9 @@ namespace GamePadAPI.Models
         [Required(ErrorMessage = "O campo plataforma é obrigatório")]
         [Display(Name = "Plataforma")]
         public string Plataforma { get; set; }
+
+        // configurando a foreign key
+        public List<Jogo> Jogos { get; set; }
 
     }
 }

@@ -9,23 +9,23 @@ using GamePad_TIDAI_2025.Models;
 
 namespace GamePadAPI.Controllers
 {
-    public class AvaliacoesController : Controller
+    public class SugestoesController : Controller
     {
         private readonly AppDbContext _context;
 
-        public AvaliacoesController(AppDbContext context)
+        public SugestoesController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Avaliacoes
+        // GET: Sugestoes
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Avaliacoes.Include(a => a.Usuario);
+            var appDbContext = _context.Sugestoes.Include(s => s.Usuario);
             return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Avaliacoes/Details/5
+        // GET: Sugestoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,42 +33,42 @@ namespace GamePadAPI.Controllers
                 return NotFound();
             }
 
-            var avaliacao = await _context.Avaliacoes
-                .Include(a => a.Usuario)
+            var sugestao = await _context.Sugestoes
+                .Include(s => s.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (avaliacao == null)
+            if (sugestao == null)
             {
                 return NotFound();
             }
 
-            return View(avaliacao);
+            return View(sugestao);
         }
 
-        // GET: Avaliacoes/Create
+        // GET: Sugestoes/Create
         public IActionResult Create()
         {
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email");
             return View();
         }
 
-        // POST: Avaliacoes/Create
+        // POST: Sugestoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nota,Comentario,Data,UsuarioId")] Avaliacao avaliacao)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Descricao,Data,UsuarioId")] Sugestao sugestao)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(avaliacao);
+                _context.Add(sugestao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", avaliacao.UsuarioId);
-            return View(avaliacao);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", sugestao.UsuarioId);
+            return View(sugestao);
         }
 
-        // GET: Avaliacoes/Edit/5
+        // GET: Sugestoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,23 +76,23 @@ namespace GamePadAPI.Controllers
                 return NotFound();
             }
 
-            var avaliacao = await _context.Avaliacoes.FindAsync(id);
-            if (avaliacao == null)
+            var sugestao = await _context.Sugestoes.FindAsync(id);
+            if (sugestao == null)
             {
                 return NotFound();
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", avaliacao.UsuarioId);
-            return View(avaliacao);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", sugestao.UsuarioId);
+            return View(sugestao);
         }
 
-        // POST: Avaliacoes/Edit/5
+        // POST: Sugestoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nota,Comentario,Data,UsuarioId")] Avaliacao avaliacao)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Descricao,Data,UsuarioId")] Sugestao sugestao)
         {
-            if (id != avaliacao.Id)
+            if (id != sugestao.Id)
             {
                 return NotFound();
             }
@@ -101,12 +101,12 @@ namespace GamePadAPI.Controllers
             {
                 try
                 {
-                    _context.Update(avaliacao);
+                    _context.Update(sugestao);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AvaliacaoExists(avaliacao.Id))
+                    if (!SugestaoExists(sugestao.Id))
                     {
                         return NotFound();
                     }
@@ -117,11 +117,11 @@ namespace GamePadAPI.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", avaliacao.UsuarioId);
-            return View(avaliacao);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", sugestao.UsuarioId);
+            return View(sugestao);
         }
 
-        // GET: Avaliacoes/Delete/5
+        // GET: Sugestoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,35 +129,35 @@ namespace GamePadAPI.Controllers
                 return NotFound();
             }
 
-            var avaliacao = await _context.Avaliacoes
-                .Include(a => a.Usuario)
+            var sugestao = await _context.Sugestoes
+                .Include(s => s.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (avaliacao == null)
+            if (sugestao == null)
             {
                 return NotFound();
             }
 
-            return View(avaliacao);
+            return View(sugestao);
         }
 
-        // POST: Avaliacoes/Delete/5
+        // POST: Sugestoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var avaliacao = await _context.Avaliacoes.FindAsync(id);
-            if (avaliacao != null)
+            var sugestao = await _context.Sugestoes.FindAsync(id);
+            if (sugestao != null)
             {
-                _context.Avaliacoes.Remove(avaliacao);
+                _context.Sugestoes.Remove(sugestao);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AvaliacaoExists(int id)
+        private bool SugestaoExists(int id)
         {
-            return _context.Avaliacoes.Any(e => e.Id == id);
+            return _context.Sugestoes.Any(e => e.Id == id);
         }
     }
 }
