@@ -36,7 +36,16 @@ const Navbar = () => {
 
       <div className="relative hidden md:flex items-center justify-center gap-3 ">
         <SearchBar />
-        <Button className="">Entrar</Button>
+        <Link to = "/login">
+          <Button className="">Entrar</Button>
+        </Link>
+        <Link to = "/register">
+          <Button
+          className="bg-fuchsia-600 border-fuchsia-500 hover:text-fuchsia-500  ml-2"
+          >
+            Registrar
+          </Button>
+        </Link>
       </div>
 
       <Menu
@@ -47,8 +56,9 @@ const Navbar = () => {
       />
 
       <div
-        className={`absolute xl:hidden top-24 left-0 w-full bg-white flex flex-col item-center -gap-6 font-semibold -text-lg transform transition-transform ${isMenuOpen ? "opacity-100" : "opacity-0"
-          }`}
+        className={`absolute xl:hidden top-24 left-0 w-full bg-white flex flex-col item-center -gap-6 font-semibold -text-lg transform transition-transform ${
+          isMenuOpen ? "opacity-100" : "opacity-0"
+        }`}
         style={{ transtion: "transform 0.3s ease, opacity 0.3 ease" }}
       >
         <li className="list-none w-full text-center p-4 hover:text-pink-500 active:text-pink-500 transition-all">
@@ -60,8 +70,15 @@ const Navbar = () => {
         <li className="list-none w-full text-center p-4 hover:text-pink-500 active:text-pink-500 transition-all">
           <Link to="/news">Notícias</Link>
         </li>
-
-
+        {/* Botão Cadastre-se no menu mobile */}
+        <li className="list-none w-full text-center p-4">
+          <Link
+            to="/register"
+            className="text-fuchsia-600 font-bold hover:text-fuchsia-800 transition-all"
+          >
+            Cadastre-se
+          </Link>
+        </li>
       </div>
     </nav>
   );

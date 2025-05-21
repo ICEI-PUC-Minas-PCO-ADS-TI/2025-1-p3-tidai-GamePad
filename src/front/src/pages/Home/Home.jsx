@@ -8,8 +8,43 @@ import { Button } from "../../components/Button/Button";
 import SimpleCard from "../../components/cards/SimpleCard";
 import { Save, Hourglass, Telescope, HeartPlus } from "lucide-react";
 import GlassButton from "../../components/GlassButton/GlassButton";
+import CommentSlider from "../../components/slider/CommentSlider";
 
 export default function Home() {
+  // Comentários para o slider
+  const comments = [
+    {
+      cover: Capa1,
+      gameTitle: "Cyberpunk: 2077",
+      gameYear: "2023",
+      userAvatar: "https://randomuser.me/api/portraits/men/32.jpg",
+      userName: "Yalle Gamer",
+      stars: 4,
+      comment: "Me sinto um samurai em night city!",
+      likes: 32,
+    },
+    {
+      cover: Capa1,
+      gameTitle: "The Witcher 3",
+      gameYear: "2015",
+      userAvatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      userName: "Andry Jogos",
+      stars: 5,
+      comment: "É o bruxão não tem como",
+      likes: 54,
+    },
+    {
+      cover: Capa1,
+      gameTitle: "Hollow Knight",
+      gameYear: "2017",
+      userAvatar: "https://randomuser.me/api/portraits/men/65.jpg",
+      userName: "Alex Tutoriais",
+      stars: 5,
+      comment: "Um dos melhores indies que já joguei.",
+      likes: 41,
+    },
+  ];
+
   return (
     <>
       <main>
@@ -53,22 +88,21 @@ export default function Home() {
             <SimpleCard src={Capa1} alt="Capa 6" />
           </div>
         </section>
-        {/* Seção dividida em duas colunas: esquerda texto+imagem, direita botões glass */}
+        <h2 className="w-full text-2xl font-bold mb-8 text-center pt-15 text-white md:col-span-2">
+          Aqui você está no controle...
+        </h2>
+        {/* Seção dividida em duas colunas */}
         <section className="mt-16 flex flex-col md:flex-row justify-center items-center gap-12 w-full px-48 mx-auto">
-          {/* Coluna Esquerda: título e imagem */}
-          <div className="flex flex-col items-center  w-full md:w-1/2">
-            <h2 className="text-2xl font-bold mb-8 text-center md:text-left text-white">
-              Aqui você está no controle...
-            </h2>
+          {/* Coluna Esquerda */}
+          <div className="flex flex-col items-center md:items-start w-full md:w-1/2 md:pl-0">
             <img
               src={gamepad1}
               alt="Controle"
-              className="w-128 h-128 md:w-108 md:h-108 object-cover rounded-2xl "
+              className="w-128 h-128 md:w-108 md:h-108 object-cover rounded-2xl"
             />
           </div>
-          {/* Coluna Direita: grid dos botões glass com imagem sobreposta atrás */}
+          {/* Coluna Direita*/}
           <div className="relative grid grid-cols-2 gap-12 w-full md:w-1/2">
-            {/* Imagem de fundo, fica atrás dos botões */}
             <img
               src={gamepad2}
               alt="Gamepad sobreposto"
@@ -111,6 +145,10 @@ export default function Home() {
               hoverText="text-green-100"
             />
           </div>
+        </section>
+        {/* Seção de comentário de usuário sobre um jogo */}
+        <section className="mt-16 flex flex-col md:flex-row items-center w-full px-48 mx-auto gap-8 pb-8">
+          <CommentSlider comments={comments} />
         </section>
       </main>
     </>
