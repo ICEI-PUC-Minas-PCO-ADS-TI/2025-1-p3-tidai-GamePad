@@ -4,8 +4,6 @@ import Layout from '../layouts/Layout';
 import Home from '../pages/Home/Home';
 import News from '../pages/News/News';
 import Games from '../pages/Games/Games';
-import Login from '../pages/Login/login';
-import Register from '../pages/Register/register';
 import Comunidade from '../pages/Comunidade/Comunidade';
 
 
@@ -18,8 +16,6 @@ export default function AppRoutes() {
                 <Route path="/games" element={<Games />} />
                 <Route path="/Comunidade" element={<Comunidade />} />
             </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
         </Routes>
     )
 }

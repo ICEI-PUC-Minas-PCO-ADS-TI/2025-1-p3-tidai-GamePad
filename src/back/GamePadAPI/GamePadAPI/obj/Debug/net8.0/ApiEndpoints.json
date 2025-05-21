@@ -362,7 +362,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "GamePad_TIDAI_2025.Models.Usuario",
+        "Type": "GamePadAPI.Controllers.UsuariosController\u002BLoginDto",
         "IsRequired": true
       }
     ],

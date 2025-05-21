@@ -13,9 +13,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-
 namespace GamePadAPI.Controllers
 {
+    [AllowAnonymous]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -28,6 +28,12 @@ namespace GamePadAPI.Controllers
         public UsuariosController(AppDbContext context)
         {
             _context = context;
+        }
+
+        public class LoginDto
+        {
+            public string Email { get; set; }
+            public string Senha { get; set; }
         }
 
         // GET: api/Usuarios
@@ -51,7 +57,6 @@ namespace GamePadAPI.Controllers
             return usuario;
         }
 
-
         // GET: api/Usuarios/tipo/{tipo}
         [HttpGet("tipo/{tipo}")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuariosPorTipo(string tipo)
@@ -67,7 +72,6 @@ namespace GamePadAPI.Controllers
 
             return usuarios;
         }
-
 
         // PUT: api/Usuarios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -105,7 +109,6 @@ namespace GamePadAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
-
             usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
 
             _context.Usuarios.Add(usuario);
@@ -135,10 +138,9 @@ namespace GamePadAPI.Controllers
             return _context.Usuarios.Any(e => e.Id == id);
         }
 
-
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate(Usuario model)
+        public async Task<IActionResult> Authenticate([FromBody] LoginDto model)
         {
             var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Email == model.Email);
 
@@ -171,8 +173,5 @@ namespace GamePadAPI.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-        
-        
-
     }
 }
