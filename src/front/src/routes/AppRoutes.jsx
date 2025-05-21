@@ -6,15 +6,17 @@ import News from '../pages/News/News';
 import Games from '../pages/Games/Games';
 import Login from '../pages/Login/login';
 import Register from '../pages/Register/register';
+import Comunidade from '../pages/Comunidade/Comunidade';
 
 
-export default function AppRoutes () {
+export default function AppRoutes() {
     return (
         <Routes>
             <Route element={<Layout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/news" element={<News />} />
                 <Route path="/games" element={<Games />} />
+                <Route path="/Comunidade" element={<Comunidade />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
