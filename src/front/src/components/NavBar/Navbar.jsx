@@ -29,6 +29,9 @@ const Navbar = () => {
         <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
           <Link to="/news">Notícias</Link>
         </li>
+        <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
+          <Link to="/Comunidade">Comunidade</Link>
+        </li>
       </ul>
 
       <div className="relative hidden md:flex items-center justify-center gap-3 ">
@@ -44,9 +47,8 @@ const Navbar = () => {
       />
 
       <div
-        className={`absolute xl:hidden top-24 left-0 w-full bg-white flex flex-col item-center -gap-6 font-semibold -text-lg transform transition-transform ${
-          isMenuOpen ? "opacity-100" : "opacity-0"
-        }`}
+        className={`absolute xl:hidden top-24 left-0 w-full bg-white flex flex-col item-center -gap-6 font-semibold -text-lg transform transition-transform ${isMenuOpen ? "opacity-100" : "opacity-0"
+          }`}
         style={{ transtion: "transform 0.3s ease, opacity 0.3 ease" }}
       >
         <li className="list-none w-full text-center p-4 hover:text-pink-500 active:text-pink-500 transition-all">
@@ -58,7 +60,7 @@ const Navbar = () => {
         <li className="list-none w-full text-center p-4 hover:text-pink-500 active:text-pink-500 transition-all">
           <Link to="/news">Notícias</Link>
         </li>
-        
+
 
       </div>
     </nav>
