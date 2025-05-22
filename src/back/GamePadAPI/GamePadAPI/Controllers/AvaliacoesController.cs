@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GamePadAPI.Models;
 using GamePad_TIDAI_2025.Models;
 
 namespace GamePadAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AvaliacoesController : ControllerBase
+    public class AvaliacoesController : Controller
     {
         private readonly AppDbContext _context;
 
@@ -21,83 +18,141 @@ namespace GamePadAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Avaliacoes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Avaliacao>>> GetAvaliacoes()
+        // GET: Avaliacoes
+        public async Task<IActionResult> Index()
         {
-            return await _context.Avaliacoes.ToListAsync();
+            var appDbContext = _context.Avaliacoes.Include(a => a.Usuario);
+            return View(await appDbContext.ToListAsync());
         }
 
-        // GET: api/Avaliacoes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Avaliacao>> GetAvaliacao(int id)
+        // GET: Avaliacoes/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var avaliacao = await _context.Avaliacoes.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var avaliacao = await _context.Avaliacoes
+                .Include(a => a.Usuario)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (avaliacao == null)
             {
                 return NotFound();
             }
 
-            return avaliacao;
+            return View(avaliacao);
         }
 
-        // PUT: api/Avaliacoes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAvaliacao(int id, Avaliacao avaliacao)
+        // GET: Avaliacoes/Create
+        public IActionResult Create()
+        {
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email");
+            return View();
+        }
+
+        // POST: Avaliacoes/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Nota,Comentario,Data,UsuarioId")] Avaliacao avaliacao)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(avaliacao);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", avaliacao.UsuarioId);
+            return View(avaliacao);
+        }
+
+        // GET: Avaliacoes/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var avaliacao = await _context.Avaliacoes.FindAsync(id);
+            if (avaliacao == null)
+            {
+                return NotFound();
+            }
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", avaliacao.UsuarioId);
+            return View(avaliacao);
+        }
+
+        // POST: Avaliacoes/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nota,Comentario,Data,UsuarioId")] Avaliacao avaliacao)
         {
             if (id != avaliacao.Id)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(avaliacao).State = EntityState.Modified;
-
-            try
+            if (ModelState.IsValid)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AvaliacaoExists(id))
+                try
                 {
-                    return NotFound();
+                    _context.Update(avaliacao);
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!AvaliacaoExists(avaliacao.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-
-            return NoContent();
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", avaliacao.UsuarioId);
+            return View(avaliacao);
         }
 
-        // POST: api/Avaliacoes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Avaliacao>> PostAvaliacao(Avaliacao avaliacao)
+        // GET: Avaliacoes/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            _context.Avaliacoes.Add(avaliacao);
-            await _context.SaveChangesAsync();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            return CreatedAtAction("GetAvaliacao", new { id = avaliacao.Id }, avaliacao);
-        }
-
-        // DELETE: api/Avaliacoes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAvaliacao(int id)
-        {
-            var avaliacao = await _context.Avaliacoes.FindAsync(id);
+            var avaliacao = await _context.Avaliacoes
+                .Include(a => a.Usuario)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (avaliacao == null)
             {
                 return NotFound();
             }
 
-            _context.Avaliacoes.Remove(avaliacao);
-            await _context.SaveChangesAsync();
+            return View(avaliacao);
+        }
 
-            return NoContent();
+        // POST: Avaliacoes/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var avaliacao = await _context.Avaliacoes.FindAsync(id);
+            if (avaliacao != null)
+            {
+                _context.Avaliacoes.Remove(avaliacao);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool AvaliacaoExists(int id)

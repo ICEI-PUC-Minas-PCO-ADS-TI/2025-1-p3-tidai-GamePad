@@ -12,6 +12,7 @@ namespace GamePad_TIDAI_2025.Models
         public DbSet<Jogo> Jogos { get; set; }
         public DbSet<ConsoleP> Consoles { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Sugestao> Sugestoes { get; set; }
 
     }
 }

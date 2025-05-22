@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "8DUkF0msgNuECD2K9f8DA9uThd2Pj7XXNFKayry8JYQ=",
+  "Hash": "0dDS4vkTUMUQC1nY+w63jn2toSInxH0aXWOMIF7Ox/A=",
   "Source": "GamePadAPI",
   "BasePath": "_content/GamePadAPI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }

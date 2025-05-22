@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GamePadAPI.Models.Interfaces;
 
-namespace GamePadAPI.Models
+namespace GamePad_TIDAI_2025.Models
 {
     [Table("Posts")]
     public class Post : IPost
@@ -25,9 +26,10 @@ namespace GamePadAPI.Models
         [Display(Name = "Data")]
         public DateTime Data { get; set; }
 
-        [ForeignKey("Usuarios")]
+        
         public int UsuarioId { get; set; }
-
+        [ForeignKey("UsuarioId")]
+        public Usuario Usuario { get; set; }
 
 
         public void GetData()
