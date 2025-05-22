@@ -17,13 +17,75 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = GamePadAPI
 build_property.RootNamespace = GamePadAPI
-build_property.ProjectDir = C:\TI3\2025-1-p3-tidai-GamePed\src\back\GamePadAPI\GamePadAPI\
+build_property.ProjectDir = C:\Users\pablo\Desktop\Github Projects\2025-1-p3-tidai-GamePad\src\back\GamePadAPI\GamePadAPI\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\TI3\2025-1-p3-tidai-GamePed\src\back\GamePadAPI\GamePadAPI
+build_property.MSBuildProjectDirectory = C:\Users\pablo\Desktop\Github Projects\2025-1-p3-tidai-GamePad\src\back\GamePadAPI\GamePadAPI
 build_property._RazorSourceGeneratorDebug = 
-build_property.EffectiveAnalysisLevelStyle = 8.0
-build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Avaliacoes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZhbGlhY29lc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Avaliacoes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZhbGlhY29lc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Avaliacoes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZhbGlhY29lc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Avaliacoes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZhbGlhY29lc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Avaliacoes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZhbGlhY29lc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Posts/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Posts/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Posts/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Posts/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Posts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Sugestoes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VnZXN0b2VzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Sugestoes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VnZXN0b2VzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Sugestoes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VnZXN0b2VzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Sugestoes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VnZXN0b2VzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablo/Desktop/Github Projects/2025-1-p3-tidai-GamePad/src/back/GamePadAPI/GamePadAPI/Views/Sugestoes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VnZXN0b2VzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
