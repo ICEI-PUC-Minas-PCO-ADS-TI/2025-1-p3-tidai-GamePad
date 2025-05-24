@@ -99,6 +99,33 @@ Atualizado em: 09/04/2025
 | Pablo Marques      |    Telas padrão        |    01/04/2025      | 09/04/2025     | ✔️ | 09/04/2025          |
 | Pablo Marques      |   Estruturação básica do projeto        |    01/04/2025      | 09/04/2025     | ✔️ | 09/04/2025          |
 
+###  Divisão de papéis
+
+#### Sprint 3
+- _Scrum master_: Andry Marques
+- Documentação: Alex Mendes, Pablo Marques, Andry Marques, Ramon Pereira e Yalle Ramos
+
+- Front-end: Alex Mendes, Pablo Marques, Andry Marques, Ramon Pereira e Yalle Ramos
+
+- Back-end: Alex Mendes, Pablo Marques, Andry Marques, Ramon Pereira e Yalle Ramos
+
+- Banco de dados: Alex Mendes, Pablo Marques, Andry Marques, Ramon Pereira e Yalle Ramos
+
+###  Quadro de tarefas
+
+
+#### Sprint 3
+
+Atualizado em: 23/05/2025
+
+| Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
+| :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
+| Pablo Marques         |    Telas do front         |    09/04/2025      | 21/05/2025     | ✔️ | 21/05/2025          |
+| Alex Mendes         |    Backend e banco         |    09/04/2025      | 21/05/2025     | ✔️ | 21/05/2025          |
+| Ramon Pereira        |    Telas do front         |    09/04/2025      | 21/05/2025     | ✔️ | 21/05/2025          |
+| Yalle Ramos        |    Backend e banco         |    09/04/2025      | 21/05/2025     | ✔️ | 21/05/2025          |
+| Andry Marques      |    Backend e banco        |    09/04/2025      | 21/05/2025     | ✔️ | 21/05/2025          |
+
 
 Legenda:
 - ✔️: terminado
