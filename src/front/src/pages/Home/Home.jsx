@@ -3,18 +3,18 @@ import "./Home.css";
 import imgHeader from "../../assets/imgHeader.jpg";
 import gamepad1 from "../../assets/gamepad1.png";
 import gamepad2 from "../../assets/gamepad2.png";
-import Capa1 from "../../assets/capa1.jpg";
 import { Button } from "../../components/Button/Button";
-import SimpleCard from "../../components/cards/SimpleCard";
+import GameCard from "../../components/Cards/GameCard";
 import { Save, Hourglass, Telescope, HeartPlus } from "lucide-react";
 import GlassButton from "../../components/GlassButton/GlassButton";
 import CommentSlider from "../../components/slider/CommentSlider";
+import { GAMES } from "../../db/dbmock";
 
 export default function Home() {
   // Comentários para o slider
   const comments = [
     {
-      cover: Capa1,
+      cover: "https://via.placeholder.com/150",
       gameTitle: "Cyberpunk: 2077",
       gameYear: "2023",
       userAvatar: "https://randomuser.me/api/portraits/men/32.jpg",
@@ -24,7 +24,7 @@ export default function Home() {
       likes: 32,
     },
     {
-      cover: Capa1,
+      cover: "https://via.placeholder.com/150",
       gameTitle: "The Witcher 3",
       gameYear: "2015",
       userAvatar: "https://randomuser.me/api/portraits/women/44.jpg",
@@ -34,7 +34,7 @@ export default function Home() {
       likes: 54,
     },
     {
-      cover: Capa1,
+      cover: "https://via.placeholder.com/150",
       gameTitle: "Hollow Knight",
       gameYear: "2017",
       userAvatar: "https://randomuser.me/api/portraits/men/65.jpg",
@@ -78,14 +78,23 @@ export default function Home() {
         </div>
         {/* Grid de cards de jogos em alta */}
         <section className="mt-10 flex justify-center">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 w-full px-48 ">
-            {/* Todos os cards usam o mesmo componente e imagem por enquanto */}
-            <SimpleCard src={Capa1} alt="Capa 1" />
-            <SimpleCard src={Capa1} alt="Capa 2" />
-            <SimpleCard src={Capa1} alt="Capa 3" />
-            <SimpleCard src={Capa1} alt="Capa 4" />
-            <SimpleCard src={Capa1} alt="Capa 5" />
-            <SimpleCard src={Capa1} alt="Capa 6" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 w-full px-48">
+            {GAMES.slice(0, 6).map((game) => (
+              <Link
+                key={game.id}
+                to={`/games/${game.id}`}
+                style={{ textDecoration: "none" }}
+                tabIndex={0}
+                aria-label={`Ver detalhes de ${game.name}`}
+              >
+                <GameCard
+                  game={game}
+                  showOverlay={true}
+                  showButton={true}
+                  buttonText="Ver reviews"
+                />
+              </Link>
+            ))}
           </div>
         </section>
         <h2 className="w-full text-2xl font-bold mb-8 text-center pt-15 text-white md:col-span-2">

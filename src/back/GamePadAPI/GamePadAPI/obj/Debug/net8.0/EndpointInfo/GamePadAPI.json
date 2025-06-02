@@ -665,17 +665,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/LoginDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/LoginDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/LoginDto"
               }
             }
           }
@@ -748,6 +748,13 @@
           "plataforma": {
             "minLength": 1,
             "type": "string"
+          },
+          "jogos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Jogo"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -785,11 +792,28 @@
             "type": "integer",
             "format": "int32"
           },
+          "consoleP": {
+            "$ref": "#/components/schemas/ConsoleP"
+          },
           "avaliacoes": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Avaliacao"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "senha": {
+            "type": "string",
             "nullable": true
           }
         },

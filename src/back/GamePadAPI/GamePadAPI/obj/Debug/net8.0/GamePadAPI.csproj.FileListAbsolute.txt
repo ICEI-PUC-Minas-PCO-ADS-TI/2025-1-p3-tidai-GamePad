@@ -1063,3 +1063,7 @@ D:\Workspace\TIDAI\gameped\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\GameP
 >>>>>>> origin/backendCorrigido
 C:\Users\pablo\Desktop\Github Projects\2025-1-p3-tidai-GamePad\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\GamePadAPI.RazorAssemblyInfo.cache
 C:\Users\pablo\Desktop\Github Projects\2025-1-p3-tidai-GamePad\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\GamePadAPI.RazorAssemblyInfo.cs
+C:\Users\pablo\Desktop\Github Projects\2025-1-p3-tidai-GamePad\src\back\GamePadAPI\GamePadAPI\bin\Debug\net8.0\GamePadAPI.staticwebassets.endpoints.json
+C:\Users\pablo\Desktop\Github Projects\2025-1-p3-tidai-GamePad\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\pablo\Desktop\Github Projects\2025-1-p3-tidai-GamePad\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\pablo\Desktop\Github Projects\2025-1-p3-tidai-GamePad\src\back\GamePadAPI\GamePadAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
