@@ -4,13 +4,17 @@ import { GAMES, GENRES } from "../../db/dbmock";
 function GameFilters({ filters, setFilters }) {
   return (
     <div className="flex flex-wrap gap-4 mb-8">
-      <input
-        type="text"
-        placeholder="Buscar por nome..."
-        className="px-3 py-2 rounded-lg border border-zinc-600 bg-zinc-800 text-zinc-200"
-        value={filters.name}
-        onChange={(e) => setFilters((f) => ({ ...f, name: e.target.value }))}
-      />
+      {/* SearchBar controlada pelo filtro de nome */}
+      <div className="min-w-[220px] flex-1">
+        <input
+          type="text"
+          placeholder="Buscar por nome..."
+          className="px-3 py-2 rounded-lg border border-zinc-600 bg-zinc-800 text-zinc-200 w-full"
+          value={filters.name}
+          onChange={(e) => setFilters((f) => ({ ...f, name: e.target.value }))}
+          onBlur={() => setFilters((f) => ({ ...f, name: f.name.trim() }))}
+        />
+      </div>
       <select
         className="px-3 py-2 rounded-lg cursor-pointer border border-zinc-600 bg-zinc-800 text-zinc-200"
         value={filters.genre}

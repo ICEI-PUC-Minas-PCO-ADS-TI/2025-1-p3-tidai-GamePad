@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import imgHeader from "../../assets/imgHeader.jpg";
@@ -8,7 +9,7 @@ import GameCard from "../../components/Cards/GameCard";
 import { Save, Hourglass, Telescope, HeartPlus } from "lucide-react";
 import GlassButton from "../../components/GlassButton/GlassButton";
 import CommentSlider from "../../components/slider/CommentSlider";
-import { GAMES } from "../../db/dbmock";
+import { fetchGames } from "../../service/igdbService";
 
 export default function Home() {
   // Comentários para o slider
@@ -45,6 +46,23 @@ export default function Home() {
     },
   ];
 
+  // Estado para jogos da IGDB
+  const [games, setGames] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    fetchGames()
+      .then((data) => {
+        setGames(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <>
       <main>
@@ -79,22 +97,32 @@ export default function Home() {
         {/* Grid de cards de jogos em alta */}
         <section className="mt-10 flex justify-center">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 w-full px-48">
-            {GAMES.slice(0, 6).map((game) => (
-              <Link
-                key={game.id}
-                to={`/games/${game.id}`}
-                style={{ textDecoration: "none" }}
-                tabIndex={0}
-                aria-label={`Ver detalhes de ${game.name}`}
-              >
-                <GameCard
-                  game={game}
-                  showOverlay={true}
-                  showButton={true}
-                  buttonText="Ver reviews"
-                />
-              </Link>
-            ))}
+            {loading && (
+              <div className="col-span-6 text-center text-white">
+                Carregando jogos...
+              </div>
+            )}
+            {error && (
+              <div className="col-span-6 text-center text-red-500">{error}</div>
+            )}
+            {!loading &&
+              !error &&
+              games.slice(0, 6).map((game) => (
+                <Link
+                  key={game.id}
+                  to={`/games/${game.id}`}
+                  style={{ textDecoration: "none" }}
+                  tabIndex={0}
+                  aria-label={`Ver detalhes de ${game.name}`}
+                >
+                  <GameCard
+                    game={game}
+                    showOverlay={true}
+                    showButton={true}
+                    buttonText="Ver reviews"
+                  />
+                </Link>
+              ))}
           </div>
         </section>
         <h2 className="w-full text-2xl font-bold mb-8 text-center pt-15 text-white md:col-span-2">

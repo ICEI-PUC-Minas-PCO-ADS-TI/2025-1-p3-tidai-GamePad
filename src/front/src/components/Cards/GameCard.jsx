@@ -21,7 +21,17 @@ export default function GameCard({
       style={{ minHeight: 260 }}
     >
       <img
-        src={game.cover}
+        src={
+          game.cover && game.cover.url
+            ? (() => {
+                const url = game.cover.url.replace(
+                  /t_thumb|t_cover_small/g,
+                  "t_original"
+                );
+                return url.startsWith("http") ? url : `https:${url}`;
+              })()
+            : "URL_DA_IMAGEM_PADRAO"
+        }
         alt={game.name}
         className="w-full h-64 object-cover"
         loading="lazy"
@@ -42,12 +52,9 @@ export default function GameCard({
               )}
             </div>
           )}
-          {game.genre && ( 
-            <p className="text-xs text-cyan-400 mb-2">Gênero: <span className="text-fuchsia-400">{game.genre}</span></p>
-          )}
-          {game.description && (
-            <p className="text-zinc-200 text-sm text-center">
-              {game.description}
+          {game.genre && (
+            <p className="text-xs text-cyan-400 mb-2">
+              Gênero: <span className="text-fuchsia-400">{game.genre}</span>
             </p>
           )}
           {showButton && (

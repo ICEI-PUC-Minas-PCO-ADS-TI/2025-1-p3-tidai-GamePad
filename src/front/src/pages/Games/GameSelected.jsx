@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { GAMES } from "../../db/dbmock";
+// import { GAMES } from "../../db/dbmock";
+
 import {
   Star,
   Heart,
@@ -18,9 +19,89 @@ import {
 export default function GameSelected() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const game = GAMES.find((g) => String(g.id) === String(id));
   const [filter, setFilter] = useState("recent");
+  const [userStatus, setUserStatus] = useState([]);
+  const [userStars, setUserStars] = useState(0);
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [activeTab, setActiveTab] = useState("about");
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const [showAllLanguages, setShowAllLanguages] = useState(false);
 
+  const [game, setGame] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [, setError] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+    // Busca apenas pelo id
+    fetch(`http://localhost:5069/api/igdb/games?id=${id}`)
+      .then(async (res) => {
+        if (res.ok) {
+          const data = await res.json();
+          if (!cancelled && data && data.length > 0) {
+            setGame(data[0]);
+            setLoading(false);
+            return;
+          }
+        }
+        if (!cancelled) {
+          setGame(null);
+          setLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setGame(null);
+          setLoading(false);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  const images =
+    game && game.screenshots && game.screenshots.length > 0
+      ? game.screenshots.map((s) =>
+          s.url.startsWith("http")
+            ? s.url
+            : `https:${s.url.replace("t_thumb", "t_1080p")}`
+        )
+      : [
+          game && game.cover && game.cover.url
+            ? game.cover.url.startsWith("http")
+              ? game.cover.url
+              : `https:${game.cover.url.replace("t_thumb", "t_cover_big")}`
+            : "",
+        ];
+
+  // se tiver screenshots, usa elas como imagens caso nao tenha usara a capa
+  const backgroundImg =
+    images && images.length > 0
+      ? images[0]
+      : game && game.cover && game.cover.url
+      ? game.cover.url.startsWith("http")
+        ? game.cover.url
+        : `https:${game.cover.url.replace("t_thumb", "t_cover_big")}`
+      : "";
+
+  const handlePrevImage = () => {
+    setGalleryIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+  const handleNextImage = () => {
+    setGalleryIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-900 text-white">
+        <h2 className="text-2xl font-bold mb-4">Carregando jogo...</h2>
+      </div>
+    );
+  }
   if (!game) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-900 text-white">
@@ -64,16 +145,23 @@ export default function GameSelected() {
     </div>
   );
 
-  // Mock para awards (troféus)
-  const awards = game.awards || [
-    { name: "Game of the Year", year: 2022 },
-    { name: "Best Soundtrack", year: 2022 },
-  ];
+  // Função para formatar a data de lançamento
+  function formatReleaseDate(timestamp) {
+    if (!timestamp) return "-";
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString("pt-BR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
 
-  // Mock para status do usuário (exemplo)
-  const [userStatus, setUserStatus] = useState(null); // "playing", "played", "wishlist"
-  const [userStars, setUserStars] = useState(0);
-  const [isFavorited, setIsFavorited] = useState(false);
+  // Se o jogo tiver mais de 5 idiomas, mostra os primeiros 5 e um botão para ver os demais
+  const languages = (game.language_supports || [])
+    .map((ls) => (ls.language && ls.language.name ? ls.language.name : null))
+    .filter(Boolean);
+  const mainLanguages = languages.slice(0, 5);
+  const extraLanguages = languages.slice(5);
 
   return (
     <div className="min-h-screen bg-zinc-900">
@@ -83,7 +171,7 @@ export default function GameSelected() {
       >
         <div className="relative w-full md:px-full">
           <img
-            src={game.background || game.cover}
+            src={backgroundImg}
             alt="Header"
             className="mask-x-from-70% mask-x-to-90% mask-y-from-80% mask-y-to-90% w-full"
             style={{
@@ -99,7 +187,16 @@ export default function GameSelected() {
             style={{ maxWidth: "100%" }}
           >
             <img
-              src={game.cover}
+              src={
+                game.cover && game.cover.url
+                  ? game.cover.url.startsWith("http")
+                    ? game.cover.url.replace("t_thumb", "t_cover_big")
+                    : `https:${game.cover.url.replace(
+                        "t_thumb",
+                        "t_cover_big"
+                      )}`
+                  : ""
+              }
               alt={game.name}
               className="w-40 h-56 md:w-56 md:h-80 object-cover rounded-2xl shadow-2xl"
               style={{
@@ -118,16 +215,18 @@ export default function GameSelected() {
                 {game.name}
               </h1>
               <span className="text-lg text-zinc-300 font-semibold mb-1">
-                Lançamento: <span className="text-white">{game.year}</span>
+                Lançamento:{" "}
+                <span className="text-white">
+                  {formatReleaseDate(game.first_release_date)}
+                </span>
               </span>
             </div>
           </div>
         </div>
       </header>
-      {/* Seção de 3 colunas */}
       <section className="w-full flex flex-col items-center">
-        <div className="w-full flex flex-col md:grid md:grid-cols-3 gap-4 px-0 md:px-48 mt-10">
-          {/* Coluna 1: Interações e ratings */}
+        <div className="w-full flex flex-col md:flex-row gap-8 px-0 md:px-48 mt-10">
+          {/* Coluna da esquerda: Stats/Estrelas */}
           <div className="flex flex-col gap-6 bg-zinc-800/90 rounded-2xl p-6 shadow-lg min-w-[260px] max-w-xs">
             {/* Avaliação por estrelas */}
             <div>
@@ -146,54 +245,70 @@ export default function GameSelected() {
                   />
                 ))}
               </div>
-              {/* Linha horizontal após as estrelas */}
               <hr className="my-3 border-zinc-700" />
-              {/* Botões de status em grid 2 colunas */}
+              {/* Botões de status */}
               <div className="grid grid-cols-2 gap-2 mb-3">
                 <button
-                  className={`flex items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
-                    userStatus === "playing"
+                  className={`flex cursor-pointer items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
+                    userStatus.includes("playing")
                       ? "bg-cyan-600 text-white"
                       : "bg-zinc-700 text-cyan-300 hover:bg-cyan-800"
                   }`}
-                  onClick={() => setUserStatus("playing")}
+                  onClick={() => {
+                    setUserStatus((prev) =>
+                      prev.includes("playing")
+                        ? prev.filter((s) => s !== "playing")
+                        : [...prev, "playing"]
+                    );
+                  }}
                 >
                   <Hourglass size={18} /> Jogando
                 </button>
                 <button
-                  className={`flex items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
-                    userStatus === "played"
+                  className={`flex cursor-pointer items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
+                    userStatus.includes("played")
                       ? "bg-green-600 text-white"
                       : "bg-zinc-700 text-green-400 hover:bg-green-800"
                   }`}
-                  onClick={() => setUserStatus("played")}
+                  onClick={() => {
+                    setUserStatus((prev) =>
+                      prev.includes("played")
+                        ? prev.filter((s) => s !== "played")
+                        : [...prev, "played"]
+                    );
+                  }}
                 >
                   <CheckCircle size={18} /> Zerado
                 </button>
                 <button
-                  className={`flex items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
-                    userStatus === "wishlist"
+                  className={`flex items-center cursor-pointer gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
+                    userStatus.includes("wishlist")
                       ? "bg-fuchsia-600 text-white"
                       : "bg-zinc-700 text-fuchsia-400 hover:bg-fuchsia-800"
                   }`}
-                  onClick={() => setUserStatus("wishlist")}
+                  onClick={() => {
+                    setUserStatus((prev) =>
+                      prev.includes("wishlist")
+                        ? prev.filter((s) => s !== "wishlist")
+                        : [...prev, "wishlist"]
+                    );
+                  }}
                 >
-                  <Bookmark size={18} /> Wishlist
+                  <Bookmark size={18} /> Desejo
                 </button>
                 <button
-                  className="flex items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold bg-zinc-700 text-zinc-300 hover:bg-zinc-800"
+                  className="flex cursor-pointer items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold bg-zinc-700 text-zinc-300 hover:bg-zinc-800"
                   title="Adicionar a uma lista (em breve)"
                   disabled
                 >
                   <List size={18} /> Lista
                 </button>
               </div>
-              {/* Linha horizontal antes do botão de favoritar */}
               <hr className="my-3 border-zinc-700" />
-              {/* Botão de favoritar centralizado */}
+              {/* Botão de favoritar */}
               <div className="flex justify-center">
                 <button
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold mt-2 transition ${
+                  className={`flex cursor-pointer items-center gap-2 px-4 py-2 rounded-lg font-bold mt-2 transition ${
                     isFavorited
                       ? "bg-pink-600 text-white"
                       : "bg-zinc-700 text-pink-400 hover:bg-pink-700"
@@ -209,14 +324,12 @@ export default function GameSelected() {
                 </button>
               </div>
             </div>
-            {/* Ratings e estatísticas */}
-            <div className="mt-6">
-              {/* Linha horizontal acima da média */}
+            {/* Ratings e stats*/}
+            <div>
               <hr className="mb-4 border-zinc-700" />
-              {/* Média destacada */}
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center  gap-3 mb-6">
                 <Star size={32} fill="#facc15" color="#facc15" />
-                <span className="text-3xl font-bold text-yellow-300">
+                <span className="text-3xl font-bold  text-yellow-300">
                   {game.rating}
                 </span>
                 <span className="text-zinc-400 text-base font-semibold">
@@ -224,11 +337,13 @@ export default function GameSelected() {
                 </span>
               </div>
               {/* Distribuição de avaliações */}
-              <span className="text-zinc-400 font-semibold block mb-2 mt-4">
-                Distribuição de avaliações:
-              </span>
-              <div className="mt-2 mb-2">{renderStarsChart()}</div>
-              <div className="flex flex-col gap-2 mt-4">
+              <div className="flex items-center  flex-col">
+                <span className="text-zinc-400 font-semibold block mb-10 mt-4">
+                  Distribuição de avaliações:
+                </span>
+                <div className="mt-2 mb-2">{renderStarsChart()}</div>
+              </div>
+              <div className="flex flex-col items-center gap-2 mt-4">
                 <div className="flex items-center gap-2 text-pink-400">
                   <Heart size={18} /> {stats.favorites} Favoritaram
                 </div>
@@ -244,60 +359,310 @@ export default function GameSelected() {
               </div>
             </div>
           </div>
-          {/* Coluna 2: Biografia */}
-          <div className="col-span-1 flex flex-col items-start justify-start min-w-[260px]">
-            <h2 className="text-2xl font-bold text-cyan-400 mb-2">
-              Sobre o jogo
-            </h2>
-            <p className="text-zinc-200 text-lg">{game.description}</p>
-          </div>
-          {/* Coluna 3: Plataformas, gêneros, awards */}
-          <div className="col-span-1 flex flex-col gap-6 min-w-[260px] max-w-xs">
-            <div>
-              <span className="text-zinc-400 font-semibold">Plataformas:</span>
-              <div className="flex flex-wrap gap-2 mt-1">
-                {(game.platforms || []).map((p, idx) => (
-                  <span
-                    key={idx}
-                    className="bg-cyan-700 text-white px-3 py-1 rounded-full text-xs font-semibold capitalize"
-                  >
-                    {p}
-                  </span>
-                ))}
+          {/* Coluna da direita: Sobre o jogo + informações */}
+          <div className="flex-1 flex flex-col gap-8">
+            {/* Sobre o jogo e galeria */}
+            <div className="flex flex-col items-start justify-start w-full">
+              {/* Abas */}
+              <div className="flex gap-2 mb-4">
+                <button
+                  className={`px-4 py-2 cursor-pointer rounded-t-lg font-semibold transition ${
+                    activeTab === "about"
+                      ? "bg-cyan-600 text-white"
+                      : "bg-zinc-800 text-cyan-300 hover:bg-cyan-700"
+                  }`}
+                  onClick={() => setActiveTab("about")}
+                >
+                  Sobre o jogo
+                </button>
+                <button
+                  className={`px-4 py-2 cursor-pointer rounded-t-lg font-semibold transition ${
+                    activeTab === "gallery"
+                      ? "bg-cyan-600 text-white"
+                      : "bg-zinc-800 text-cyan-300 hover:bg-cyan-700"
+                  }`}
+                  onClick={() => setActiveTab("gallery")}
+                >
+                  Galeria
+                </button>
               </div>
+              {/* Conteúdo da aba */}
+              {activeTab === "about" ? (
+                <>
+                  <h2 className="text-2xl font-bold text-cyan-400 mb-2">
+                    Sobre o jogo
+                  </h2>
+                  <div className="relative w-full">
+                    <p
+                      className={`text-zinc-200 text-lg transition-all ${
+                        !showFullDescription
+                          ? "line-clamp-6 max-h-[9.5em] overflow-hidden"
+                          : ""
+                      }`}
+                      style={{
+                        display: "-webkit-box",
+                        WebkitLineClamp: !showFullDescription ? 6 : "unset",
+                        WebkitBoxOrient: "vertical",
+                        overflow: !showFullDescription ? "hidden" : "visible",
+                      }}
+                    >
+                      {game.summary}
+                    </p>
+                    {/* Ler mais aparece se a descrição for longa */}
+                    {!showFullDescription && (
+                      <button
+                        className="absolute bottom-0 right-0 bg-gradient-to-l cursor-pointer from-zinc-900/90 to-transparent px-3 py-1 text-cyan-400 font-semibold rounded-bl-xl hover:underline transition"
+                        style={{
+                          display:
+                            game.description && game.description.length > 250
+                              ? "block"
+                              : "none",
+                        }}
+                        onClick={() => setShowFullDescription(true)}
+                      >
+                        Ler mais
+                      </button>
+                    )}
+                    {showFullDescription && (
+                      <button
+                        className="mt-2 text-cyan-400 cursor-pointer font-semibold hover:underline transition"
+                        onClick={() => setShowFullDescription(false)}
+                      >
+                        Mostrar menos
+                      </button>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className="w-full flex flex-col items-center">
+                  <div
+                    className="relative w-full flex justify-center items-center mb-2"
+                    style={{ minHeight: 240 }}
+                  >
+                    <button
+                      className="absolute left-0 z-10 bg-zinc-800/70 hover:bg-cyan-600 text-white rounded-full p-2 transition"
+                      onClick={handlePrevImage}
+                      aria-label="Imagem anterior"
+                      style={{ top: "50%", transform: "translateY(-50%)" }}
+                    >
+                      &#8592;
+                    </button>
+                    <img
+                      src={images[galleryIndex]}
+                      alt={`Imagem ${galleryIndex + 1}`}
+                      className="rounded-xl shadow-lg object-contain max-h-60 max-w-full"
+                      style={{ background: "#222", minHeight: 180 }}
+                    />
+                    <button
+                      className="absolute right-0 z-10 bg-zinc-800/70 hover:bg-cyan-600 text-white rounded-full p-2 transition"
+                      onClick={handleNextImage}
+                      aria-label="Próxima imagem"
+                      style={{ top: "50%", transform: "translateY(-50%)" }}
+                    >
+                      &#8594;
+                    </button>
+                  </div>
+                  <div className="flex gap-2 justify-center mt-2">
+                    {images.map((img, idx) => (
+                      <button
+                        key={idx}
+                        className={`w-3 h-3 rounded-full border-2 ${
+                          galleryIndex === idx
+                            ? "bg-cyan-400 border-cyan-600"
+                            : "bg-zinc-600 border-zinc-400"
+                        }`}
+                        onClick={() => setGalleryIndex(idx)}
+                        aria-label={`Selecionar imagem ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-            <div>
-              <span className="text-zinc-400 font-semibold">Gênero:</span>
-              <div className="flex flex-wrap gap-2 mt-1">
-                <span className="bg-fuchsia-700 text-white px-3 py-1 rounded-full text-xs font-semibold capitalize">
-                  {game.genre}
+            {/* Informações do jogo */}
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Plataformas */}
+              <div>
+                <span className="text-zinc-400 font-semibold">
+                  Plataformas:
                 </span>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {(game.platforms || []).map((p, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-cyan-700 text-white px-3 py-1 rounded-full text-xs font-semibold capitalize"
+                    >
+                      {typeof p === "object" && p !== null ? p.name : p}
+                    </span>
+                  ))}
+                </div>
+                {/* Idiomas*/}
+                {languages.length > 0 && (
+                  <div className="mt-3">
+                    <span className="text-zinc-400 font-semibold">
+                      Idiomas:
+                    </span>
+                    <ul className="flex flex-wrap gap-2 mt-1">
+                      {(showAllLanguages ? languages : mainLanguages).map(
+                        (lang, idx) => (
+                          <li
+                            key={idx}
+                            className="bg-zinc-700 text-white px-2 py-1 rounded text-xs"
+                          >
+                            {lang}
+                          </li>
+                        )
+                      )}
+                    </ul>
+                    {extraLanguages.length > 0 && !showAllLanguages && (
+                      <button
+                        className="mt-2 text-cyan-400 cursor-pointer font-semibold hover:underline transition text-xs"
+                        onClick={() => setShowAllLanguages(true)}
+                      >
+                        Ver todos os idiomas
+                      </button>
+                    )}
+                    {showAllLanguages && extraLanguages.length > 0 && (
+                      <button
+                        className="mt-2 text-cyan-400 cursor-pointer font-semibold hover:underline transition text-xs"
+                        onClick={() => setShowAllLanguages(false)}
+                      >
+                        Mostrar menos
+                      </button>
+                    )}
+                  </div>
+                )}
+                {/* Links oficiais */}
+                {game.websites &&
+                  Array.isArray(game.websites) &&
+                  game.websites.length > 0 && (
+                    <div className="mt-3">
+                      <span className="text-zinc-400 font-semibold">
+                        Websites:
+                      </span>
+                      <ul className="flex flex-wrap gap-2 mt-1">
+                        {game.websites.map((w, idx) => (
+                          <li key={idx}>
+                            <a
+                              href={w.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline text-cyan-400 hover:text-cyan-200 text-xs"
+                            >
+                              {w.category ? w.category : w.url}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
               </div>
-            </div>
-            <div>
-              <span className="text-zinc-400 font-semibold">Awards:</span>
-              <div className="flex flex-col gap-1 mt-1">
-                {awards.map((a, idx) => (
-                  <span
-                    key={idx}
-                    className="flex items-center gap-2 text-yellow-400 text-sm"
-                  >
-                    <Trophy size={16} /> {a.name}{" "}
-                    <span className="text-zinc-400">({a.year})</span>
-                  </span>
-                ))}
+              {/* Gêneros, temas, modos, desenvolvedora */}
+              <div>
+                <span className="text-zinc-400 font-semibold">Gêneros:</span>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {(game.genres || []).map((g, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-fuchsia-700 text-white px-3 py-1 rounded-full text-xs font-semibold capitalize"
+                    >
+                      {typeof g === "object" && g !== null ? g.name : g}
+                    </span>
+                  ))}
+                </div>
+                {/* Temas */}
+                {game.themes &&
+                  Array.isArray(game.themes) &&
+                  game.themes.length > 0 && (
+                    <div className="mt-3">
+                      <span className="text-zinc-400 font-semibold">
+                        Temas:
+                      </span>
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        {game.themes.map((t, idx) => (
+                          <span
+                            key={idx}
+                            className="bg-indigo-700 text-white px-2 py-1 rounded text-xs"
+                          >
+                            {t.name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                {/* Modos de jogo */}
+                {game.game_modes &&
+                  Array.isArray(game.game_modes) &&
+                  game.game_modes.length > 0 && (
+                    <div className="mt-3">
+                      <span className="text-zinc-400 font-semibold">
+                        Modos de Jogo:
+                      </span>
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        {game.game_modes.map((m, idx) => (
+                          <span
+                            key={idx}
+                            className="bg-cyan-800 text-white px-2 py-1 rounded text-xs"
+                          >
+                            {m.name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                {/* Desenvolvedora */}
+                {game.involved_companies &&
+                  Array.isArray(game.involved_companies) &&
+                  game.involved_companies.length > 0 && (
+                    <div className="mt-3">
+                      <span className="text-zinc-400 font-semibold">
+                        Desenvolvedora(s):
+                      </span>
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        {game.involved_companies
+                          .filter((ic) => ic.developer)
+                          .map((ic, idx) => (
+                            <span
+                              key={idx}
+                              className="bg-green-700 text-white px-2 py-1 rounded text-xs"
+                            >
+                              {ic.company && ic.company.name
+                                ? ic.company.name
+                                : ""}
+                            </span>
+                          ))}
+                      </div>
+                      <span className="text-zinc-400 font-semibold mt-2 block">
+                        Publisher(s):
+                      </span>
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        {game.involved_companies
+                          .filter((ic) => ic.publisher)
+                          .map((ic, idx) => (
+                            <span
+                              key={idx}
+                              className="bg-blue-700 text-white px-2 py-1 rounded text-xs"
+                            >
+                              {ic.company && ic.company.name
+                                ? ic.company.name
+                                : ""}
+                            </span>
+                          ))}
+                      </div>
+                    </div>
+                  )}
               </div>
             </div>
           </div>
         </div>
-        {/* Seção de comentários: ocupa 2 colunas (col-span-2) logo após a bio e plataformas */}
+        {/* Seção de comentários */}
         <div className="w-full md:px-48 mt-8">
           <div className="w-full rounded-2xl p-6 shadow-none md:col-span-2">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-bold text-cyan-300">Comentários</h2>
               <div className="flex gap-2">
                 <button
-                  className={`px-3 py-1 rounded ${
+                  className={`px-3 cursor-pointer py-1 rounded ${
                     filter === "recent"
                       ? "bg-cyan-600 text-white"
                       : "bg-zinc-700 text-zinc-300"
@@ -307,7 +672,7 @@ export default function GameSelected() {
                   Mais recentes
                 </button>
                 <button
-                  className={`px-3 py-1 rounded ${
+                  className={`px-3 cursor-pointer py-1 rounded ${
                     filter === "liked"
                       ? "bg-cyan-600 text-white"
                       : "bg-zinc-700 text-zinc-300"
@@ -320,16 +685,13 @@ export default function GameSelected() {
             </div>
             {/* Espaço para novo comentário */}
             <div className="flex flex-col md:flex-row gap-4 items-start mb-8">
-              {/* Removido as estrelas do comentário */}
               <textarea
                 className="flex-1 bg-zinc-900 text-zinc-200 rounded-xl px-4 py-3 border-2 border-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition min-h-[60px] resize-none"
                 placeholder="Compartilhe sua experiência com este jogo..."
-                // value={userComment}
-                // onChange={(e) => setUserComment(e.target.value)}
                 maxLength={600}
               />
               <button
-                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold transition shadow-lg"
+                className="flex cursor-pointer items-center gap-2 px-5 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold transition shadow-lg"
                 disabled
               >
                 Comentar
@@ -356,7 +718,6 @@ export default function GameSelected() {
                       <span className="font-bold text-cyan-300">
                         {c.user.name}
                       </span>
-                      {/* Removido as estrelas do comentário */}
                       <span className="text-zinc-400 text-xs ml-2">
                         {c.platform}
                       </span>
@@ -375,17 +736,6 @@ export default function GameSelected() {
           </div>
         </div>
       </section>
-      {/* Conteúdo principal, sem corte visual */}
-      <div className="max-w-6xl mx-auto pt-32 md:pt-32 flex flex-col gap-10 -mt-16 px-4 md:px-48">
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Coluna esquerda: só a foto de perfil */}
-          <div className="md:w-1/3 flex flex-col items-start mt-4">
-            {/* Espaço reservado para alinhar com a foto de perfil do header */}
-            <div style={{ height: "calc(7rem + 2.5rem)" }} />{" "}
-            {/* h-56 + bottom offset */}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

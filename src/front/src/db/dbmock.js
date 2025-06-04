@@ -85,7 +85,7 @@ export const GAMES = [
     genre: "Ação",
     year: 2023,
     rating: 4.5,
-    description: "Ritmo e ação em um dos lançamentos mais recentes.",
+    description: "Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.Ritmo e ação em um dos lançamentos mais recentes.",
     platforms: ["pc", "xbox"],
     isNew: true,
   },

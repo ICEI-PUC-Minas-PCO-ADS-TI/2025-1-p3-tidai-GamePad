@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { useUser } from "../../context/UserContext";
-import SearchBar from "../SearchBar/SearchBar";
+// import SearchBar from "../SearchBar/SearchBar";
 import { Menu } from "lucide-react";
 import logo from "../../assets/gamepadHeader.png";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import { Button } from "../../components/Button/Button";
 import LoginModal from "../Modals/LoginModal";
 import RegisterModal from "../Modals/RegisterModal";
 import { ChevronDown, Flame, Star, List, Gamepad2 } from "lucide-react";
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -115,13 +116,6 @@ const Navbar = () => {
                 >
                   <Gamepad2 size={16} /> Switch
                 </Link>
-                <Link
-                  to="/games"
-                  state={{ menu: "platform", platform: "mobile" }}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-yellow-400"
-                >
-                  <Gamepad2 size={16} /> Mobile
-                </Link>
               </div>
             )}
           </li>
@@ -134,7 +128,8 @@ const Navbar = () => {
         </ul>
 
         <div className="relative hidden md:flex items-center justify-center gap-3 ">
-          <SearchBar />
+          {/* SearchBar com autocomplete removida temporariamente */}
+          {/* <NavbarSearchAutocomplete /> */}
           {user && user.imgUser ? (
             <div className="relative user-avatar-dropdown">
               <img
