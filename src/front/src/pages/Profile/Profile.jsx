@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import ProfileTabs from "../../components/Profile/ProfileTabs";
 import ProfileBio from "../../components/Profile/ProfileBio";
@@ -38,6 +38,7 @@ export default function Profile() {
   const { username } = useParams();
   const { user } = useUser();
   const [activeTab, setActiveTab] = useState("profile");
+  const navigate = useNavigate();
 
   if (
     !user ||
@@ -74,7 +75,7 @@ export default function Profile() {
               username.toLowerCase() ===
               user.nome.toLowerCase().replace(/\s+/g, "-")
             }
-            onEdit={() => {}}
+            onEdit={() => navigate("/settings")}
             onFollow={() => {}}
           />
         </div>

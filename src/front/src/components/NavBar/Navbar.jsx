@@ -57,7 +57,8 @@ const Navbar = () => {
           />
         </Link>
         {/* Menus principais */}
-        <ul className="hidden xl:flex items-center gap-12 font-semibold text-base">
+        <ul className="hidden xl:flex items-center gap-8 font-semibold text-base ml-8">
+          {/* gap-8 e ml-8 para espaçamento mais equilibrado */}
           <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
             <Link to="/">Home</Link>
           </li>
@@ -103,14 +104,12 @@ const Navbar = () => {
           </li>
         </ul>
         {/* SearchBar */}
-        <div className="flex-1 flex justify-end px-4">
-          <div className="w-full max-w-xs">
-            <SearchBar
-              value={navbarSearch}
-              onChange={(e) => setNavbarSearch(e.target.value)}
-              onSearch={handleNavbarSearch}
-            />
-          </div>
+        <div className="mx-6 w-full max-w-xs flex items-center">
+          <SearchBar
+            value={navbarSearch}
+            onChange={(e) => setNavbarSearch(e.target.value)}
+            onSearch={handleNavbarSearch}
+          />
         </div>
         {/* Resto da navbar: login/avatar/menu mobile */}
         <div className="relative hidden md:flex items-center justify-center gap-3 ">
@@ -149,7 +148,7 @@ const Navbar = () => {
 
                   {/* ao clicar na opção vai mudar a query string para ?tab=liked por exemplo e ira para a aba de menu seguindo a query string */}
                   <Link
-                    to={`/profile/${user.nome
+                    to={`/${user.nome
                       .toLowerCase()
                       .replace(/\s+/g, "-")}?tab=profile`}
                     className="px-5 py-2 text-zinc-200 hover:bg-zinc-700 hover:text-cyan-300 transition text-left"
@@ -158,7 +157,7 @@ const Navbar = () => {
                     Meu Perfil
                   </Link>
                   <Link
-                    to={`/profile/${user.nome
+                    to={`/${user.nome
                       .toLowerCase()
                       .replace(/\s+/g, "-")}?tab=liked`}
                     className="px-5 py-2 text-zinc-200 hover:bg-zinc-700 hover:text-cyan-300 transition text-left"
@@ -167,7 +166,7 @@ const Navbar = () => {
                     Jogos Curtidos
                   </Link>
                   <Link
-                    to={`/profile/${user.nome
+                    to={`/${user.nome
                       .toLowerCase()
                       .replace(/\s+/g, "-")}?tab=reviews`}
                     className="px-5 py-2 text-zinc-200 hover:bg-zinc-700 hover:text-cyan-300 transition text-left"
@@ -176,7 +175,7 @@ const Navbar = () => {
                     Reviews
                   </Link>
                   <Link
-                    to={`/profile/${user.nome
+                    to={`/${user.nome
                       .toLowerCase()
                       .replace(/\s+/g, "-")}?tab=lists`}
                     className="px-5 py-2 text-zinc-200 hover:bg-zinc-700 hover:text-cyan-300 transition text-left"
@@ -186,16 +185,14 @@ const Navbar = () => {
                   </Link>
                   <hr className="my-2 border-zinc-700" />
                   <Link
-                    to={`/profile/${user.nome
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}?tab=settings`}
+                    to="/settings"
                     className="px-5 py-2 text-zinc-400 hover:bg-zinc-700 hover:text-cyan-300 transition text-left"
                     onClick={() => setDropdownOpen(false)}
                   >
                     Configurações
                   </Link>
                   <button
-                    className="w-full text-left px-5 py-2 text-red-400 hover:bg-zinc-700 hover:text-red-300 rounded-b-xl transition"
+                    className="cursor-pointer w-full text-left px-5 py-2 text-red-400 hover:bg-zinc-700 hover:text-red-300 rounded-b-xl transition"
                     onClick={handleLogout}
                   >
                     Sair
