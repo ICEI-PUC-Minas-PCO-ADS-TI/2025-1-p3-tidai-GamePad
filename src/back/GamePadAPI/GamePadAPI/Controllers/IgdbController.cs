@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json; // Adicione este using
 
 namespace GamePadAPI.Controllers
 {
@@ -25,6 +26,7 @@ namespace GamePadAPI.Controllers
             [FromQuery] string year = "",
             [FromQuery] string platform = "",
             [FromQuery] bool recent = false,
+            [FromQuery] bool popular = false,
             [FromQuery] int limit = 50,
             [FromQuery] int offset = 0,
             [FromQuery] int? id = null
@@ -79,6 +81,12 @@ namespace GamePadAPI.Controllers
                     var threeMonthsAgo = now - 60 * 60 * 24 * 30 * 3;
                     filters.Add($"first_release_date > {threeMonthsAgo}");
                 }
+
+                if (popular)
+                {
+                    filters.Add("total_rating != null & total_rating_count > 100");
+                    sb.Append(" sort total_rating desc;");
+                }
                 
 
                 if (filters.Count > 0)
@@ -107,6 +115,20 @@ namespace GamePadAPI.Controllers
             var query = "fields id,name,abbreviation,category,platform_family.name; limit 100;";
             var content = new StringContent(query, Encoding.UTF8, "text/plain");
             var response = await client.PostAsync("https://api.igdb.com/v4/platforms", content);
+            var result = await response.Content.ReadAsStringAsync();
+            return Content(result, "application/json");
+        }
+
+        [HttpGet("genres")]
+        public async Task<IActionResult> GetGenres()
+        {
+            var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Add("Client-ID", ClientId);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+
+            var query = "fields id,name,slug; limit 100;";
+            var content = new StringContent(query, Encoding.UTF8, "text/plain");
+            var response = await client.PostAsync("https://api.igdb.com/v4/genres", content);
             var result = await response.Content.ReadAsStringAsync();
             return Content(result, "application/json");
         }

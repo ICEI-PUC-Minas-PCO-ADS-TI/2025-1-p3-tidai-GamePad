@@ -1,7 +1,49 @@
-import React from "react";
-import { GAMES, GENRES } from "../../db/dbmock";
+import React, { useEffect, useState } from "react";
+import { fetchPlatforms, fetchGenres } from "../../service/igdbService";
 
 function GameFilters({ filters, setFilters }) {
+  const [platforms, setPlatforms] = useState([]);
+  const [loadingPlatforms, setLoadingPlatforms] = useState(false);
+  const [platformsError, setPlatformsError] = useState(null);
+
+  const [genres, setGenres] = useState([]);
+  const [loadingGenres, setLoadingGenres] = useState(false);
+  const [genresError, setGenresError] = useState(null);
+
+  useEffect(() => {
+    setLoadingPlatforms(true);
+    fetchPlatforms()
+      .then((data) => {
+        setPlatforms(data);
+        setLoadingPlatforms(false);
+      })
+      .catch(() => {
+        setPlatformsError("Erro ao buscar plataformas");
+        setLoadingPlatforms(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    setLoadingGenres(true);
+    fetchGenres()
+      .then((data) => {
+        setGenres(data);
+        setLoadingGenres(false);
+      })
+      .catch(() => {
+        setGenresError("Erro ao buscar gêneros");
+        setLoadingGenres(false);
+      });
+  }, []);
+
+  // debug para ver os generos 
+  console.log("Gêneros carregados:", genres);
+
+  // Gera anos de 1980 até o ano atual
+  const currentYear = new Date().getFullYear();
+  const years = [];
+  for (let y = currentYear; y >= 1980; y--) years.push(y);
+
   return (
     <div className="flex flex-wrap gap-4 mb-8">
       {/* SearchBar controlada pelo filtro de nome */}
@@ -21,25 +63,42 @@ function GameFilters({ filters, setFilters }) {
         onChange={(e) => setFilters((f) => ({ ...f, genre: e.target.value }))}
       >
         <option value="">Todos os gêneros</option>
-        {GENRES.map((g) => (
-          <option key={g} value={g}>
-            {g}
+        {loadingGenres && <option>Carregando...</option>}
+        {genresError && <option>{genresError}</option>}
+        {genres.map((g) => (
+          <option key={g.id} value={g.name}>
+            {g.name}
           </option>
         ))}
       </select>
       <select
-        className="px-3 py-2  rounded-lg border cursor-pointer border-zinc-600 bg-zinc-800 text-zinc-200"
+        className="px-3 py-2 rounded-lg border cursor-pointer border-zinc-600 bg-zinc-800 text-zinc-200"
         value={filters.year}
         onChange={(e) => setFilters((f) => ({ ...f, year: e.target.value }))}
       >
         <option value="">Todos os anos</option>
-        {[...new Set(GAMES.map((g) => g.year))]
-          .sort((a, b) => b - a)
-          .map((y) => (
-            <option key={y} value={y}>
-              {y}
-            </option>
-          ))}
+        {years.map((y) => (
+          <option key={y} value={y}>
+            {y}
+          </option>
+        ))}
+      </select>
+
+      <select
+        className="px-3 py-2 rounded-lg border cursor-pointer border-zinc-600 bg-zinc-800 text-zinc-200"
+        value={filters.platform}
+        onChange={(e) =>
+          setFilters((f) => ({ ...f, platform: e.target.value }))
+        }
+      >
+        <option value="">Todas as plataformas</option>
+        {loadingPlatforms && <option>Carregando...</option>}
+        {platformsError && <option>{platformsError}</option>}
+        {platforms.map((p) => (
+          <option key={p.id} value={p.name}>
+            {p.abbreviation || p.name}
+          </option>
+        ))}
       </select>
       <select
         className="px-3 py-2 rounded-lg border cursor-pointer border-zinc-600 bg-zinc-800 text-zinc-200"

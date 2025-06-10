@@ -17,7 +17,7 @@ export default function AppRoutes() {
         <Route path="/games" element={<Games />} />
         <Route path="/games/:id" element={<GameSelected />} />
         <Route path="/Comunidade" element={<Comunidade />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:username" element={<Profile />} />
       </Route>
     </Routes>
   );

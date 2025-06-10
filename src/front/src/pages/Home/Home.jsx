@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Home.css";
 import imgHeader from "../../assets/imgHeader.jpg";
 import gamepad1 from "../../assets/gamepad1.png";
 import gamepad2 from "../../assets/gamepad2.png";
@@ -52,7 +51,7 @@ export default function Home() {
   const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
-    fetchGames()
+    fetchGames({ popular: true, limit: 6 })
       .then((data) => {
         setGames(data);
         setLoading(false);
@@ -62,6 +61,8 @@ export default function Home() {
         setLoading(false);
       });
   }, []);
+
+console.log("Jogos carregados:", games);
 
   return (
     <>
