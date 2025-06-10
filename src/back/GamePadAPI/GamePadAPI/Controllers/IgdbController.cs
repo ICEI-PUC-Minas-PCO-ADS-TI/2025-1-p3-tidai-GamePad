@@ -27,6 +27,7 @@ namespace GamePadAPI.Controllers
             [FromQuery] string platform = "",
             [FromQuery] bool recent = false,
             [FromQuery] bool popular = false,
+            [FromQuery] bool best = false,
             [FromQuery] int limit = 50,
             [FromQuery] int offset = 0,
             [FromQuery] int? id = null
@@ -85,9 +86,11 @@ namespace GamePadAPI.Controllers
                 if (popular)
                 {
                     filters.Add("total_rating != null & total_rating_count > 100");
-                    sb.Append(" sort total_rating desc;");
                 }
-                
+                if (best)
+                {
+                    filters.Add("total_rating != null & total_rating_count > 10");
+                }
 
                 if (filters.Count > 0)
                 {
@@ -95,6 +98,17 @@ namespace GamePadAPI.Controllers
                     sb.Append(string.Join(" & ", filters));
                     sb.Append(";");
                 }
+
+                // sort deve vir depois do where
+                if (popular)
+                {
+                    sb.Append(" sort total_rating desc;");
+                }
+                if (best)
+                {
+                    sb.Append(" sort total_rating desc;");
+                }
+
                 sb.Append($" limit {limit}; offset {offset};");
             }
 

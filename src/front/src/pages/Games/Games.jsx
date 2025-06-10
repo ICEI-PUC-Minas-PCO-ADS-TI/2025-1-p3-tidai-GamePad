@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import GamesMenu from "../../components/GamesMenu/GamesMenu";
 import GameSection from "../../components/GameSection/GameSection";
 import GameCard from "../../components/Cards/GameCard";
@@ -9,9 +9,8 @@ import { fetchGames } from "../../service/igdbService";
 const pageSize = 48;
 
 const Games = () => {
-  // Filtros
+  // Filtros (sem search)
   const [filters, setFilters] = useState({
-    name: "",
     genre: "",
     year: "",
     rating: "",
@@ -22,48 +21,98 @@ const Games = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
-  const navigate = useNavigate();
 
-  // Busca jogos do backend sempre que filtros, menu, plataforma ou página mudam
+  // Search separado
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+  const params = useParams();
+  const location = useLocation();
+
+  // Atualiza searchTerm do input se vier pela URL
+  useEffect(() => {
+    if (location.pathname.startsWith("/games/search/")) {
+      const term =
+        params.searchTerm ||
+        decodeURIComponent(location.pathname.replace("/games/search/", ""));
+      setSearchTerm(term);
+    } else {
+      setSearchTerm("");
+    }
+  }, [location.pathname, params.searchTerm]);
+
+  // Busca jogos do backend
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError(null);
+
+    // Se está na rota de busca, só faz search
+    if (location.pathname.startsWith("/games/search/")) {
+      const term =
+        params.searchTerm ||
+        decodeURIComponent(location.pathname.replace("/games/search/", ""));
+      fetchGames({
+        search: term,
+        limit: pageSize,
+        offset: (page - 1) * pageSize,
+      })
+        .then((data) => {
+          if (!cancelled) {
+            setGames(data);
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          if (!cancelled) {
+            setError(err.message);
+            setGames([]);
+            setLoading(false);
+          }
+        });
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    // Caso padrão: populares, melhores, novos lançamentos
     const backendFilters = {
-      search: filters.name,
       genre: filters.genre,
       year: filters.year,
       platform: filters.platform,
+      rating: filters.rating,
       recent: selectedMenu === "new",
       popular: selectedMenu === "popular",
       best: selectedMenu === "best",
       limit: pageSize,
       offset: (page - 1) * pageSize,
     };
-    (async () => {
-      try {
-        const data = await fetchGames(backendFilters);
+    fetchGames(backendFilters)
+      .then((data) => {
         if (!cancelled) {
           setGames(data);
           setLoading(false);
         }
-      } catch (err) {
+      })
+      .catch((err) => {
         if (!cancelled) {
           setError(err.message);
           setGames([]);
           setLoading(false);
         }
-      }
-    })();
+      });
     return () => {
       cancelled = true;
     };
-  }, [filters, selectedMenu, page]);
+  }, [filters, selectedMenu, page, location.pathname, params.searchTerm]);
 
-  // Troca de menu ou plataforma reseta a página
+  // Troca de menu reseta a página
   const handleMenuSelect = (menu) => {
     setSelectedMenu(menu);
     setPage(1);
+    // Se estava em search, volta para /games
+    if (location.pathname.startsWith("/games/search/")) {
+      navigate("/games");
+    }
   };
   // Troca de filtros reseta a página
   const handleFiltersChange = (f) => {
@@ -74,9 +123,12 @@ const Games = () => {
   const handlePrevPage = () => setPage((p) => Math.max(1, p - 1));
   const handleNextPage = () => setPage((p) => p + 1);
 
+
   // Título da seção
   let sectionTitle = "";
-  if (selectedMenu === "new") {
+  if (location.pathname.startsWith("/games/search/")) {
+    sectionTitle = `Resultados para "${searchTerm}"`;
+  } else if (selectedMenu === "new") {
     sectionTitle = "Novos Lançamentos";
   } else if (selectedMenu === "best") {
     sectionTitle = "Melhores Jogos";
@@ -90,7 +142,15 @@ const Games = () => {
         Explore os <span className="text-cyan-500">jogos</span>
       </h1>
       <GamesMenu selected={selectedMenu} onSelect={handleMenuSelect} />
-      <GameFilters filters={filters} setFilters={handleFiltersChange} />
+      {/* Filtros e SearchBar juntos */}
+      {!location.pathname.startsWith("/games/search/") && (
+        <GameFilters
+          filters={filters}
+          setFilters={handleFiltersChange}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
+      )}
       {loading && (
         <div className="text-white text-center mt-10">Carregando jogos...</div>
       )}

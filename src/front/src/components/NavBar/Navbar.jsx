@@ -1,10 +1,10 @@
 import { useState } from "react";
 import React from "react";
 import { useUser } from "../../context/UserContext";
-// import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../SearchBar/SearchBar";
 import { Menu } from "lucide-react";
 import logo from "../../assets/gamepadHeader.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import LoginModal from "../Modals/LoginModal";
 import RegisterModal from "../Modals/RegisterModal";
@@ -16,13 +16,22 @@ const Navbar = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [gamesDropdownOpen, setGamesDropdownOpen] = useState(false);
+  const [navbarSearch, setNavbarSearch] = useState("");
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
 
   // Função de logout
   function handleLogout() {
     setUser(null);
     setDropdownOpen(false);
   }
+
+  const handleNavbarSearch = () => {
+    if (navbarSearch.trim()) {
+      navigate(`/games/search/${encodeURIComponent(navbarSearch.trim())}`);
+      setNavbarSearch("");
+    }
+  };
 
   // Fecha dropdown ao clicar fora
   React.useEffect(() => {
@@ -47,7 +56,7 @@ const Navbar = () => {
             className="w-32 hover:scale-130  hover:-skew-y-3 transition-all"
           />
         </Link>
-
+        {/* Menus principais */}
         <ul className="hidden xl:flex items-center gap-12 font-semibold text-base">
           <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
             <Link to="/">Home</Link>
@@ -93,7 +102,17 @@ const Navbar = () => {
             <Link to="/Comunidade">Comunidade</Link>
           </li>
         </ul>
-
+        {/* SearchBar */}
+        <div className="flex-1 flex justify-end px-4">
+          <div className="w-full max-w-xs">
+            <SearchBar
+              value={navbarSearch}
+              onChange={(e) => setNavbarSearch(e.target.value)}
+              onSearch={handleNavbarSearch}
+            />
+          </div>
+        </div>
+        {/* Resto da navbar: login/avatar/menu mobile */}
         <div className="relative hidden md:flex items-center justify-center gap-3 ">
           {user && user.imgUser ? (
             <div className="relative user-avatar-dropdown">

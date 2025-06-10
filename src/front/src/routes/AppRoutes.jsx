@@ -7,6 +7,7 @@ import Games from "../pages/Games/Games";
 import GameSelected from "../pages/Games/GameSelected";
 import Comunidade from "../pages/Comunidade/Comunidade";
 import Profile from "../pages/Profile/Profile";
+import GamesSearch from "../pages/Games/GamesSearch";
 
 export default function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/news" element={<News />} />
         <Route path="/games" element={<Games />} />
+        <Route path="/games/search/:searchTerm" element={<GamesSearch />} />
         <Route path="/games/:id" element={<GameSelected />} />
         <Route path="/Comunidade" element={<Comunidade />} />
         <Route path="/profile/:username" element={<Profile />} />

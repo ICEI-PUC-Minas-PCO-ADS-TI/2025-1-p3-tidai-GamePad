@@ -23,6 +23,8 @@ const API_URL = "http://localhost:5069/api/igdb/games";
  * @param {string} params.year
  * @param {string} params.platform
  * @param {boolean} params.recent
+ * @param {boolean} params.popular
+ * @param {boolean} params.best
  * @param {number} params.limit
  * @param {number} params.offset
  * @returns {Promise<Array>}
@@ -33,6 +35,8 @@ export async function fetchGames({
   year = "",
   platform = "",
   recent = false,
+  popular = false,
+  best = false,
   limit = 48,
   offset = 0,
 } = {}) {
@@ -42,12 +46,8 @@ export async function fetchGames({
   if (year) url += `&year=${encodeURIComponent(year)}`;
   if (platform) url += `&platform=${encodeURIComponent(platform)}`;
   if (recent) url += `&recent=true`;
-  if (typeof arguments[0] === "object" && arguments[0].popular) {
-    url += `&popular=true`;
-  }
-  if (typeof arguments[0] === "object" && arguments[0].best) {
-    url += `&best=true`;
-  }
+  if (popular) url += `&popular=true`;
+  if (best) url += `&best=true`;
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error("Erro ao buscar jogos da IGDB");
