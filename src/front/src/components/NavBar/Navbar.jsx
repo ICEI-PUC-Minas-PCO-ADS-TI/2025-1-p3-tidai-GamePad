@@ -40,13 +40,13 @@ const Navbar = () => {
   return (
     <>
       <nav className="relative z-[999] flex justify-between items-center text-black py-5 px-8 md:px-48 bg-zinc-900 pdrop-shadow-md hover:">
-        <a href="">
+        <Link to="/">
           <img
             src={logo}
             alt="Logo do site"
             className="w-32 hover:scale-130  hover:-skew-y-3 transition-all"
           />
-        </a>
+        </Link>
 
         <ul className="hidden xl:flex items-center gap-12 font-semibold text-base">
           <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
