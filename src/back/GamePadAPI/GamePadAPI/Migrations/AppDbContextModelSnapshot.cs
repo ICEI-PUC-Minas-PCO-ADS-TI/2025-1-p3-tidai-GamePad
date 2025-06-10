@@ -37,7 +37,10 @@ namespace GamePadAPI.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("JogoId")
+                    b.Property<long?>("IgdbGameId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("JogoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nota")
@@ -206,9 +209,7 @@ namespace GamePadAPI.Migrations
                 {
                     b.HasOne("GamePad_TIDAI_2025.Models.Jogo", "Jogo")
                         .WithMany("Avaliacoes")
-                        .HasForeignKey("JogoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("JogoId");
 
                     b.HasOne("GamePad_TIDAI_2025.Models.Usuario", "Usuario")
                         .WithMany("Avaliacoes")

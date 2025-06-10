@@ -1,4 +1,4 @@
-const API_URL = "https://localhost:44391/api/Usuarios";
+const API_URL = "http://localhost:5069/api/Usuarios";
 
 // Função para registrar um novo usuário
 export async function registerUser({ nome, email, senha, imgUser, tipo }) {
@@ -27,7 +27,7 @@ export async function registerUser({ nome, email, senha, imgUser, tipo }) {
 // Função para fazer login de usuário
 export async function loginUser({ email, senha }) {
   const response = await fetch(
-    "https://localhost:44391/api/Usuarios/authenticate",
+    "http://localhost:5069/api/Usuarios/authenticate",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

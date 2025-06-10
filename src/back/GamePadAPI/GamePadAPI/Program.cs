@@ -16,6 +16,9 @@ namespace GamePadAPI
 
             builder.Services.AddControllers();
 
+            // Adiciona o serviço HttpClient para requisições externas (IGDB)
+            builder.Services.AddHttpClient();
+
             //Conex�o com o banco de dados
 
             builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
