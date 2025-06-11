@@ -36,33 +36,8 @@ namespace GamePad_TIDAI_2025.Models
         public List<Post> Posts { get; set; }
         public List<Sugestao> Sugestoes { get; set; }
 
-    /*
-
-        //public Perfil Perfil { get; set; }
-
-    }
-        /*public enum Perfil
-        {
-            Creator,
-            Admin,
-            User
-        }
-        
-        */
-
-
-
     }
 
     }
 
 
-        //public Usuario(int id, string nome, string email, string senha, string imgUser, string tipo)
-        //{
-        //    this.Id = id;
-        //    this.Nome = nome;
-        //    this.Email = email;
-        //    this.Senha = senha;
-        //    this.ImgUser = imgUser;
-        //    this.Tipo = tipo;
-        //}

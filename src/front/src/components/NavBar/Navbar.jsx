@@ -24,6 +24,7 @@ const Navbar = () => {
   function handleLogout() {
     setUser(null);
     setDropdownOpen(false);
+    navigate("/"); // redireciona para home ao deslogar
   }
 
   const handleNavbarSearch = () => {

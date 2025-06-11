@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import FavoriteGamesInput from "../../components/Profile/FavoriteGamesInput";
 import { useUser } from "../../context/UserContext";
-import { updateUser, deleteUser } from "../../service/userService";
-import { useNavigate } from "react-router-dom";
+import {
+  updateUser,
+  deleteUser,
+  verifyPasswordById,
+} from "../../service/userService";
+import PasswordConfirmModal from "../../components/Modals/PasswordConfirmModal";
+import { useNavigate, Navigate } from "react-router-dom";
 import {
   User,
   Settings as SettingsIcon,
@@ -27,8 +32,14 @@ const sidebarItems = [
 ];
 
 export default function Settings() {
+  // Estado para modal de confirmação de senha ao apagar conta
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordError, setPasswordError] = useState(null);
   const { user, setUser } = useUser();
   const navigate = useNavigate();
+  // Redireciona para home se não estiver logado
+  if (!user) return <Navigate to="/" replace />;
   const [activeTab, setActiveTab] = useState("edit-profile");
   // Campos para os jogos favoritos (array de objetos {id, name})
   let initialFav = [];
@@ -41,7 +52,9 @@ export default function Settings() {
         if (Array.isArray(arr)) {
           initialFav = arr;
         }
-      } catch { /* empty */ }
+      } catch {
+        /* empty */
+      }
     }
   }
   const [favoriteGames, setFavoriteGames] = useState(
@@ -103,7 +116,7 @@ export default function Settings() {
         email: user.email,
         imgUser: imgUser,
         tipo: user.tipo,
-        senha: user.senha,
+        // NÃO envie senha aqui!
       };
       await updateUser(user.id, updated);
       setUser({
@@ -127,39 +140,49 @@ export default function Settings() {
     e.preventDefault();
     setLoading(true);
     setAlert(null);
+    // Checa se senha atual foi preenchida
+    if (!senhaAtual) {
+      setAlert({
+        type: "error",
+        message: "Para alterar o e-mail ou senha, preencha sua senha atual.",
+      });
+      setLoading(false);
+      return;
+    }
+    // Checa se as novas senhas coincidem
     if (novaSenha && novaSenha !== confirmarSenha) {
       setAlert({ type: "error", message: "As senhas não coincidem." });
       setLoading(false);
       return;
     }
-    try {
-      const updated = {
-        ...user,
-        email,
-      };
-      if (novaSenha) updated.senha = novaSenha;
-      await updateUser(user.id, updated);
-      setUser({ ...user, email });
-      setAlert({ type: "success", message: "Conta atualizada!" });
-    } catch (err) {
-      setAlert({ type: "error", message: err.message });
-    } finally {
+    // Valida senha atual no backend usando o ID do usuário (robusto mesmo após alteração de email)
+    const senhaValida = await verifyPasswordById(user.id, senhaAtual);
+    if (!senhaValida) {
+      setAlert({ type: "error", message: "Senha atual incorreta." });
       setLoading(false);
+      return;
     }
-  }
-
-  // Deletar conta
-  async function handleDeleteAccount() {
-    if (!window.confirm("Tem certeza que deseja apagar sua conta?")) return;
-    setLoading(true);
-    setAlert(null);
     try {
-      await deleteUser(user.id);
-      setUser(null);
-      setAlert({ type: "success", message: "Conta apagada!" });
-      setTimeout(() => {
-        navigate("/");
-      }, 1200);
+      // Envie apenas os campos alterados
+      const updated = { Id: user.id };
+      if (email !== user.email) updated.email = email;
+      if (novaSenha) updated.senha = novaSenha;
+      const updatedUser = await updateUser(user.id, updated);
+      // Atualiza o contexto/local se necessário
+      if (updatedUser) {
+        setUser(updatedUser);
+        setEmail(updatedUser.email);
+      } else {
+        setUser({
+          ...user,
+          ...(updated.email ? { email: updated.email } : {}),
+        });
+        if (updated.email) setEmail(updated.email);
+      }
+      setAlert({ type: "success", message: "Conta atualizada!" });
+      setSenhaAtual("");
+      setNovaSenha("");
+      setConfirmarSenha("");
     } catch (err) {
       setAlert({ type: "error", message: err.message });
     } finally {
@@ -349,6 +372,7 @@ export default function Settings() {
                     value={senhaAtual}
                     onChange={(e) => setSenhaAtual(e.target.value)}
                     className="w-full px-3 py-2 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 focus:border-cyan-500 outline-none transition"
+                    placeholder="Para fazer alterações, preencha sua senha."
                   />
                 </div>
                 <button
@@ -383,11 +407,49 @@ export default function Settings() {
                 </p>
                 <button
                   className="cursor-pointer bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded font-semibold transition"
-                  onClick={handleDeleteAccount}
+                  onClick={() => setShowPasswordModal(true)}
                   disabled={loading}
                 >
                   {loading ? "Apagando..." : "Apagar Conta"}
                 </button>
+                <PasswordConfirmModal
+                  open={showPasswordModal}
+                  onClose={() => {
+                    setShowPasswordModal(false);
+                    setPasswordError(null);
+                  }}
+                  loading={passwordLoading}
+                  error={passwordError}
+                  title="Confirme sua senha para apagar a conta"
+                  description="Por segurança, digite sua senha para confirmar a exclusão da conta."
+                  onConfirm={async (senha) => {
+                    setPasswordLoading(true);
+                    setPasswordError(null);
+                    const ok = await verifyPasswordById(user.id, senha);
+                    if (!ok) {
+                      setPasswordError("Senha incorreta.");
+                      setPasswordLoading(false);
+                      return;
+                    }
+                    // Senha correta, pode apagar
+                    try {
+                      await deleteUser(user.id);
+                      setUser(null);
+                      setShowPasswordModal(false);
+                      setAlert({
+                        type: "success",
+                        message: "Conta apagada com sucesso.",
+                      });
+                      setTimeout(() => {
+                        navigate("/");
+                      }, 1500);
+                    } catch (err) {
+                      setPasswordError(err.message || "Erro ao apagar conta.");
+                    } finally {
+                      setPasswordLoading(false);
+                    }
+                  }}
+                />
                 {alert && (
                   <div
                     className={`mt-2 text-sm ${

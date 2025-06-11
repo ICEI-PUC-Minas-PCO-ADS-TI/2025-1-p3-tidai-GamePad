@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import {
+  useNavigate,
+  useParams,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 import GamesMenu from "../../components/GamesMenu/GamesMenu";
 import GameSection from "../../components/GameSection/GameSection";
 import GameCard from "../../components/Cards/GameCard";
 import GameFilters from "../../components/GameFilters/GameFilters";
 import { fetchGames } from "../../service/igdbService";
+import { useUser } from "../../context/UserContext";
 
 const pageSize = 48;
 
 const Games = () => {
-  // Filtros (sem search)
+  const { user } = useUser();
+
   const [filters, setFilters] = useState({
     genre: "",
     year: "",
@@ -21,12 +28,13 @@ const Games = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
-
-  // Search separado
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
+
+  // Redireciona para home se não estiver logado
+  if (!user) return <Navigate to="/" replace />;
 
   // Atualiza searchTerm do input se vier pela URL
   useEffect(() => {
@@ -122,7 +130,6 @@ const Games = () => {
   // Paginação
   const handlePrevPage = () => setPage((p) => Math.max(1, p - 1));
   const handleNextPage = () => setPage((p) => p + 1);
-
 
   // Título da seção
   let sectionTitle = "";

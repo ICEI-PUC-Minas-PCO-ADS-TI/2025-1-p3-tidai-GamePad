@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,23 @@ namespace GamePadAPI.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly AppDbContext _context;
+
+
+
+        // POST: api/Usuarios/{id}/verify-password
+        [HttpPost("{id}/verify-password")]
+        [AllowAnonymous]
+        public async Task<IActionResult> VerifyPassword(int id, [FromBody] LoginDto model)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
+                return NotFound(new { Message = "Usuário não encontrado." });
+
+            if (!BCrypt.Net.BCrypt.Verify(model.Senha, usuario.Senha))
+                return Unauthorized(new { Message = "Senha incorreta." });
+
+            return Ok(new { Message = "Senha válida." });
+        }
 
         public object BC { get; private set; }
 
@@ -73,36 +91,44 @@ namespace GamePadAPI.Controllers
             return usuarios;
         }
 
-        // PUT: api/Usuarios/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
+        // DTO para atualização parcial do usuário
+        public class UsuarioUpdateDto
         {
-            if (id != usuario.Id)
-            {
-                return BadRequest();
-            }
+            public string Nome { get; set; }
+            public string Email { get; set; }
+            public string Bio { get; set; }
+            public string ImgUser { get; set; }
+            public string Tipo { get; set; }
+            public string FavoriteGames { get; set; }
+            public string Senha { get; set; } // Não obrigatório!
+        }
 
+        // PUT: api/Usuarios/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutUsuario(int id, [FromBody] UsuarioUpdateDto dto)
+        {
             var usuarioDb = await _context.Usuarios.FindAsync(id);
             if (usuarioDb == null)
-            {
                 return NotFound();
+
+            // Se for alterar o e-mail, verifica se já existe outro usuário com o mesmo e-mail
+            if (!string.IsNullOrWhiteSpace(dto.Email) && dto.Email.ToLower() != usuarioDb.Email.ToLower())
+            {
+                var emailExists = await _context.Usuarios.AnyAsync(u => u.Email.ToLower() == dto.Email.ToLower() && u.Id != id);
+                if (emailExists)
+                {
+                    return BadRequest(new { message = "Já existe um usuário cadastrado com este e-mail." });
+                }
             }
 
-            // Atualize apenas os campos permitidos
-            usuarioDb.Nome = usuario.Nome ?? usuarioDb.Nome;
-            usuarioDb.Bio = usuario.Bio ?? usuarioDb.Bio;
-            usuarioDb.Email = usuario.Email ?? usuarioDb.Email;
-            usuarioDb.Tipo = usuario.Tipo ?? usuarioDb.Tipo;
-            usuarioDb.ImgUser = usuario.ImgUser ?? usuarioDb.ImgUser;
-
-            // Atualize favoriteGames se vier preenchido
-            if (usuario.FavoriteGames != null)
-                usuarioDb.FavoriteGames = usuario.FavoriteGames;
-
-            // Atualize senha se vier preenchida
-            if (!string.IsNullOrWhiteSpace(usuario.Senha))
-                usuarioDb.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
+            // Atualize apenas os campos enviados (não sobrescreva com null)
+            if (!string.IsNullOrWhiteSpace(dto.Nome)) usuarioDb.Nome = dto.Nome;
+            if (!string.IsNullOrWhiteSpace(dto.Bio)) usuarioDb.Bio = dto.Bio;
+            if (!string.IsNullOrWhiteSpace(dto.Email)) usuarioDb.Email = dto.Email;
+            if (!string.IsNullOrWhiteSpace(dto.Tipo)) usuarioDb.Tipo = dto.Tipo;
+            if (!string.IsNullOrWhiteSpace(dto.ImgUser)) usuarioDb.ImgUser = dto.ImgUser;
+            if (dto.FavoriteGames != null) usuarioDb.FavoriteGames = dto.FavoriteGames;
+            if (!string.IsNullOrWhiteSpace(dto.Senha)) usuarioDb.Senha = BCrypt.Net.BCrypt.HashPassword(dto.Senha);
 
             try
             {
@@ -128,6 +154,13 @@ namespace GamePadAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
+            // Verifica se já existe usuário com o mesmo e-mail (case-insensitive)
+            var emailExists = await _context.Usuarios.AnyAsync(u => u.Email.ToLower() == usuario.Email.ToLower());
+            if (emailExists)
+            {
+                return BadRequest(new { message = "Já existe um usuário cadastrado com este e-mail." });
+            }
+
             usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
 
             _context.Usuarios.Add(usuario);

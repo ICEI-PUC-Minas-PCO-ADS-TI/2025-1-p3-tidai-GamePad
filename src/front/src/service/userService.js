@@ -1,3 +1,32 @@
+// Verifica se a senha está correta para o usuário pelo ID
+export async function verifyPasswordById(id, senha) {
+  const response = await fetch(
+    `http://localhost:5069/api/Usuarios/${id}/verify-password`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ senha }),
+    }
+  );
+  return response.ok;
+}
+// Verifica se a senha está correta para o usuário logado
+export async function verifyPassword(email, senha) {
+  // Usa o mesmo endpoint de autenticação, mas só para checar a senha
+  const response = await fetch(
+    "http://localhost:5069/api/Usuarios/authenticate",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Email: email, Senha: senha }),
+    }
+  );
+  if (!response.ok) {
+    // senha incorreta ou outro erro
+    return false;
+  }
+  return true;
+}
 const API_URL = "http://localhost:5069/api/Usuarios";
 
 // Atualizar usuário

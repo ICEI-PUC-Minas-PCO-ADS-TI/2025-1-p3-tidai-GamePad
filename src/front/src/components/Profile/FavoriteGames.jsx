@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { fetchGamesByIds } from "../../service/igdbService";
 
-export default function FavoriteGames() {
-  const { user } = useUser();
+// Permite receber o usuário como prop (para perfis públicos)
+export default function FavoriteGames({ user: userProp }) {
+  const { user: userContext } = useUser();
+  const user = userProp || userContext;
+
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -12,10 +15,25 @@ export default function FavoriteGames() {
   let favoriteIds = [];
   if (user && user.favoriteGames) {
     if (Array.isArray(user.favoriteGames)) {
-      favoriteIds = user.favoriteGames.filter(Boolean);
+      // Pode ser array de objetos {id, name} ou array de IDs
+      if (
+        typeof user.favoriteGames[0] === "object" &&
+        user.favoriteGames[0] !== null
+      ) {
+        favoriteIds = user.favoriteGames.map((g) => g.id).filter(Boolean);
+      } else {
+        favoriteIds = user.favoriteGames.filter(Boolean);
+      }
     } else if (typeof user.favoriteGames === "string") {
       try {
-        favoriteIds = JSON.parse(user.favoriteGames);
+        const arr = JSON.parse(user.favoriteGames);
+        if (Array.isArray(arr)) {
+          if (typeof arr[0] === "object" && arr[0] !== null) {
+            favoriteIds = arr.map((g) => g.id).filter(Boolean);
+          } else {
+            favoriteIds = arr.filter(Boolean);
+          }
+        }
       } catch {
         favoriteIds = [];
       }
@@ -33,7 +51,6 @@ export default function FavoriteGames() {
       try {
         const results = await fetchGamesByIds(favoriteIds);
         setGames(results.filter(Boolean));
-      // eslint-disable-next-line no-unused-vars
       } catch (err) {
         setError("Erro ao buscar jogos favoritos.");
       } finally {

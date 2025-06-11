@@ -3,11 +3,11 @@ import FavoriteGames from "./FavoriteGames";
 import RecentReviews from "./RecentReviews";
 import { mockRecentReviews } from "./mockRecentReviews";
 
-export default function ProfileTab() {
+export default function ProfileTab({ user }) {
   return (
     <div>
       {/* Exibe os jogos favoritos do usuário (máx 5) */}
-      <FavoriteGames />
+      <FavoriteGames user={user} />
       {/* Avaliações recentes do usuário */}
       <RecentReviews reviews={mockRecentReviews} />
     </div>

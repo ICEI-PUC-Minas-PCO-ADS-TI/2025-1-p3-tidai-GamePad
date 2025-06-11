@@ -41,21 +41,22 @@ export default function Profile() {
   const navigate = useNavigate();
 
   if (
-    !user ||
-    !username ||
+    user &&
+    username &&
     username.toLowerCase() !== user.nome.toLowerCase().replace(/\s+/g, "-")
   ) {
     return (
       <Navigate
-        to={`/profile/${
-          user ? user.nome.toLowerCase().replace(/\s+/g, "-") : ""
-        }`}
+        to={`/profile/${user.nome.toLowerCase().replace(/\s+/g, "-")}`}
         replace
       />
     );
   }
 
   const TabComponent = TAB_COMPONENTS[activeTab] || (() => <div />);
+
+  // Use o usuário do contexto como exemplo (para perfis públicos, busque pelo username)
+  const profileUser = user; // Troque por dados buscados do backend se necessário
 
   return (
     <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-0 md:px-48 py-10">
@@ -106,7 +107,8 @@ export default function Profile() {
         </aside>
         {/* Coluna direita */}
         <section className="flex-1 min-w-0">
-          <TabComponent user={user} />
+          {/* Passe o usuário para o TabComponent */}
+          <TabComponent user={profileUser} />
         </section>
       </div>
     </div>
