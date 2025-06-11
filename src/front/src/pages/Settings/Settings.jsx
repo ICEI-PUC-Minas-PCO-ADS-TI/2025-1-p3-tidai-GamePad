@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import FavoriteGamesInput from "../../components/Profile/FavoriteGamesInput";
 import { useUser } from "../../context/UserContext";
+import { updateUser, deleteUser } from "../../service/userService";
+import { useNavigate } from "react-router-dom";
 import {
   User,
   Settings as SettingsIcon,
@@ -24,20 +27,145 @@ const sidebarItems = [
 ];
 
 export default function Settings() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("edit-profile");
-  // Campos para os jogos favoritos
+  // Campos para os jogos favoritos (array de objetos {id, name})
+  let initialFav = [];
+  if (user?.favoriteGames) {
+    if (Array.isArray(user.favoriteGames)) {
+      initialFav = user.favoriteGames;
+    } else if (typeof user.favoriteGames === "string") {
+      try {
+        const arr = JSON.parse(user.favoriteGames);
+        if (Array.isArray(arr)) {
+          initialFav = arr;
+        }
+      } catch { /* empty */ }
+    }
+  }
   const [favoriteGames, setFavoriteGames] = useState(
-    user?.favoriteGames?.length === 5 ? user.favoriteGames : Array(5).fill("")
+    initialFav.map((id) => ({ id, name: "" }))
   );
 
-  const handleFavoriteGameChange = (idx, value) => {
-    setFavoriteGames((prev) => {
-      const updated = [...prev];
-      updated[idx] = value;
-      return updated;
+  // States para os campos editáveis
+  const [nome, setNome] = useState(user?.nome || "");
+  const [bio, setBio] = useState(user?.bio || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [novaSenha, setNovaSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [senhaAtual, setSenhaAtual] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  // Função para selecionar a imagem (apenas pré-visualização)
+  function handleImageSelect(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    setSelectedImage({
+      file,
+      preview: URL.createObjectURL(file),
     });
-  };
+  }
+
+  // Atualizar perfil
+  async function handleProfileSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    setAlert(null);
+    try {
+      let imgUser = user.imgUser;
+      // Se uma nova imagem foi selecionada, faz upload primeiro
+      if (selectedImage && selectedImage.file) {
+        const formData = new FormData();
+        formData.append("image", selectedImage.file);
+        const response = await fetch(
+          `http://localhost:5069/api/Usuarios/${user.id}/upload-image`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        if (!response.ok) throw new Error("Erro ao enviar imagem");
+        const data = await response.json();
+        imgUser = data.imgUser;
+      }
+      const favIds = favoriteGames
+        .filter(Boolean)
+        .map((g) => (g && g.id ? g.id : null))
+        .filter(Boolean);
+      const updated = {
+        Id: user.id,
+        nome: nome,
+        bio: bio,
+        favoriteGames: JSON.stringify(favIds),
+        email: user.email,
+        imgUser: imgUser,
+        tipo: user.tipo,
+        senha: user.senha,
+      };
+      await updateUser(user.id, updated);
+      setUser({
+        ...user,
+        nome: nome,
+        bio: bio,
+        favoriteGames: JSON.stringify(favIds),
+        imgUser: imgUser,
+      });
+      setSelectedImage(null); // Limpa a seleção após salvar
+      setAlert({ type: "success", message: "Perfil atualizado!" });
+    } catch (err) {
+      setAlert({ type: "error", message: err.message });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // Atualizar conta (email/senha)
+  async function handleAccountSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    setAlert(null);
+    if (novaSenha && novaSenha !== confirmarSenha) {
+      setAlert({ type: "error", message: "As senhas não coincidem." });
+      setLoading(false);
+      return;
+    }
+    try {
+      const updated = {
+        ...user,
+        email,
+      };
+      if (novaSenha) updated.senha = novaSenha;
+      await updateUser(user.id, updated);
+      setUser({ ...user, email });
+      setAlert({ type: "success", message: "Conta atualizada!" });
+    } catch (err) {
+      setAlert({ type: "error", message: err.message });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // Deletar conta
+  async function handleDeleteAccount() {
+    if (!window.confirm("Tem certeza que deseja apagar sua conta?")) return;
+    setLoading(true);
+    setAlert(null);
+    try {
+      await deleteUser(user.id);
+      setUser(null);
+      setAlert({ type: "success", message: "Conta apagada!" });
+      setTimeout(() => {
+        navigate("/");
+      }, 1200);
+    } catch (err) {
+      setAlert({ type: "error", message: err.message });
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-0 md:px-48 py-10">
@@ -74,14 +202,18 @@ export default function Settings() {
           {activeTab === "edit-profile" && (
             <div className="max-w-2xl">
               <h1 className="text-3xl font-bold text-cyan-400 mb-8">Perfil</h1>
-              <form className="flex flex-col gap-8">
+              <form
+                className="flex flex-col gap-8"
+                onSubmit={handleProfileSubmit}
+              >
                 <div>
                   <label className="block text-zinc-400 mb-1 font-medium">
                     Nome de usuário
                   </label>
                   <input
                     type="text"
-                    defaultValue={user?.nome}
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
                     className="w-full px-3 py-2 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 focus:border-cyan-500 outline-none transition"
                   />
                   <span className="text-xs text-zinc-500 mt-1 block">
@@ -94,16 +226,27 @@ export default function Settings() {
                   </label>
                   <div className="flex items-center gap-4">
                     <img
-                      src={user?.imgUser}
+                      src={
+                        selectedImage?.preview
+                          ? selectedImage.preview
+                          : user?.imgUser &&
+                            user.imgUser.startsWith("/profile-images/")
+                          ? `http://localhost:5069${user.imgUser}`
+                          : user?.imgUser
+                      }
                       alt="Avatar"
                       className="w-20 h-20 rounded-lg object-cover border border-zinc-700"
                     />
-                    <button
-                      type="button"
-                      className="px-4 cursor-pointer py-2 rounded bg-zinc-800 text-cyan-400 border border-cyan-700 hover:bg-cyan-700 hover:text-white transition"
-                    >
+                    <label className="px-4 cursor-pointer py-2 rounded bg-zinc-800 text-cyan-400 border border-cyan-700 hover:bg-cyan-700 hover:text-white transition">
                       Alterar
-                    </button>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleImageSelect}
+                        disabled={loading}
+                      />
+                    </label>
                   </div>
                 </div>
                 <div>
@@ -111,7 +254,8 @@ export default function Settings() {
                     Biografia
                   </label>
                   <textarea
-                    defaultValue={user?.bio}
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
                     rows={3}
                     placeholder="Conte um pouco sobre você..."
                     className="w-full px-3 py-2 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 focus:border-cyan-500 outline-none transition resize-none"
@@ -122,30 +266,33 @@ export default function Settings() {
                   <label className="block text-zinc-400 mb-2 font-medium">
                     Seus 5 jogos favoritos
                   </label>
-                  <div className="flex flex-col gap-3">
-                    {favoriteGames.map((game, idx) => (
-                      <input
-                        key={idx}
-                        type="text"
-                        placeholder={`Jogo favorito #${idx + 1}`}
-                        value={game}
-                        onChange={(e) =>
-                          handleFavoriteGameChange(idx, e.target.value)
-                        }
-                        className="w-full px-3 py-2 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 focus:border-cyan-500 outline-none transition"
-                      />
-                    ))}
-                  </div>
+                  <FavoriteGamesInput
+                    value={favoriteGames}
+                    onChange={setFavoriteGames}
+                    max={5}
+                  />
                   <span className="text-xs text-zinc-500 mt-1 block">
                     Escolha até 5 jogos que representam você!
                   </span>
                 </div>
                 <button
                   type="submit"
-                  className="cursor-pointer bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2 rounded font-semibold transition self-start"
+                  disabled={loading}
+                  className="cursor-pointer bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2 rounded font-semibold transition self-start disabled:opacity-60"
                 >
-                  Salvar Alterações
+                  {loading ? "Salvando..." : "Salvar Alterações"}
                 </button>
+                {alert && (
+                  <div
+                    className={`mt-2 text-sm ${
+                      alert.type === "success"
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {alert.message}
+                  </div>
+                )}
               </form>
             </div>
           )}
@@ -155,14 +302,18 @@ export default function Settings() {
           {activeTab === "account" && (
             <div className="max-w-2xl">
               <h1 className="text-3xl font-bold text-cyan-400 mb-8">Conta</h1>
-              <form className="flex flex-col gap-8">
+              <form
+                className="flex flex-col gap-8"
+                onSubmit={handleAccountSubmit}
+              >
                 <div>
                   <label className="block text-zinc-400 mb-1 font-medium flex items-center">
                     <Mail size={16} className="mr-2" /> Email
                   </label>
                   <input
                     type="email"
-                    defaultValue={user?.email}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-3 py-2 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 focus:border-cyan-500 outline-none transition"
                   />
                 </div>
@@ -172,6 +323,8 @@ export default function Settings() {
                   </label>
                   <input
                     type="password"
+                    value={novaSenha}
+                    onChange={(e) => setNovaSenha(e.target.value)}
                     className="w-full px-3 py-2 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 focus:border-cyan-500 outline-none transition"
                     placeholder="Deixe em branco se não quiser alterar"
                   />
@@ -182,6 +335,8 @@ export default function Settings() {
                   </label>
                   <input
                     type="password"
+                    value={confirmarSenha}
+                    onChange={(e) => setConfirmarSenha(e.target.value)}
                     className="w-full px-3 py-2 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 focus:border-cyan-500 outline-none transition"
                   />
                 </div>
@@ -191,15 +346,29 @@ export default function Settings() {
                   </label>
                   <input
                     type="password"
+                    value={senhaAtual}
+                    onChange={(e) => setSenhaAtual(e.target.value)}
                     className="w-full px-3 py-2 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 focus:border-cyan-500 outline-none transition"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="cursor-pointer bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded font-semibold transition self-start"
+                  disabled={loading}
+                  className="cursor-pointer bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded font-semibold transition self-start disabled:opacity-60"
                 >
-                  Salvar Alterações
+                  {loading ? "Salvando..." : "Salvar Alterações"}
                 </button>
+                {alert && (
+                  <div
+                    className={`mt-2 text-sm ${
+                      alert.type === "success"
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {alert.message}
+                  </div>
+                )}
               </form>
               <hr className="my-12 border-zinc-700" />
               {/* Apagar conta */}
@@ -214,10 +383,22 @@ export default function Settings() {
                 </p>
                 <button
                   className="cursor-pointer bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded font-semibold transition"
-                  // onClick={handleDeleteAccount}
+                  onClick={handleDeleteAccount}
+                  disabled={loading}
                 >
-                  Apagar Conta
+                  {loading ? "Apagando..." : "Apagar Conta"}
                 </button>
+                {alert && (
+                  <div
+                    className={`mt-2 text-sm ${
+                      alert.type === "success"
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {alert.message}
+                  </div>
+                )}
               </div>
             </div>
           )}

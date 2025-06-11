@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import { loginUser, getUserByEmail } from "../../service/userService";
 import { useUser } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginModal = ({ open, onClose, onSwitch }) => {
   const modalRef = useRef();
@@ -10,6 +11,7 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -65,6 +67,7 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
       setTimeout(() => {
         setAlert(null);
         onClose();
+        navigate(`/${user.nome.toLowerCase().replace(/\s+/g, "-")}`);
       }, 1200);
     } catch (err) {
       console.error("Erro ao fazer login:", err);

@@ -83,7 +83,26 @@ namespace GamePadAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(usuario).State = EntityState.Modified;
+            var usuarioDb = await _context.Usuarios.FindAsync(id);
+            if (usuarioDb == null)
+            {
+                return NotFound();
+            }
+
+            // Atualize apenas os campos permitidos
+            usuarioDb.Nome = usuario.Nome ?? usuarioDb.Nome;
+            usuarioDb.Bio = usuario.Bio ?? usuarioDb.Bio;
+            usuarioDb.Email = usuario.Email ?? usuarioDb.Email;
+            usuarioDb.Tipo = usuario.Tipo ?? usuarioDb.Tipo;
+            usuarioDb.ImgUser = usuario.ImgUser ?? usuarioDb.ImgUser;
+
+            // Atualize favoriteGames se vier preenchido
+            if (usuario.FavoriteGames != null)
+                usuarioDb.FavoriteGames = usuario.FavoriteGames;
+
+            // Atualize senha se vier preenchida
+            if (!string.IsNullOrWhiteSpace(usuario.Senha))
+                usuarioDb.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
 
             try
             {
@@ -172,6 +191,49 @@ namespace GamePadAPI.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        // DTO para upload de imagem (necessário para Swagger funcionar)
+        public class UploadImageDto
+        {
+            public IFormFile Image { get; set; }
+        }
+
+        // POST: api/Usuarios/{id}/upload-image
+        [HttpPost("{id}/upload-image")]
+        [AllowAnonymous]
+        public async Task<IActionResult> UploadProfileImage(int id, [FromForm] UploadImageDto dto)
+        {
+            var image = dto.Image;
+            if (image == null || image.Length == 0)
+                return BadRequest(new { message = "Nenhuma imagem enviada." });
+
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
+                return NotFound(new { message = "Usuário não encontrado." });
+
+            // Crie a pasta se não existir
+            var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "profile-images");
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            // Nome único para a imagem
+            var ext = Path.GetExtension(image.FileName);
+            var fileName = $"user_{id}_{Guid.NewGuid().ToString().Substring(0, 8)}{ext}";
+            var filePath = Path.Combine(folder, fileName);
+
+            // Salva o arquivo
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await image.CopyToAsync(stream);
+            }
+
+            // Caminho público para acessar a imagem
+            var imgUserPath = $"/profile-images/{fileName}";
+            usuario.ImgUser = imgUserPath;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { imgUser = imgUserPath });
         }
     }
 }

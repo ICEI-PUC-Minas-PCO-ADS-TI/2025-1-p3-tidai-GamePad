@@ -8,6 +8,7 @@ const SearchBar = ({
   value = "",
   onChange,
   onSearch,
+  onSelect, // NOVO: callback ao selecionar um jogo
   className = "",
 }) => {
   const [suggestions, setSuggestions] = useState([]);
@@ -49,8 +50,12 @@ const SearchBar = ({
 
   const handleSelect = (game) => {
     setShowSuggestions(false);
-    onChange({ target: { value: game.name } });
-    navigate(`/games/${game.id}`);
+    if (onSelect) {
+      onSelect(game);
+    } else {
+      onChange({ target: { value: game.name } });
+      navigate(`/games/${game.id}`);
+    }
   };
 
   const handleSubmit = (e) => {

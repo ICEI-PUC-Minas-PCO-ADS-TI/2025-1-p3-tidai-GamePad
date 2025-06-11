@@ -22,8 +22,14 @@ namespace GamePad_TIDAI_2025.Models
         [Required(ErrorMessage = "O campo Senha deve ser preenchido")]
         [DataType(DataType.Password)]
         public string Senha { get; set; }
+
         public string ImgUser { get; set; }
         public string Tipo { get; set; }
+
+        public string Bio { get; set; } // Biografia do usuário
+
+        // Armazena os IDs dos jogos favoritos do IGDB em formato JSON (ex: [123,456,789])
+        public string FavoriteGames { get; set; }
 
         // configurando as foreign keys
         public List<Avaliacao> Avaliacoes { get; set; }
