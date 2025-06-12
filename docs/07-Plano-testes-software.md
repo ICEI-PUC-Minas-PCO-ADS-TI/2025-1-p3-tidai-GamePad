@@ -12,14 +12,14 @@ Por exemplo:
 
 | **Caso de teste**  | **CT-001 – Cadastrar perfil**  |
 |:---: |:---: |
-| Requisito associado | RF-004 - A aplicação deve apresentar, na página principal, a funcionalidade de cadastro de usuários para que estes consigam criar e gerenciar seu perfil. |
+| Requisito associado | RF-004 - Permitir a criação de perfis de usuários |
 | Objetivo do teste | Verificar se o usuário consegue se cadastrar na aplicação. |
-| Passos | - Acessar o navegador <br>  https://gamepad.com/home <br> - Clicar em "Registrar" <br> - Preencher os campos obrigatórios (Nome de usuário, E-mail, Senha e Confirmar senha) <br> - Clicar em "Registrar" |
+| Passos | - Acessar o navegador <br> - https://gamepad.com/home <br> - Clicar em "Registrar" <br> - Preencher os campos obrigatórios (Nome de usuário, E-mail, Senha e Confirmar senha) <br> - Clicar em "Registrar" |
 | Critério de êxito | - O cadastro foi realizado com sucesso. |
 | Responsável pela elaboração do caso de teste | Andry Marques |
 | Tela 1  | <img src="../docs/images/testes/ct1/p1.png" width="2000px">
 | Tela 2  | <img src="../docs/images/testes/ct1/p2.png" width="2000px">
-| Tela 3  | <img src="../docs/images/testes/ct1/p1.png" width="2000px">
+| Tela 3  | <img src="../docs/images/testes/ct1/p3.png" width="2000px">
 
 
 
@@ -27,11 +27,14 @@ Por exemplo:
 
 | **Caso de teste**  | **CT-002 – Efetuar login**  |
 |:---: |:---: |
-| Requisito associado | RF-00Y - A aplicação deve possuir opção de fazer login, sendo o login o endereço de e-mail. |
+| Requisito associado | RF-006 - Permitir login do usuário |
 | Objetivo do teste | Verificar se o usuário consegue realizar login. |
-| Passos | - Acessar o navegador <br> - Informar o endereço do site https://adota-pet.herokuapp.com/src/index.html <br> - Clicar no botão "Entrar" <br> - Preencher o campo de e-mail <br> - Preencher o campo de senha <br> - Clicar em "Login" |
+| Passos | - Acessar o navegador <br> - https://gamepad.com/home <br> - Clicar no botão "Entrar" <br> - Preencher o campo de e-mail <br> - Preencher o campo de senha <br> - Clicar em "Login" |
 | Critério de êxito | - O login foi realizado com sucesso. |
-| Responsável pela elaboração do caso de teste | Nome do integrante da equipe. |
+| Responsável pela elaboração do caso de teste | Andry Marques |
+| Tela 1  | <img src="../docs/images/testes/ct1/p1.png" width="2000px">
+| Tela 2  | <img src="../docs/images/testes/ct2/p1.png" width="2000px">
+| Tela 3  | <img src="../docs/images/testes/ct2/p2.png" width="2000px">
 
 
 ## Ferramentas de testes (opcional)
