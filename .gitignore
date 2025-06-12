@@ -13,3 +13,5 @@ obj/
 *.tmp
 
 TestResults/
+
+.fake

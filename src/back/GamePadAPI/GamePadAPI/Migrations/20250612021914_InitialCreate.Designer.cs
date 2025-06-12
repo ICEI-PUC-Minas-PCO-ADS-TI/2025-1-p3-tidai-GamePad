@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamePadAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250604161248_AddIgdbGameIdToAvaliacao")]
-    partial class AddIgdbGameIdToAvaliacao
+    [Migration("20250612021914_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
