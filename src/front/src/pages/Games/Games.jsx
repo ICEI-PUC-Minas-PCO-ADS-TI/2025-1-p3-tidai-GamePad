@@ -16,13 +16,13 @@ const pageSize = 48;
 
 const Games = () => {
   const { user } = useUser();
-
   const [filters, setFilters] = useState({
     genre: "",
     year: "",
     rating: "",
     platform: "",
   });
+
   const [selectedMenu, setSelectedMenu] = useState("popular");
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,9 +32,6 @@ const Games = () => {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
-
-  // Redireciona para home se não estiver logado
-  if (!user) return <Navigate to="/" replace />;
 
   // Atualiza searchTerm do input se vier pela URL
   useEffect(() => {
@@ -81,6 +78,8 @@ const Games = () => {
         cancelled = true;
       };
     }
+
+    if (!user) return <Navigate to="/" replace />;
 
     // Caso padrão: populares, melhores, novos lançamentos
     const backendFilters = {

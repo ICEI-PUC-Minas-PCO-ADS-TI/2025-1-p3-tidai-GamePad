@@ -38,8 +38,6 @@ export default function Settings() {
   const [passwordError, setPasswordError] = useState(null);
   const { user, setUser } = useUser();
   const navigate = useNavigate();
-  // Redireciona para home se não estiver logado
-  if (!user) return <Navigate to="/" replace />;
   const [activeTab, setActiveTab] = useState("edit-profile");
   // Campos para os jogos favoritos (array de objetos {id, name})
   let initialFav = [];

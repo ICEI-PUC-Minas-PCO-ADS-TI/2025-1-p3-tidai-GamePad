@@ -51,6 +51,7 @@ export default function FavoriteGames({ user: userProp }) {
       try {
         const results = await fetchGamesByIds(favoriteIds);
         setGames(results.filter(Boolean));
+      // eslint-disable-next-line no-unused-vars
       } catch (err) {
         setError("Erro ao buscar jogos favoritos.");
       } finally {
