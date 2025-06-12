@@ -67,14 +67,21 @@ namespace GamePadAPI
 
             var app = builder.Build();
 
-            // Cria o banco e aplica as migrations automaticamente ao iniciar
-            using (var scope = app.Services.CreateScope())
+            // Só executa migrations se estiver em desenvolvimento e o banco ainda não existir
+            if (app.Environment.IsDevelopment())
             {
-                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                db.Database.Migrate();
+                using (var scope = app.Services.CreateScope())
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                    // Só executa migrations se o banco não existir
+                    if (!db.Database.CanConnect())
+                    {
+                        db.Database.Migrate();
+                    }
+                }
             }
 
-            // Configure the HTTP request pipeline.
+            
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -82,16 +89,10 @@ namespace GamePadAPI
             }
 
             app.UseHttpsRedirection();
-
-            // Adicione esta linha para usar a política CORS antes de Authentication/Authorization
             app.UseCors("AllowFrontend");
-
             app.UseAuthentication();
-
             app.UseAuthorization();
-
             app.MapControllers();
-
             app.Run();
         }
     }
