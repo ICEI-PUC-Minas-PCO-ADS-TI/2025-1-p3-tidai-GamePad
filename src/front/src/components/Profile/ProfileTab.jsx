@@ -1,13 +1,13 @@
 import React from "react";
-import LikedGames from "./LikedGames";
+import FavoriteGames from "./FavoriteGames";
 import RecentReviews from "./RecentReviews";
 import { mockRecentReviews } from "./mockRecentReviews";
 
-export default function ProfileTab() {
+export default function ProfileTab({ user }) {
   return (
     <div>
       {/* Exibe os jogos favoritos do usuário (máx 5) */}
-      <LikedGames />
+      <FavoriteGames user={user} />
       {/* Avaliações recentes do usuário */}
       <RecentReviews reviews={mockRecentReviews} />
     </div>

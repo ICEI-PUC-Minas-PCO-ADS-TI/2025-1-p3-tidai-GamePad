@@ -89,6 +89,8 @@ namespace GamePadAPI
             }
 
             app.UseHttpsRedirection();
+
+            // Adicione esta linha para usar a política CORS antes de Authentication/Authorization
             app.UseCors("AllowFrontend");
             app.UseAuthentication();
             app.UseAuthorization();

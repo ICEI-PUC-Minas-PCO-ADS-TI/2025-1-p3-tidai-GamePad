@@ -1,3 +1,19 @@
+/**
+ * Busca jogos por um array de IDs (via backend)
+ * @param {Array} ids
+ * @returns {Promise<Array>}
+ */
+export async function fetchGamesByIds(ids) {
+  if (!ids || !ids.length) return [];
+  // Suporta tanto array de números quanto strings
+  const idsParam = ids.join(",");
+  const url = `${API_URL}?id=${idsParam}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Erro ao buscar jogos por ID");
+  }
+  return await response.json();
+}
 const PLATFORMS_URL = "http://localhost:5069/api/igdb/platforms";
 
 /**

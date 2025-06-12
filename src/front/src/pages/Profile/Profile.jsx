@@ -41,15 +41,13 @@ export default function Profile() {
   const navigate = useNavigate();
 
   if (
-    !user ||
-    !username ||
+    user &&
+    username &&
     username.toLowerCase() !== user.nome.toLowerCase().replace(/\s+/g, "-")
   ) {
     return (
       <Navigate
-        to={`/profile/${
-          user ? user.nome.toLowerCase().replace(/\s+/g, "-") : ""
-        }`}
+        to={`/profile/${user.nome.toLowerCase().replace(/\s+/g, "-")}`}
         replace
       />
     );
@@ -57,15 +55,28 @@ export default function Profile() {
 
   const TabComponent = TAB_COMPONENTS[activeTab] || (() => <div />);
 
+  // Use o usuário do contexto como exemplo (para perfis públicos, busque pelo username)
+  const profileUser = user; // Troque por dados buscados do backend se necessário
+
   return (
     <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-0 md:px-48 py-10">
       {/* Topo do perfil */}
       <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mb-4">
-        <img
-          src={user.imgUser}
-          alt="Avatar"
-          className="w-36 h-36 rounded-xl object-cover"
-        />
+        {(() => {
+          const navbarImg =
+            user.imgUser && user.imgUser.startsWith("/profile-images/")
+              ? `http://localhost:5069${user.imgUser}`
+              : user.imgUser;
+          console.log("[DEBUG] Navbar imgUser:", navbarImg);
+          console.log("[DEBUG] Profile imgUser src:", user.imgUser);
+          return (
+            <img
+              src={navbarImg}
+              alt="Avatar"
+              className="w-36 h-36 rounded-xl object-cover"
+            />
+          );
+        })()}
         <div className="flex-1 flex flex-col md:flex-row md:items-end gap-2">
           <div>
             <h2 className="text-3xl font-bold">{user.nome}</h2>
@@ -96,7 +107,8 @@ export default function Profile() {
         </aside>
         {/* Coluna direita */}
         <section className="flex-1 min-w-0">
-          <TabComponent user={user} />
+          {/* Passe o usuário para o TabComponent */}
+          <TabComponent user={profileUser} />
         </section>
       </div>
     </div>

@@ -24,6 +24,7 @@ const Navbar = () => {
   function handleLogout() {
     setUser(null);
     setDropdownOpen(false);
+    navigate("/"); // redireciona para home ao deslogar
   }
 
   const handleNavbarSearch = () => {
@@ -116,7 +117,11 @@ const Navbar = () => {
           {user && user.imgUser ? (
             <div className="relative user-avatar-dropdown">
               <img
-                src={user.imgUser}
+                src={
+                  user.imgUser && user.imgUser.startsWith("/profile-images/")
+                    ? `http://localhost:5069${user.imgUser}`
+                    : user.imgUser
+                }
                 alt="Perfil"
                 className="w-12 h-12 rounded-full  object-cover cursor-pointer"
                 onClick={() => setDropdownOpen((v) => !v)}
@@ -131,7 +136,12 @@ const Navbar = () => {
                 >
                   <div className="flex items-center gap-3 px-5 py-3 border-b border-zinc-700">
                     <img
-                      src={user.imgUser}
+                      src={
+                        user.imgUser &&
+                        user.imgUser.startsWith("/profile-images/")
+                          ? `http://localhost:5069${user.imgUser}`
+                          : user.imgUser
+                      }
                       alt="Avatar"
                       className="w-10 h-10 rounded-full border border-zinc-600"
                     />
