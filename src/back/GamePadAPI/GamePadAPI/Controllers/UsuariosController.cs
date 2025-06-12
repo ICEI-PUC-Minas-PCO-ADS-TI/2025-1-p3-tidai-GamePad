@@ -163,6 +163,11 @@ namespace GamePadAPI.Controllers
 
             usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
 
+            if (string.IsNullOrWhiteSpace(usuario.ImgUser))
+            {
+                usuario.ImgUser = "/profile-images/default-profile.png";
+            }
+
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 

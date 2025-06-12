@@ -1,21 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import { registerUser } from "../../service/userService";
-import profile1 from "../../assets/ProfileImages/Aloy.jpg";
-import profile2 from "../../assets/ProfileImages/Arthur.jpg";
-import profile3 from "../../assets/ProfileImages/Gerald.jpg";
-import profile4 from "../../assets/ProfileImages/Samus.jpg";
-import profile5 from "../../assets/ProfileImages/V.jpg";
-import profile6 from "../../assets/ProfileImages/Link.jpg";
 
-const profileImages = [
-  profile1,
-  profile2,
-  profile3,
-  profile4,
-  profile5,
-  profile6,
-];
 
 const RegisterModal = ({ open, onClose, onSwitch }) => {
   const modalRef = useRef();
@@ -83,16 +69,11 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
     setLoading(true);
     setErrors({});
     setAlert(null);
-    // Seleciona imagem aleatória
-    const imgUser =
-      profileImages[Math.floor(Math.random() * profileImages.length)];
-    console.log("Imagem de perfil sorteada:", imgUser);
     try {
       const result = await registerUser({
         nome: form.nome,
         email: form.email,
         senha: form.senha,
-        imgUser,
         tipo: "User",
       });
       console.log("Registro bem-sucedido:", result);
