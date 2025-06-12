@@ -20,8 +20,7 @@ namespace GamePad_TIDAI_2025.Models
         [Display(Name = "Plataforma")]
         public string Plataforma { get; set; }
 
-        // configurando a foreign key
-        public List<Jogo> Jogos { get; set; }
+
 
     }
 }

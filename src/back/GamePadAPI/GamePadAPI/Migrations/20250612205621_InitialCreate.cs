@@ -35,7 +35,9 @@ namespace GamePadAPI.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Senha = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImgUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FavoriteGames = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,24 +45,24 @@ namespace GamePadAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Jogos",
+                name: "Avaliacoes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UrlCapa = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Genero = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConsolePId = table.Column<int>(type: "int", nullable: false)
+                    Nota = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Comentario = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false),
+                    IgdbGameId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Jogos", x => x.Id);
+                    table.PrimaryKey("PK_Avaliacoes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Jogos_Consoles_ConsolePId",
-                        column: x => x.ConsolePId,
-                        principalTable: "Consoles",
+                        name: "FK_Avaliacoes_Usuarios_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -111,28 +113,20 @@ namespace GamePadAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Avaliacoes",
+                name: "UserGameStatuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nota = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Comentario = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    JogoId = table.Column<int>(type: "int", nullable: true),
-                    IgdbGameId = table.Column<long>(type: "bigint", nullable: true)
+                    IgdbGameId = table.Column<long>(type: "bigint", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Avaliacoes", x => x.Id);
+                    table.PrimaryKey("PK_UserGameStatuses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Avaliacoes_Jogos_JogoId",
-                        column: x => x.JogoId,
-                        principalTable: "Jogos",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Avaliacoes_Usuarios_UsuarioId",
+                        name: "FK_UserGameStatuses_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
@@ -140,19 +134,9 @@ namespace GamePadAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Avaliacoes_JogoId",
-                table: "Avaliacoes",
-                column: "JogoId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Avaliacoes_UsuarioId",
                 table: "Avaliacoes",
                 column: "UsuarioId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Jogos_ConsolePId",
-                table: "Jogos",
-                column: "ConsolePId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UsuarioId",
@@ -163,6 +147,11 @@ namespace GamePadAPI.Migrations
                 name: "IX_Sugestoes_UsuarioId",
                 table: "Sugestoes",
                 column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserGameStatuses_UsuarioId",
+                table: "UserGameStatuses",
+                column: "UsuarioId");
         }
 
         /// <inheritdoc />
@@ -172,19 +161,19 @@ namespace GamePadAPI.Migrations
                 name: "Avaliacoes");
 
             migrationBuilder.DropTable(
+                name: "Consoles");
+
+            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Sugestoes");
 
             migrationBuilder.DropTable(
-                name: "Jogos");
+                name: "UserGameStatuses");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
-
-            migrationBuilder.DropTable(
-                name: "Consoles");
         }
     }
 }

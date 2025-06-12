@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamePadAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250612021914_InitialCreate")]
+    [Migration("20250612205621_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -43,9 +43,6 @@ namespace GamePadAPI.Migrations
                     b.Property<long?>("IgdbGameId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("JogoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nota")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -54,8 +51,6 @@ namespace GamePadAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("JogoId");
 
                     b.HasIndex("UsuarioId");
 
@@ -81,40 +76,6 @@ namespace GamePadAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Consoles");
-                });
-
-            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Jogo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ConsolePId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Genero")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UrlCapa")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConsolePId");
-
-                    b.ToTable("Jogos");
                 });
 
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Post", b =>
@@ -177,6 +138,30 @@ namespace GamePadAPI.Migrations
                     b.ToTable("Sugestoes");
                 });
 
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.UserGameStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<long>("IgdbGameId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("UserGameStatuses");
+                });
+
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -185,8 +170,14 @@ namespace GamePadAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FavoriteGames")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImgUser")
@@ -210,30 +201,13 @@ namespace GamePadAPI.Migrations
 
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Avaliacao", b =>
                 {
-                    b.HasOne("GamePad_TIDAI_2025.Models.Jogo", "Jogo")
-                        .WithMany("Avaliacoes")
-                        .HasForeignKey("JogoId");
-
                     b.HasOne("GamePad_TIDAI_2025.Models.Usuario", "Usuario")
                         .WithMany("Avaliacoes")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Jogo");
-
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Jogo", b =>
-                {
-                    b.HasOne("GamePad_TIDAI_2025.Models.ConsoleP", "ConsoleP")
-                        .WithMany("Jogos")
-                        .HasForeignKey("ConsolePId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ConsoleP");
                 });
 
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Post", b =>
@@ -258,14 +232,15 @@ namespace GamePadAPI.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("GamePad_TIDAI_2025.Models.ConsoleP", b =>
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.UserGameStatus", b =>
                 {
-                    b.Navigation("Jogos");
-                });
+                    b.HasOne("GamePad_TIDAI_2025.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("GamePad_TIDAI_2025.Models.Jogo", b =>
-                {
-                    b.Navigation("Avaliacoes");
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.Usuario", b =>
