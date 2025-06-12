@@ -61,7 +61,6 @@ export default function Settings() {
     })
   );
 
-
   // States para os campos editáveis
   const [nome, setNome] = useState(user?.nome || "");
   const [bio, setBio] = useState(user?.bio || "");
@@ -90,6 +89,7 @@ export default function Settings() {
     setAlert(null);
     try {
       let imgUser = user.imgUser;
+      let cacheBuster = "";
       // Se uma nova imagem foi selecionada, faz upload primeiro
       if (selectedImage && selectedImage.file) {
         const formData = new FormData();
@@ -104,6 +104,7 @@ export default function Settings() {
         if (!response.ok) throw new Error("Erro ao enviar imagem");
         const data = await response.json();
         imgUser = data.imgUser;
+        cacheBuster = `?t=${Date.now()}`; // força recarregar a imagem
       }
       // Garante que favoriteGames seja sempre array de IDs (nunca array de objetos)
       const favIds = favoriteGames.filter((g) => g && g.id).map((g) => g.id);
@@ -123,7 +124,7 @@ export default function Settings() {
         nome: nome,
         bio: bio,
         favoriteGames: JSON.stringify(favIds),
-        imgUser: imgUser,
+        imgUser: imgUser + cacheBuster, // força atualização da imagem
       });
       setSelectedImage(null); // Limpa a seleção após salvar
       setAlert({ type: "success", message: "Perfil atualizado!" });
