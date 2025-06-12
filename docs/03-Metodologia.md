@@ -3,7 +3,7 @@
 
 Para garantir um fluxo de trabalho eficiente e ágil, o desenvolvimento do Game Pede seguirá uma abordagem híbrida baseada no Scrum e Kanban.
 
-Scrum: Será utilizado para estruturar o desenvolvimento em ciclos iterativos e incrementais, denominados sprints. Cada sprint terá duração de duas semanas e contará com reuniões de planejamento, acompanhamento diário (daily scrum), revisão e retrospectiva.
+Scrum: Será utilizado para estruturar o desenvolvimento em ciclos iterativos e incrementais, denominados sprints. Cada sprint terá duração de duas semanas e contará com reuniões de planejamento, acompanhamento semanal (algo próximo da daily scrum), revisão e retrospectiva.
 
 Kanban: Será aplicado para proporcionar um fluxo contínuo de trabalho, utilizando um quadro visual no GitHub Projects para acompanhar o progresso das tarefas e priorizar atividades de forma dinâmica.
 
@@ -125,6 +125,26 @@ Atualizado em: 23/05/2025
 | Ramon Pereira        |    Telas do front         |    09/04/2025      | 21/05/2025     | ✔️ | 21/05/2025          |
 | Yalle Ramos        |    Backend e banco         |    09/04/2025      | 21/05/2025     | ✔️ | 21/05/2025          |
 | Andry Marques      |    Backend e banco        |    09/04/2025      | 21/05/2025     | ✔️ | 21/05/2025          |
+
+
+Legenda:
+- ✔️: terminado
+- 📝: em execução
+- ⌛: atrasado
+- ❌: não iniciado
+
+
+#### Sprint 3
+
+Atualizado em: 11/06/2025
+
+| Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
+| :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
+| Pablo Marques         |    Refinamento do front-end        |    21/05/2025      | 15/05/2025     | 📝 |          |
+| Ramon Pereira         |    Testes funcionais       |    21/05/2025      | 15/05/2025     | 📝 |          |
+| Andry Marques        |    Testes de usabilidade        |    -      | 20/05/2025     | ❌ |          |
+
+
 
 
 Legenda:
