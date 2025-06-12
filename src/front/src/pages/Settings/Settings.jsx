@@ -56,8 +56,11 @@ export default function Settings() {
     }
   }
   const [favoriteGames, setFavoriteGames] = useState(
-    initialFav.map((id) => ({ id, name: "" }))
+    initialFav.map((g) => {
+      return typeof g === "object" ? g : { id: g };
+    })
   );
+
 
   // States para os campos editáveis
   const [nome, setNome] = useState(user?.nome || "");
@@ -102,10 +105,8 @@ export default function Settings() {
         const data = await response.json();
         imgUser = data.imgUser;
       }
-      const favIds = favoriteGames
-        .filter(Boolean)
-        .map((g) => (g && g.id ? g.id : null))
-        .filter(Boolean);
+      // Garante que favoriteGames seja sempre array de IDs (nunca array de objetos)
+      const favIds = favoriteGames.filter((g) => g && g.id).map((g) => g.id);
       const updated = {
         Id: user.id,
         nome: nome,
@@ -219,9 +220,9 @@ export default function Settings() {
           </nav>
         </aside>
         {/* Conteúdo principal */}
-        <section className="flex-1 min-w-0">
+        <section className="flex-1 min-w-0 w-full">
           {activeTab === "edit-profile" && (
-            <div className="max-w-2xl">
+            <div className="w-full">
               <h1 className="text-3xl font-bold text-cyan-400 mb-8">Perfil</h1>
               <form
                 className="flex flex-col gap-8"
@@ -243,9 +244,21 @@ export default function Settings() {
                 </div>
                 <div>
                   <label className="block text-zinc-400 mb-1 font-medium">
+                    Biografia
+                  </label>
+                  <textarea
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    rows={3}
+                    placeholder="Conte um pouco sobre você..."
+                    className="w-full px-3 py-2 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 focus:border-cyan-500 outline-none transition resize-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-zinc-400 mb-1 font-medium">
                     Avatar
                   </label>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-6">
                     <img
                       src={
                         selectedImage?.preview
@@ -256,9 +269,9 @@ export default function Settings() {
                           : user?.imgUser
                       }
                       alt="Avatar"
-                      className="w-20 h-20 rounded-lg object-cover border border-zinc-700"
+                      className="w-32 h-32 rounded-xl object-cover  shadow-lg transition"
                     />
-                    <label className="px-4 cursor-pointer py-2 rounded bg-zinc-800 text-cyan-400 border border-cyan-700 hover:bg-cyan-700 hover:text-white transition">
+                    <label className="px-5 cursor-pointer py-3 rounded-lg bg-zinc-800 text-cyan-400 hover:bg-cyan-700 hover:text-white transition font-semibold text-base">
                       Alterar
                       <input
                         type="file"
@@ -270,28 +283,18 @@ export default function Settings() {
                     </label>
                   </div>
                 </div>
-                <div>
-                  <label className="block text-zinc-400 mb-1 font-medium">
-                    Biografia
-                  </label>
-                  <textarea
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                    rows={3}
-                    placeholder="Conte um pouco sobre você..."
-                    className="w-full px-3 py-2 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 focus:border-cyan-500 outline-none transition resize-none"
-                  />
-                </div>
                 {/* Campo para jogos favoritos */}
-                <div>
+                <div className="w-full">
                   <label className="block text-zinc-400 mb-2 font-medium">
                     Seus 5 jogos favoritos
                   </label>
-                  <FavoriteGamesInput
-                    value={favoriteGames}
-                    onChange={setFavoriteGames}
-                    max={5}
-                  />
+                  <div className="w-full">
+                    <FavoriteGamesInput
+                      value={favoriteGames}
+                      onChange={setFavoriteGames}
+                      max={5}
+                    />
+                  </div>
                   <span className="text-xs text-zinc-500 mt-1 block">
                     Escolha até 5 jogos que representam você!
                   </span>
@@ -321,7 +324,7 @@ export default function Settings() {
             <hr className="my-12 border-zinc-700" />
           )}
           {activeTab === "account" && (
-            <div className="max-w-2xl">
+            <div className="w-full">
               <h1 className="text-3xl font-bold text-cyan-400 mb-8">Conta</h1>
               <form
                 className="flex flex-col gap-8"

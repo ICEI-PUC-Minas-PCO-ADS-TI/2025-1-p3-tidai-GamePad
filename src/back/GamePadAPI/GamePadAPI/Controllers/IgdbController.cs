@@ -40,8 +40,15 @@ namespace GamePadAPI.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             var sb = new StringBuilder();
-            // Se id for informado, busca apenas por esse jogo, com todos os campos relevantes
-            if (id.HasValue)
+            // Se múltiplos ids forem informados, busca todos eles
+            var idsFromQuery = Request.Query["id"].ToArray();
+            if (idsFromQuery != null && idsFromQuery.Length > 0)
+            {
+                sb.Append("fields id,name,cover.url,genres.name,first_release_date,platforms.name,summary,screenshots.url,websites.url,websites.category,age_ratings.rating,age_ratings.category,release_dates.human,release_dates.platform,release_dates.region,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,themes.name,game_modes.name,player_perspectives.name,language_supports.language.name,language_supports.language_support_type.name;");
+                sb.Append($" where id = ({string.Join(",", idsFromQuery)});");
+                sb.Append($" limit {idsFromQuery.Length};");
+            }
+            else if (id.HasValue)
             {
                 sb.Append("fields id,name,cover.url,genres.name,first_release_date,platforms.name,summary,screenshots.url,websites.url,websites.category,age_ratings.rating,age_ratings.category,release_dates.human,release_dates.platform,release_dates.region,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,themes.name,game_modes.name,player_perspectives.name,language_supports.language.name,language_supports.language_support_type.name;");
                 sb.Append($" where id = {id.Value};");

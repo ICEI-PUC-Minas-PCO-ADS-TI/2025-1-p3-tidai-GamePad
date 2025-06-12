@@ -85,13 +85,8 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm transition-all">
       <div
         ref={modalRef}
-        className="bg-zinc-900 rounded-2xl shadow-2xl p-8 w-full max-w-md border-2 border-cyan-500 relative animate-fadeIn"
+        className="bg-zinc-900 rounded-2xl shadow-2xl p-8 w-full max-w-md  relative animate-fadeIn"
       >
-        <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center gap-2">
-          <span className="bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-cyan-400 px-4 py-1 rounded-full text-xs font-bold text-white shadow-lg tracking-widest uppercase border-2 border-zinc-900 select-none">
-            Bem-vindo de volta
-          </span>
-        </div>
         <button
           className="absolute cursor-pointer top-4 right-5 text-zinc-400 hover:text-cyan-400 text-2xl font-bold transition"
           onClick={onClose}
@@ -100,7 +95,7 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
           ×
         </button>
         <div className="flex flex-col items-center px-8 py-10">
-          <h2 className="text-3xl font-extrabold bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow-lg text-center font-mono">
+          <h2 className="text-3xl font-extrabold text-cyan-400 bg-clip-text  mb-2 tracking-tight drop-shadow-lg text-center font-mono">
             Entrar na conta
           </h2>
           <p className="text-zinc-400 text-center mb-7 text-sm font-mono">

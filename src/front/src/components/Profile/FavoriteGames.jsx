@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { fetchGamesByIds } from "../../service/igdbService";
 
-// Permite receber o usuário como prop (para perfis públicos)
+// Permite receber o usuário como prop 
 export default function FavoriteGames({ user: userProp }) {
   const { user: userContext } = useUser();
   const user = userProp || userContext;
@@ -11,7 +11,7 @@ export default function FavoriteGames({ user: userProp }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // IDs dos jogos favoritos (array de números ou strings)
+  // IDs dos jogos favoritos 
   let favoriteIds = [];
   if (user && user.favoriteGames) {
     if (Array.isArray(user.favoriteGames)) {
@@ -40,6 +40,7 @@ export default function FavoriteGames({ user: userProp }) {
     }
   }
 
+
   useEffect(() => {
     async function fetchFavoriteGames() {
       if (!favoriteIds.length) {
@@ -62,6 +63,8 @@ export default function FavoriteGames({ user: userProp }) {
     // eslint-disable-next-line
   }, [user && user.favoriteGames]);
 
+  console.log("Jogos favoritos:", games);
+
   return (
     <div className="mb-8">
       <h3 className="text-lg font-semibold text-cyan-200 mb-1">
@@ -79,7 +82,7 @@ export default function FavoriteGames({ user: userProp }) {
           {games.map((game, i) => (
             <div
               key={game.id || i}
-              className="w-40 h-64 bg-zinc-800 rounded-xl overflow-hidden flex flex-col items-center justify-between shadow-lg"
+              className="w-52 h-72 bg-zinc-800 rounded-xl overflow-hidden flex flex-col items-center justify-between shadow-lg"
             >
               <img
                 src={
@@ -94,31 +97,9 @@ export default function FavoriteGames({ user: userProp }) {
                     : "https://via.placeholder.com/90x120?text=No+Image"
                 }
                 alt={game.name}
-                className="w-full h-40 object-cover"
+                className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="flex-1 flex flex-col justify-between p-2 w-full">
-                <span className="block text-white text-center font-semibold truncate">
-                  {game.name}
-                </span>
-                {game.first_release_date && (
-                  <span className="text-xs text-zinc-400 text-center">
-                    {new Date(game.first_release_date * 1000).getFullYear()}
-                  </span>
-                )}
-                {game.genres && game.genres.length > 0 && (
-                  <div className="flex flex-wrap gap-1 justify-center mt-1">
-                    {game.genres.map((g, idx) => (
-                      <span
-                        key={idx}
-                        className="bg-fuchsia-700/60 text-white px-2 py-0.5 rounded-full text-xs font-semibold capitalize"
-                      >
-                        {typeof g === "object" && g !== null ? g.name : g}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
             </div>
           ))}
         </div>

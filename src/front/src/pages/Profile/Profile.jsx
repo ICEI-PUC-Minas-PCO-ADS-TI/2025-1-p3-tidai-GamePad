@@ -55,8 +55,10 @@ export default function Profile() {
 
   const TabComponent = TAB_COMPONENTS[activeTab] || (() => <div />);
 
-  // Use o usuário do contexto como exemplo (para perfis públicos, busque pelo username)
-  const profileUser = user; // Troque por dados buscados do backend se necessário
+  const profileUser = user; 
+
+  
+
 
   return (
     <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-0 md:px-48 py-10">

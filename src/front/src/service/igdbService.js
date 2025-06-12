@@ -1,3 +1,7 @@
+const API_URL = "http://localhost:5069/api/igdb/games";
+const PLATFORMS_URL = "http://localhost:5069/api/igdb/platforms";
+const GENRES_URL = "http://localhost:5069/api/igdb/genres";
+
 /**
  * Busca jogos por um array de IDs (via backend)
  * @param {Array} ids
@@ -5,16 +9,15 @@
  */
 export async function fetchGamesByIds(ids) {
   if (!ids || !ids.length) return [];
-  // Suporta tanto array de números quanto strings
-  const idsParam = ids.join(",");
-  const url = `${API_URL}?id=${idsParam}`;
+  // Envia múltiplos parâmetros id=...&id=...
+  const idsParam = ids.map((id) => `id=${id}`).join("&");
+  const url = `${API_URL}?${idsParam}`;
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error("Erro ao buscar jogos por ID");
   }
   return await response.json();
 }
-const PLATFORMS_URL = "http://localhost:5069/api/igdb/platforms";
 
 /**
  * Busca plataformas disponíveis na IGDB via backend.
@@ -27,9 +30,6 @@ export async function fetchPlatforms() {
   }
   return await response.json();
 }
-// Serviço para buscar jogos do backend (que consulta a IGDB)
-
-const API_URL = "http://localhost:5069/api/igdb/games";
 
 /**
  * Busca jogos do backend com filtros e paginação.
@@ -70,8 +70,6 @@ export async function fetchGames({
   }
   return await response.json();
 }
-
-const GENRES_URL = "http://localhost:5069/api/igdb/genres";
 
 /**
  * Busca gêneros disponíveis na IGDB via backend.

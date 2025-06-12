@@ -118,13 +118,8 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm transition-all">
       <div
         ref={modalRef}
-        className="bg-zinc-900 rounded-2xl shadow-2xl p-8 w-full max-w-md border-2 border-fuchsia-500 relative animate-fadeIn"
+        className="bg-zinc-900 rounded-2xl shadow-2xl p-8 w-full max-w-md  relative animate-fadeIn"
       >
-        <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center gap-2">
-          <span className="bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-fuchsia-500 px-4 py-1 rounded-full text-xs font-bold text-white shadow-lg tracking-widest uppercase border-2 border-zinc-900 select-none">
-            Novo Jogador
-          </span>
-        </div>
         <button
           className="absolute cursor-pointer top-4 right-5 text-zinc-400 hover:text-fuchsia-400 text-2xl font-bold transition"
           onClick={onClose}
@@ -133,7 +128,7 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
           ×
         </button>
         <div className="flex flex-col items-center px-8 py-10">
-          <h2 className="text-3xl font-extrabold bg-gradient-to-r from-fuchsia-400 via-cyan-400 to-fuchsia-400 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow-lg text-center font-mono">
+          <h2 className="text-3xl font-extrabold bg-gradient-to-r  bg-clip-text text-fuchsia-400 mb-2 tracking-tight drop-shadow-lg text-center font-mono">
             Crie sua conta
           </h2>
           <p className="text-zinc-400 text-center mb-7 text-sm font-mono">
