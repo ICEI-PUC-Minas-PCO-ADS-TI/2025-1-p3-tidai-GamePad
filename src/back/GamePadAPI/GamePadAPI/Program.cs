@@ -90,6 +90,9 @@ namespace GamePadAPI
 
             app.UseHttpsRedirection();
 
+            // Permite servir arquivos estáticos da pasta wwwroot (incluindo /profile-images)
+            app.UseStaticFiles();
+
             // Adicione esta linha para usar a política CORS antes de Authentication/Authorization
             app.UseCors("AllowFrontend");
             app.UseAuthentication();

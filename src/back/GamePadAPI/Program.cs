@@ -266,6 +266,18 @@ namespace GamePadAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { imgUser = imgUserPath });
+            
+            var builder = WebApplication.CreateBuilder(args);
+            var app = builder.Build();
+
+            // Adicione esta linha logo após o build:
+            app.UseStaticFiles();
+
+            app.UseRouting();
+            app.UseAuthorization();
+            app.MapControllers();
+
+            app.Run();
         }
     }
 }
