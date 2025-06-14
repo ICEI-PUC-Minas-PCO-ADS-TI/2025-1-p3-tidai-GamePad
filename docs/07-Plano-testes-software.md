@@ -36,6 +36,20 @@ Por exemplo:
 | Tela 2  | <img src="../docs/images/testes/ct2/p1.png" width="2000px">
 | Tela 3  | <img src="../docs/images/testes/ct2/p2.png" width="2000px">
 
+<br>
+
+| **Caso de teste**  | **CT-002 – Efetuar login**  |
+|:---: |:---: |
+| Requisito associado | RF-006 - Permitir login do usuário |
+| Objetivo do teste | Verificar se o usuário consegue realizar login. |
+| Passos | - Acessar o navegador <br> - https://gamepad.com/home <br> - Clicar no botão "Entrar" <br> - Preencher o campo de e-mail <br> - Preencher o campo de senha <br> - Clicar em "Login" |
+| Critério de êxito | - O login foi realizado com sucesso. |
+| Responsável pela elaboração do caso de teste | Andry Marques |
+| Tela 1  | <img src="../docs/images/testes/ct1/p1.png" width="2000px">
+| Tela 2  | <img src="../docs/images/testes/ct2/p1.png" width="2000px">
+| Tela 3  | <img src="../docs/images/testes/ct2/p2.png" width="2000px">
+
+
 
 ## Ferramentas de testes (opcional)
 

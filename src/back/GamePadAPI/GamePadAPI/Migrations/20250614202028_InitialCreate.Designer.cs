@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamePadAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250612205621_InitialCreate")]
+    [Migration("20250614202028_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -15,3 +15,8 @@ obj/
 TestResults/
 
 .fake
+
+# Docker (Andry)
+
+.dockerignore
+.Dockerfile

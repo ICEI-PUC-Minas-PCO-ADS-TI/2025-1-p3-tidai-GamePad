@@ -1,8 +1,8 @@
 # Game Pad
 
-<img src="./docs/images/gamepadHeader.png" width="200px">
+<br><img src="./docs/images/gamepadHeader.png" width="200px">
 
-##
+<br> 
 
 `CURSO: Análise e Desenvolvimento de Sistemas`
 
