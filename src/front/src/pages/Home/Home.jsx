@@ -1,16 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import imgHeader from "../../assets/imgHeader.jpg";
 import gamepad1 from "../../assets/gamepad1.png";
 import gamepad2 from "../../assets/gamepad2.png";
 import { Button } from "../../components/Button/Button";
 import GameCard from "../../components/Cards/GameCard";
-import { Save, Hourglass, Telescope, HeartPlus } from "lucide-react";
+import { Save, Hourglass, Telescope, HeartPlus, Joystick } from "lucide-react";
 import GlassButton from "../../components/GlassButton/GlassButton";
 import CommentSlider from "../../components/slider/CommentSlider";
 import { fetchGames } from "../../service/igdbService";
 
+
+
 export default function Home() {
+
+  const navigate = useNavigate();
+
   // Comentários para o slider
   const comments = [
     {
@@ -132,12 +138,24 @@ console.log("Jogos carregados:", games);
         {/* Seção dividida em duas colunas */}
         <section className="mt-16 flex flex-col md:flex-row justify-center items-center gap-12 w-full px-48 mx-auto">
           {/* Coluna Esquerda */}
-          <div className="flex flex-col items-center md:items-start w-full md:w-1/2 md:pl-0">
+          <div className="relative flex items-center justify-center w-full md:w-1/2 md:pl-0">
             <img
               src={gamepad1}
               alt="Controle"
               className="w-128 h-128 md:w-108 md:h-108 object-cover rounded-2xl"
             />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+              <GlassButton
+                icon={Joystick}
+                iconColor="#FF0000"
+                text="Conheça tudo que você pode fazer."
+                hoverGradient="hover:bg-gradient-to-br hover:from-cyan-500/30 hover:to-purple-500/30"
+                hoverBorder="hover:border-cyan-400"
+                hoverRing="hover:shadow-2xl hover:ring-2 hover:ring-cyan-400/40"
+                hoverText="text-cyan-100"
+                onClick={() => navigate("/guia")}
+              />
+            </div>
           </div>
           {/* Coluna Direita*/}
           <div className="relative grid grid-cols-2 gap-12 w-full md:w-1/2">
