@@ -57,7 +57,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-004| Permitir a criação de perfis de usuários | ALTA |
 |RF-005| Possibilitar filtragem de pesquisas por categorias | MÉDIA |
 |RF-006| Permitir login do usuário | ALTA |
-|RF-007| Exibir notícias e atualizações sobre eSports | MÉDIA |
+|RF-007| Exibir notícias do mundo dos games | MÉDIA |
 |RF-008| Permitir que usuário edite seu perfil | MÉDIA |
 |RF-009| Permitir criadores de conteúdo compartilharem lives e comunicados| ALTA |
 |RF-010| Permitir que usuários descubram criadores de conteúdo baseado em jogos de interesse | ALTA |
