@@ -735,7 +735,7 @@ export default function GameSelected() {
                     style={{ minHeight: 380 }}
                   >
                     <button
-                      className="absolute left-2 z-10 bg-zinc-900/80 hover:bg-cyan-600 text-white rounded-full p-4 shadow-lg transition"
+                      className="absolute left-2 cursor-pointer z-10 bg-zinc-900/80 hover:bg-cyan-600 text-white rounded-full p-4 shadow-lg transition"
                       onClick={handlePrevImage}
                       aria-label="Imagem anterior"
                       style={{ top: "50%", transform: "translateY(-50%)" }}
@@ -743,7 +743,7 @@ export default function GameSelected() {
                       <span className="text-2xl">&#8592;</span>
                     </button>
                     <div
-                      className="rounded-2xl overflow-hidden shadow-2xl border-4 border-cyan-700 bg-zinc-800 flex items-center justify-center w-full"
+                      className="rounded-2xl overflow-hidden shadow-2xl bg-zinc-800 flex items-center justify-center w-full"
                       style={{
                         maxWidth: "100%",
                         minHeight: 320,
@@ -764,7 +764,7 @@ export default function GameSelected() {
                       />
                     </div>
                     <button
-                      className="absolute right-2 z-10 bg-zinc-900/80 hover:bg-cyan-600 text-white rounded-full p-4 shadow-lg transition"
+                      className="absolute cursor-pointer right-2 z-10 bg-zinc-900/80 hover:bg-cyan-600 text-white rounded-full p-4 shadow-lg transition"
                       onClick={handleNextImage}
                       aria-label="Próxima imagem"
                       style={{ top: "50%", transform: "translateY(-50%)" }}
@@ -783,10 +783,7 @@ export default function GameSelected() {
                         }`}
                         onClick={() => setGalleryIndex(idx)}
                         aria-label={`Selecionar imagem ${idx + 1}`}
-                        style={{
-                          outline:
-                            galleryIndex === idx ? "2px solid #06b6d4" : "none",
-                        }}
+                        style={{ outline: "none" }}
                       />
                     ))}
                   </div>
