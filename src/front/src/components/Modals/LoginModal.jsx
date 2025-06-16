@@ -68,7 +68,6 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
         setAlert(null);
         setForm({ email: "", senha: "" }); // Limpa os campos do formulário
         onClose();
-        navigate(`/${user.nome.toLowerCase().replace(/\s+/g, "-")}`);
       }, 1200);
     } catch (err) {
       console.error("Erro ao fazer login:", err);
@@ -78,6 +77,14 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
       console.log("Finalizou tentativa de login");
     }
   }
+
+  const handleProfileClick = () => {
+    if (user) {
+      navigate(`/${user.nome.toLowerCase().replace(/\s+/g, "-")}`);
+    } else {
+      setShowLoginModal(true);
+    }
+  };
 
   if (!open) return null;
 

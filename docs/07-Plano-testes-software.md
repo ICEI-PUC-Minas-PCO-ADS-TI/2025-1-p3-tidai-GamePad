@@ -54,6 +54,24 @@ Por exemplo:
 | Tela 7  | <img src="../docs/images/testes/ct3/p6.png" width="2000px">
 | Tela 8  | <img src="../docs/images/testes/ct3/p8.png" width="2000px">
 
+<br>
+
+| **Caso de teste**  | **CT-004 – Filtrar jogos**  |
+|:---: |:---: |
+| Requisito associado | RF-008 - Permitir que usuário edite seu perfil  |
+| Objetivo do teste | Verificar se o usuário consegue editar todos os campos de seu perfil. |
+| Passos | - Acessar o navegador <br> - https://gamepad.com/ <br> - Clicar no icone de seu perfil nocanto superior direito <br> - Clicar em "Meu perfil" <br> - Clicar em "Editar Perfil" <br> - Editar todos os campos possiveis do usuário. |
+| Critério de êxito | - Perfil atualizado!|
+| Responsável pela elaboração do caso de teste | Andry Marques |
+| Tela 1  | <img src="../docs/images/testes/ct3/p0.png" width="2000px">
+| Tela 2  | <img src="../docs/images/testes/ct3/p1.png" width="2000px">
+| Tela 3  | <img src="../docs/images/testes/ct3/p2.png" width="2000px">
+| Tela 4  | <img src="../docs/images/testes/ct3/p3.png" width="2000px">
+| Tela 5  | <img src="../docs/images/testes/ct3/p4.png" width="2000px">
+| Tela 6  | <img src="../docs/images/testes/ct3/p5.png" width="2000px">
+| Tela 7  | <img src="../docs/images/testes/ct3/p6.png" width="2000px">
+| Tela 8  | <img src="../docs/images/testes/ct3/p8.png" width="2000px">
+
 
 
 ## Ferramentas de testes (opcional)

@@ -1,76 +1,40 @@
-import React, { useState, useEffect } from "react";
-import NewsFilter from "./NewsFilter";
+import React, { useState } from "react";
 
-export default function CardNews() {
-  const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [filters, setFilters] = useState({
-    platform: "",
-    search: "",
-  });
+export default function NewsFilter({ onFilter }) {
+  const [platform, setPlatform] = useState("");
+  const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    setLoading(true);
-    setError("");
-
-    let query = filters.search ? filters.search : "games";
-    if (filters.platform) {
-      query += ` ${filters.platform}`;
-    }
-
-    fetch(
-      `${BASE_URL}?q=${encodeURIComponent(query)}&language=pt&sortBy=publishedAt&pageSize=6&apiKey=${NEWS_API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.articles) {
-          let filtered = data.articles;
-          if (filters.platform) {
-            filtered = filtered.filter((article) =>
-              article.title.toLowerCase().includes(filters.platform)
-            );
-          }
-          setNews(filtered);
-        } else {
-          setError("Nenhuma notícia encontrada.");
-        }
-        setLoading(false);
-      })
-      .catch(() => {
-        setError("Erro ao carregar notícias.");
-        setLoading(false);
-      });
-  }, [filters]);
-
-  const handleFilter = (newFilters) => {
-    setFilters(newFilters);
+  const handleFilter = () => {
+    onFilter({ platform, search });
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <NewsFilter onFilter={handleFilter} />
-      {loading && <p>Carregando...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {news.map((article) => (
-          <div
-            key={article.url}
-            className="bg-zinc-800 rounded-lg p-4 flex flex-col"
-          >
-            <h2 className="text-xl font-bold mb-2">{article.title}</h2>
-            <p className="flex-1">{article.description}</p>
-            <a
-              href={article.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg text-center"
-            >
-              Ler mais
-            </a>
-          </div>
-        ))}
-      </div>
+    <div className="flex flex-col md:flex-row gap-4 items-center justify-center mb-8">
+      <select
+        className="rounded-lg px-3 py-2 bg-zinc-800 text-white"
+        value={platform}
+        onChange={(e) => setPlatform(e.target.value)}
+      >
+        <option value="">Todas as plataformas</option>
+        <option value="xbox">Xbox</option>
+        <option value="nintendo">Nintendo</option>
+        <option value="playstation">PlayStation</option>
+      </select>
+
+      <input
+        className="rounded-lg px-3 py-2 bg-zinc-800 text-white"
+        type="text"
+        placeholder="Buscar por jogo ou termo..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      <button
+        className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg"
+        onClick={handleFilter}
+      >
+        Filtrar
+      </button>
     </div>
   );
 }

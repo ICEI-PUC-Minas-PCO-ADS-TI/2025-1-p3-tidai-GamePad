@@ -1,32 +1,34 @@
 import React, { useEffect, useState } from "react";
-import NewsFilter from "./NewsFilter"; // ajuste o caminho conforme seu projeto
+import NewsFilter from "./NewsFilter";
 
 const NEWS_API_KEY = "d5ed40d54b23432db5ad32a4a0feedb9";
 const BASE_URL = "https://newsapi.org/v2/everything";
+const PAGE_SIZE = 9;
+const MAX_PAGES = 5;
 
 const GAME_KEYWORDS = [
   "game", "games", "jogo", "jogos", "videogame", "videogames",
   "xbox", "playstation", "nintendo", "switch", "ps5", "ps4", "console"
 ];
 
+// Filtro: só aceita se a palavra-chave aparecer no TÍTULO
 function isGameNews(article) {
-  const text = `${article.title} ${article.description}`.toLowerCase();
-  return GAME_KEYWORDS.some(keyword => text.includes(keyword));
+  const title = (article.title || "").toLowerCase();
+  return GAME_KEYWORDS.some(keyword => title.includes(keyword));
 }
 
 export default function CardNews() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [filters, setFilters] = useState({
-    date: "today",
-    platform: "",
-    search: "",
-  });
+  const [filters, setFilters] = useState({ platform: "", search: "" });
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     setLoading(true);
     setError("");
+    setPage(1);
 
     let query = filters.search ? filters.search : "games";
     if (filters.platform) {
@@ -34,24 +36,36 @@ export default function CardNews() {
     }
 
     fetch(
-      `${BASE_URL}?q=${encodeURIComponent(query)}&language=pt&sortBy=publishedAt&pageSize=12&apiKey=${NEWS_API_KEY}`
+      `${BASE_URL}?q=${encodeURIComponent(query)}&language=pt&sortBy=publishedAt&pageSize=${PAGE_SIZE * MAX_PAGES}&apiKey=${NEWS_API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => {
         if (data.articles) {
-          // Filtra apenas notícias realmente de games
+          // Filtra apenas notícias de games pelo TÍTULO
           let filtered = data.articles.filter(isGameNews);
+          filtered = filtered.slice(0, PAGE_SIZE * MAX_PAGES);
           setNews(filtered);
+          setTotalPages(Math.ceil(filtered.length / PAGE_SIZE));
         } else {
           setError("Nenhuma notícia encontrada.");
+          setNews([]);
+          setTotalPages(1);
         }
         setLoading(false);
       })
       .catch(() => {
         setError("Erro ao carregar notícias.");
+        setNews([]);
+        setTotalPages(1);
         setLoading(false);
       });
   }, [filters]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [filters]);
+
+  const paginatedNews = news.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <section className="w-full max-w-[1440px] mx-auto mt-8 px-4">
@@ -64,7 +78,7 @@ export default function CardNews() {
         <div className="text-center text-red-500">{error}</div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {news.map((item, idx) => (
+        {paginatedNews.map((item, idx) => (
           <a
             key={idx}
             href={item.url}
@@ -92,6 +106,24 @@ export default function CardNews() {
           </a>
         ))}
       </div>
+      {/* Paginação */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-8 gap-2">
+          {[...Array(Math.min(totalPages, MAX_PAGES)).keys()].map((i) => (
+            <button
+              key={i}
+              className={`px-4 py-2 rounded-lg font-bold ${
+                page === i + 1
+                  ? "bg-cyan-500 text-white"
+                  : "bg-zinc-700 text-cyan-300 hover:bg-cyan-700"
+              }`}
+              onClick={() => setPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

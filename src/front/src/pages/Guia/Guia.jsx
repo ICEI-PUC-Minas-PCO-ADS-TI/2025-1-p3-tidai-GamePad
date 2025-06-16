@@ -1,22 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import guiaBanner from "../../assets/guia1.png";
-import gamepad1 from "../../assets/gamepad1.png";
-import gamepad2 from "../../assets/gamepad2.png";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import guiaBanner from "../../assets/guiaBanner.png";
 import { Button } from "../../components/Button/Button";
 import GameCard from "../../components/Cards/GameCard";
-import { Save, Hourglass, Telescope, HeartPlus, Joystick, Newspaper, Star, Heart, List, MessageCircle, Gamepad as Gamepad2 } from "lucide-react";
-import GlassButton from "../../components/GlassButton/GlassButton";
-import CommentSlider from "../../components/slider/CommentSlider";
+import { Newspaper, Star, Heart, List, MessageCircle, Gamepad as Gamepad2 } from "lucide-react";
 import { fetchGames } from "../../service/igdbService";
+import { UserContext } from "../../context/UserContext";
+import LoginModal from "../../components/Modals/LoginModal";
+
 
 export default function Home() {
-  
-
   // Estado para jogos da IGDB
   const [games, setGames] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
+
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   React.useEffect(() => {
     fetchGames({ popular: true, limit: 6 })
@@ -30,28 +31,33 @@ export default function Home() {
       });
   }, []);
 
-  console.log("Jogos carregados:", games);
+  // Função para ir para o perfil ou mostrar modal de login
+  const handleProfileClick = () => {
+    if (user) {
+      navigate(`/${user.nome.toLowerCase().replace(/\s+/g, "-")}`);
+    } else {
+      setShowLoginModal(true);
+    }
+  };
 
   return (
     <main className="w-full flex flex-col items-center">
+      <LoginModal open={showLoginModal} onClose={() => setShowLoginModal(false)} />
       <header className="flex justify-center items-start w-full max-w-[1440px]">
         <div className="relative w-full md:px-full ">
-          {/* Imagem principal do header, alinhada com a navbar */}
           <img
             src={guiaBanner}
             alt="Header"
-            className="mask-x-from-80%  mask-y-from-80%  w-full h-150 object-cover"
+            className="mask-x-from-80%  mask-y-from-80% w-full h-130 object-cover h-[50vh]"
           />
-          {/* Texto centralizado sobre a imagem, com transição para transparência */}
           <div className="absolute left-1/2 bottom-4 -translate-x-1/2 w-[90%] text-white text-center text-3xl font-semibold drop-shadow-lg pointer-events-none flex flex-col gap-y-2">
             <span>Bem-vindo ao seu guia</span>
-
           </div>
         </div>
       </header>
 
       <h1 className="text-3xl font-bold mb-8 text-cyan-400 text-center w-full max-w-[1440px]">
-        Guia rápido das funcionalidades
+        Seus controles dispoiníveis 
       </h1>
 
       {/* Página de Jogos */}
@@ -137,7 +143,7 @@ export default function Home() {
           <li>Veja e gerencie suas próprias avaliações e comentários.</li>
         </ul>
         <div className="flex justify-center mt-6">
-          <Button onClick={() => window.location.href = "/profile"}>
+          <Button onClick={handleProfileClick}>
             Ir para página de Perfil
           </Button>
         </div>
@@ -158,9 +164,6 @@ export default function Home() {
           </Button>
         </div>
       </section>
-
-
-
     </main>
   );
 }
