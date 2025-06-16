@@ -79,8 +79,6 @@ const Games = () => {
       };
     }
 
-    if (!user) return <Navigate to="/" replace />;
-
     // Caso padrão: populares, melhores, novos lançamentos
     const backendFilters = {
       genre: filters.genre,

@@ -6,7 +6,7 @@ import React, {
   useRef,
 } from "react";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 // sessão termina em 2 hrs
 const SESSION_TIMEOUT = 2 * 60 * 60 * 1000;
@@ -39,8 +39,6 @@ export function UserProvider({ children }) {
     }
   }, []);
 
-  // atualiza a atividade do usuário
-  // e reseta o timer de sessão
   useEffect(() => {
     if (!user) return;
     const updateActivity = () => {

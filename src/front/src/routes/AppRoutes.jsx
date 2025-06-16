@@ -9,6 +9,7 @@ import Comunidade from "../pages/Comunidade/Comunidade";
 import Profile from "../pages/Profile/Profile";
 import GamesSearch from "../pages/Games/GamesSearch";
 import Settings from "../pages/Settings/Settings";
+import Guia from "../pages/Guia/Guia";
 
 export default function AppRoutes() {
   return (
@@ -22,6 +23,7 @@ export default function AppRoutes() {
         <Route path="/Comunidade" element={<Comunidade />} />
         <Route path="/:username" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/guia" element={<Guia />} />
       </Route>
     </Routes>
   );
