@@ -42,51 +42,66 @@ O Esquema Relacional corresponde à representação dos dados em tabelas juntame
 
 ### Modelo físico
 
-Insira aqui o script de criação das tabelas do banco de dados.
-
-Veja um exemplo:
-
 ```sql
--- Criação da tabela Medico
-CREATE TABLE Medico (
-    MedCodigo INTEGER PRIMARY KEY,
-    MedNome VARCHAR(100)
+-- Criação da tabela Usuarios
+CREATE TABLE Usuarios (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nome NVARCHAR(MAX) NOT NULL,
+    Email NVARCHAR(MAX) NOT NULL,
+    Senha NVARCHAR(MAX) NOT NULL,
+    ImgUser NVARCHAR(MAX),
+    Tipo NVARCHAR(MAX),
+    Bio NVARCHAR(MAX),
+    FavoriteGames NVARCHAR(MAX)
 );
 
--- Criação da tabela Paciente
-CREATE TABLE Paciente (
-    PacCodigo INTEGER PRIMARY KEY,
-    PacNome VARCHAR(100)
+-- Criação da tabela Avaliacoes
+CREATE TABLE Avaliacoes (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nota NVARCHAR(MAX) NOT NULL,
+    Comentario NVARCHAR(MAX) NOT NULL,
+    Data DATETIME2 NOT NULL,
+    UsuarioId INT NOT NULL,
+    IgdbGameId BIGINT,
+    FOREIGN KEY (UsuarioId) REFERENCES Usuarios(Id)
 );
 
--- Criação da tabela Consulta
-CREATE TABLE Consulta (
-    ConCodigo INTEGER PRIMARY KEY,
-    MedCodigo INTEGER,
-    PacCodigo INTEGER,
-    Data DATE,
-    FOREIGN KEY (MedCodigo) REFERENCES Medico(MedCodigo),
-    FOREIGN KEY (PacCodigo) REFERENCES Paciente(PacCodigo)
+-- Criação da tabela Consoles
+CREATE TABLE Consoles (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nome NVARCHAR(MAX) NOT NULL,
+    Plataforma NVARCHAR(MAX) NOT NULL
 );
 
--- Criação da tabela Medicamento
-CREATE TABLE Medicamento (
-    MdcCodigo INTEGER PRIMARY KEY,
-    MdcNome VARCHAR(100)
+-- Criação da tabela Posts
+CREATE TABLE Posts (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Titulo NVARCHAR(MAX),
+    Descricao NVARCHAR(MAX) NOT NULL,
+    Link NVARCHAR(MAX),
+    Data DATETIME2 NOT NULL,
+    UsuarioId INT NOT NULL,
+    FOREIGN KEY (UsuarioId) REFERENCES Usuarios(Id)
 );
 
--- Criação da tabela Prescricao
-CREATE TABLE Prescricao (
-    ConCodigo INTEGER,
-    MdcCodigo INTEGER,
-    Posologia VARCHAR(200),
-    PRIMARY KEY (ConCodigo, MdcCodigo),
-    FOREIGN KEY (ConCodigo) REFERENCES Consulta(ConCodigo),
-    FOREIGN KEY (MdcCodigo) REFERENCES Medicamento(MdcCodigo)
+-- Criação da tabela Sugestoes
+CREATE TABLE Sugestoes (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nome NVARCHAR(MAX) NOT NULL,
+    Descricao NVARCHAR(MAX) NOT NULL,
+    Data DATETIME2 NOT NULL,
+    UsuarioId INT NOT NULL,
+    FOREIGN KEY (UsuarioId) REFERENCES Usuarios(Id)
 );
-```
-Esse script deverá ser incluído em um arquivo .sql na pasta [de scripts SQL](../src/db).
 
+-- Criação da tabela UserGameStatuses
+CREATE TABLE UserGameStatuses (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    UsuarioId INT NOT NULL,
+    IgdbGameId BIGINT NOT NULL,
+    Status INT NOT NULL,
+    FOREIGN KEY (UsuarioId) REFERENCES Usuarios(Id)
+);
 
 ## Tecnologias
 
