@@ -59,5 +59,20 @@ namespace GamePadAPI.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        // DELETE: api/UserGameStatus?usuarioId=1&igdbGameId=6036&status=1
+        [HttpDelete]
+        public async Task<IActionResult> DeleteStatusByParams([FromQuery] int usuarioId, [FromQuery] long igdbGameId, [FromQuery] int status)
+        {
+            var statusObj = await _context.UserGameStatuses
+                .FirstOrDefaultAsync(s => s.UsuarioId == usuarioId && s.IgdbGameId == igdbGameId && s.Status == (GameStatusEnum)status);
+            if (statusObj == null)
+            {
+                return NotFound();
+            }
+            _context.UserGameStatuses.Remove(statusObj);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

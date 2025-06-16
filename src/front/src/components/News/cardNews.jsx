@@ -112,7 +112,7 @@ export default function CardNews() {
           {[...Array(Math.min(totalPages, MAX_PAGES)).keys()].map((i) => (
             <button
               key={i}
-              className={`px-4 py-2 rounded-lg font-bold ${
+              className={`px-4 cursor-pointer py-2 rounded-lg font-bold ${
                 page === i + 1
                   ? "bg-cyan-500 text-white"
                   : "bg-zinc-700 text-cyan-300 hover:bg-cyan-700"

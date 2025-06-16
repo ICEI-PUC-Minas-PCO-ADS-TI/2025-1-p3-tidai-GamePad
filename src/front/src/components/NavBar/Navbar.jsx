@@ -100,20 +100,19 @@ const Navbar = () => {
           <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
             <Link to="/news">Notícias</Link>
           </li>
-          <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
-            <Link to="/Comunidade">Comunidade</Link>
-          </li>
         </ul>
-        {/* SearchBar */}
-        <div className="mx-6 w-full max-w-xs flex items-center">
-          <SearchBar
-            value={navbarSearch}
-            onChange={(e) => setNavbarSearch(e.target.value)}
-            onSearch={handleNavbarSearch}
-          />
-        </div>
+
         {/* Resto da navbar: login/avatar/menu mobile */}
+
         <div className="relative hidden md:flex items-center justify-center gap-3 ">
+          {/* SearchBar */}
+          <div className="mx-6 w-full max-w-xs flex items-center">
+            <SearchBar
+              value={navbarSearch}
+              onChange={(e) => setNavbarSearch(e.target.value)}
+              onSearch={handleNavbarSearch}
+            />
+          </div>
           {user && user.imgUser ? (
             <div className="relative user-avatar-dropdown">
               <img

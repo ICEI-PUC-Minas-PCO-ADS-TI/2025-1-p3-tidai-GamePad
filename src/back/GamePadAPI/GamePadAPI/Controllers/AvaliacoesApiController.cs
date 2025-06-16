@@ -15,11 +15,37 @@ namespace GamePadAPI.Controllers
             _context = context;
         }
 
+        // DTO para evitar referência circular
+        public class AvaliacaoDto
+        {
+            public int Id { get; set; }
+            public string Nota { get; set; }
+            public string Comentario { get; set; }
+            public DateTime Data { get; set; }
+            public int UsuarioId { get; set; }
+            public string UsuarioNome { get; set; }
+            public string UsuarioImg { get; set; }
+            public long IgdbGameId { get; set; }
+        }
+
         // GET: api/AvaliacoesApi
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Avaliacao>>> GetAvaliacoes()
+        public async Task<ActionResult<IEnumerable<AvaliacaoDto>>> GetAvaliacoes()
         {
-            return await _context.Avaliacoes.Include(a => a.Usuario).ToListAsync();
+            return await _context.Avaliacoes
+                .Include(a => a.Usuario)
+                .Select(a => new AvaliacaoDto
+                {
+                    Id = a.Id,
+                    Nota = a.Nota,
+                    Comentario = a.Comentario,
+                    Data = a.Data,
+                    UsuarioId = a.UsuarioId,
+                    UsuarioNome = a.Usuario.Nome,
+                    UsuarioImg = a.Usuario.ImgUser,
+                    IgdbGameId = a.IgdbGameId ?? 0
+                })
+                .ToListAsync();
         }
 
         // GET: api/AvaliacoesApi/5
@@ -40,6 +66,13 @@ namespace GamePadAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Avaliacao>> PostAvaliacao(Avaliacao avaliacao)
         {
+            // Permite avaliação por estrelas sem comentário,
+            // mas se enviar comentário, nota deve ser maior que zero
+            if (!string.IsNullOrWhiteSpace(avaliacao.Comentario) && (string.IsNullOrWhiteSpace(avaliacao.Nota) || avaliacao.Nota == "0"))
+            {
+                return BadRequest("Para comentar, é necessário dar uma nota ao jogo.");
+            }
+            // Permite nota sem comentário
             _context.Avaliacoes.Add(avaliacao);
             await _context.SaveChangesAsync();
 

@@ -15,7 +15,7 @@ import { useUser } from "../../context/UserContext";
 const pageSize = 48;
 
 const Games = () => {
-  const { user } = useUser();
+  useUser();
   const [filters, setFilters] = useState({
     genre: "",
     year: "",

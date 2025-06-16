@@ -5,7 +5,6 @@ import Home from "../pages/Home/Home";
 import News from "../pages/News/News";
 import Games from "../pages/Games/Games";
 import GameSelected from "../pages/Games/GameSelected";
-import Comunidade from "../pages/Comunidade/Comunidade";
 import Profile from "../pages/Profile/Profile";
 import GamesSearch from "../pages/Games/GamesSearch";
 import Settings from "../pages/Settings/Settings";
@@ -20,7 +19,6 @@ export default function AppRoutes() {
         <Route path="/games" element={<Games />} />
         <Route path="/games/search/:searchTerm" element={<GamesSearch />} />
         <Route path="/games/:id" element={<GameSelected />} />
-        <Route path="/Comunidade" element={<Comunidade />} />
         <Route path="/:username" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/guia" element={<Guia />} />

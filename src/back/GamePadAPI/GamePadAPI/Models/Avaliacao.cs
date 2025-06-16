@@ -14,7 +14,6 @@ namespace GamePad_TIDAI_2025.Models
             [Required(ErrorMessage = "Avalie o jogo!")]
             public string Nota { get; set; }
             [Display(Name = "Comentário")]
-            [Required(ErrorMessage = "O comentário não pode ter menos de 50 caracteres.")]
             public string Comentario { get; set; }
             [Display(Name = "Data")]
             public DateTime Data { get; set; }

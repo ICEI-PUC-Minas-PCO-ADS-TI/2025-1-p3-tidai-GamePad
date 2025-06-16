@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // import { GAMES } from "../../db/dbmock";
+import { useUser } from "../../context/UserContext";
 
 import {
   Star,
@@ -16,6 +17,69 @@ import {
   Plus,
 } from "lucide-react";
 
+// Funções de serviço para backend
+async function postUserGameStatus({ usuarioId, igdbGameId, status }) {
+  const res = await fetch("http://localhost:5069/api/UserGameStatus", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: 0,
+      usuarioId,
+      igdbGameId,
+      status,
+    }),
+  });
+  if (!res.ok) throw new Error("Erro ao salvar status");
+  return res.json();
+}
+
+async function postAvaliacao({ usuarioId, igdbGameId, nota, comentario }) {
+  const res = await fetch("http://localhost:5069/api/AvaliacoesApi", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: 0,
+      nota: nota.toString(),
+      comentario,
+      data: new Date().toISOString(),
+      usuarioId,
+      igdbGameId,
+    }),
+  });
+  if (!res.ok) throw new Error("Erro ao salvar avaliação");
+  if (res.status === 204) return;
+  return res.json();
+}
+
+// Função para atualizar avaliação existente
+async function putAvaliacao({ id, usuarioId, igdbGameId, nota, comentario }) {
+  const res = await fetch(`http://localhost:5069/api/AvaliacoesApi/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id,
+      nota: nota.toString(),
+      comentario,
+      data: new Date().toISOString(),
+      usuarioId,
+      igdbGameId,
+    }),
+  });
+  if (!res.ok) throw new Error("Erro ao atualizar avaliação");
+  if (res.status === 204) return;
+  return res.json();
+}
+
+// Função para deletar status do usuário para um jogo
+async function deleteUserGameStatus({ usuarioId, igdbGameId, status }) {
+  const res = await fetch(
+    `http://localhost:5069/api/UserGameStatus?usuarioId=${usuarioId}&igdbGameId=${igdbGameId}&status=${status}`,
+    { method: "DELETE" }
+  );
+  if (!res.ok) throw new Error("Erro ao remover status");
+  return;
+}
+
 export default function GameSelected() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -27,10 +91,75 @@ export default function GameSelected() {
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [showAllLanguages, setShowAllLanguages] = useState(false);
+  const { user } = useUser();
 
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(true);
   const [, setError] = useState(null);
+  // Estado para comentário
+  const [comentario, setComentario] = useState("");
+  // Estado para loading de ações
+  const [saving, setSaving] = useState(false);
+  // Estado para avaliações/comentários
+  const [avaliacoes, setAvaliacoes] = useState([]);
+  // Estado para avaliação do usuário logado
+  const [minhaAvaliacao, setMinhaAvaliacao] = useState(null);
+  // Estado para modal de review
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [modalStars, setModalStars] = useState(userStars);
+  const [modalComentario, setModalComentario] = useState(comentario);
+
+  // Estado para status de todos os usuários deste jogo
+  const [allStatuses, setAllStatuses] = useState([]);
+
+  // Função para buscar dados de usuário por ID
+  async function fetchUserById(id) {
+    const res = await fetch(`http://localhost:5069/api/Usuarios/${id}`);
+    if (!res.ok) return null;
+    return res.json();
+  }
+
+  // Função para buscar avaliações do backend e atualizar estado
+  const fetchAvaliacoes = async () => {
+    const res = await fetch(`http://localhost:5069/api/AvaliacoesApi`);
+    const data = await res.json();
+    // Filtra avaliações só deste jogo
+    const avals = data.filter((a) => a.igdbGameId === Number(id));
+    // Busca dados de usuário para cada avaliação
+    const avalsWithUser = await Promise.all(
+      avals.map(async (a) => {
+        if (a.usuario && a.usuario.nome && a.usuario.imgUser) return a;
+        const userData = await fetchUserById(a.usuarioId);
+        return {
+          ...a,
+          usuario: userData || {},
+        };
+      })
+    );
+    setAvaliacoes(avalsWithUser);
+    // Preenche as estrelas do usuário logado, se houver avaliação
+    if (user) {
+      const minha = avalsWithUser.find((a) => a.usuarioId === user.id);
+      if (minha && minha.nota) {
+        setUserStars(Number(minha.nota));
+        setMinhaAvaliacao(minha); // Salva avaliação do usuário logado
+        setComentario(minha.comentario || "");
+      } else {
+        setUserStars(0);
+        setMinhaAvaliacao(null);
+        setComentario("");
+      }
+    }
+  };
+
+  // Busca todos os status deste jogo para estatísticas
+  const fetchAllStatuses = async () => {
+    const res = await fetch(
+      `http://localhost:5069/api/UserGameStatus/game/${id}`
+    );
+    if (!res.ok) return [];
+    return res.json();
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -58,10 +187,91 @@ export default function GameSelected() {
           setLoading(false);
         }
       });
+    // Busca status do usuário para o jogo atual
+    if (user) {
+      fetch(`http://localhost:5069/api/UserGameStatus/user/${user.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (!cancelled && Array.isArray(data)) {
+            // Filtra status só deste jogo
+            const statusList = data.filter((s) => s.igdbGameId === Number(id));
+            // Converte o status para o nome do status
+            const statusStr = statusList
+              .map((s) => {
+                if (s.status === 1) return "playing";
+                if (s.status === 2) return "played";
+                if (s.status === 3) return "wishlist";
+                if (s.status === 4) return "liked";
+                return null;
+              })
+              .filter(Boolean);
+            setUserStatus(statusStr);
+            setIsFavorited(statusStr.includes("liked"));
+          }
+        });
+    }
+    // Busca todas as avaliações do jogo
+    fetchAvaliacoes();
+    // Busca todos os status deste jogo para estatísticas
+    fetchAllStatuses().then((data) => {
+      if (!cancelled && Array.isArray(data)) setAllStatuses(data);
+    });
     return () => {
       cancelled = true;
     };
-  }, [id]);
+  }, [id, user]);
+
+  // Estatísticas calculadas a partir dos dados do banco
+  // Distribuição de avaliações (quantos deram 1, 2, 3, 4, 5 estrelas)
+  const ratingsDist = [0, 0, 0, 0, 0];
+  let ratingsSum = 0;
+  let ratingsCount = 0;
+  avaliacoes.forEach((a) => {
+    const nota = Number(a.nota);
+    if (nota >= 1 && nota <= 5) {
+      ratingsDist[nota - 1]++;
+      ratingsSum += nota;
+      ratingsCount++;
+    }
+  });
+  // Cálculo da média: soma de todas as notas dividido pela quantidade de avaliações
+  const userAvgRating =
+    ratingsCount > 0 ? (ratingsSum / ratingsCount).toFixed(2) : "-";
+
+  // Quantidade de reviews (comentários não vazios)
+  const reviewsCount = avaliacoes.filter(
+    (a) => a.comentario && a.comentario.trim()
+  ).length;
+
+  // Quantidade de curtidas, jogaram, desejos (status do banco)
+  const countStatus = (statusNum) =>
+    allStatuses.filter((s) => s.status === statusNum).length;
+  const likedCount = countStatus(4);
+  const playedCount = countStatus(2);
+  const playingCount = countStatus(1);
+  const wishlistCount = countStatus(3);
+
+  // Gráfico de distribuição de avaliações
+  const renderStarsChart = () => {
+    const max = Math.max(...ratingsDist, 1);
+    return (
+      <div className="flex items-end gap-1 h-12">
+        {ratingsDist.map((count, i) => (
+          <div key={i} className="flex flex-col items-center">
+            <div
+              className="w-4 rounded-t bg-yellow-400 transition-all"
+              style={{
+                height: `${(count / max) * 40 + 8}px`,
+                minHeight: "8px",
+              }}
+            ></div>
+            <span className="text-xs text-zinc-400">{count}</span>
+            <Star size={12} fill="#facc15" color="#facc15" />
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   const images =
     game && game.screenshots && game.screenshots.length > 0
@@ -78,7 +288,6 @@ export default function GameSelected() {
             : "",
         ];
 
-  // se tiver screenshots, usa elas como imagens caso nao tenha usara a capa
   const backgroundImg =
     images && images.length > 0
       ? images[0]
@@ -107,7 +316,7 @@ export default function GameSelected() {
       <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-900 text-white">
         <h2 className="text-2xl font-bold mb-4">Jogo não encontrado</h2>
         <button
-          className="bg-cyan-600 px-4 py-2 rounded-lg text-white font-bold"
+          className="bg-cyan-600 px-4 py-2 rounded-lg text-white font-bold cursor-pointer"
           onClick={() => navigate(-1)}
         >
           Voltar
@@ -123,26 +332,11 @@ export default function GameSelected() {
     wishlists: game.wishlists || 0,
     ratings: game.ratings || [10, 5, 15, 40, 80],
   };
-  const comments = (game.comments || []).sort((a, b) =>
+  // Lista de comentários ordenada conforme filtro
+  const comments = [...avaliacoes].sort((a, b) =>
     filter === "recent"
-      ? new Date(b.date) - new Date(a.date)
-      : b.likes - a.likes
-  );
-
-  const renderStarsChart = () => (
-    <div className="flex items-end gap-1 h-12">
-      {stats.ratings.map((count, i) => (
-        <div key={i} className="flex flex-col items-center">
-          <div
-            className="w-4 rounded-t bg-yellow-400"
-            style={{
-              height: `${(count / Math.max(...stats.ratings)) * 40 + 8}px`,
-            }}
-          ></div>
-          <Star size={12} fill="#facc15" color="#facc15" />
-        </div>
-      ))}
-    </div>
+      ? new Date(b.data) - new Date(a.data)
+      : (b.likes || 0) - (a.likes || 0)
   );
 
   // Função para formatar a data de lançamento
@@ -162,6 +356,109 @@ export default function GameSelected() {
     .filter(Boolean);
   const mainLanguages = languages.slice(0, 5);
   const extraLanguages = languages.slice(5);
+
+  // Handler para status
+  const handleStatusClick = async (status) => {
+    if (!user) return;
+    setSaving(true);
+    try {
+      let statusNum = 1;
+      if (status === "playing") statusNum = 1;
+      else if (status === "played") statusNum = 2;
+      else if (status === "wishlist") statusNum = 3;
+      else if (status === "liked") statusNum = 4;
+
+      if (userStatus.includes(status)) {
+        // Remove do banco
+        await deleteUserGameStatus({
+          usuarioId: user.id,
+          igdbGameId: game.id,
+          status: statusNum,
+        });
+        setUserStatus((prev) => prev.filter((s) => s !== status));
+        if (status === "liked") setIsFavorited(false);
+      } else {
+        // Adiciona no banco
+        await postUserGameStatus({
+          usuarioId: user.id,
+          igdbGameId: game.id,
+          status: statusNum,
+        });
+        setUserStatus((prev) => [...prev, status]);
+        if (status === "liked") setIsFavorited(true);
+      }
+      // Atualiza os status gerais do jogo após alteração
+      const updatedStatuses = await fetchAllStatuses();
+      setAllStatuses(updatedStatuses);
+    } catch (e) {
+      alert("Erro ao salvar status");
+    }
+    setSaving(false);
+  };
+
+  // Handler para avaliação por estrela (cria ou atualiza)
+  const handleStarClick = async (nota, comentarioParam = comentario) => {
+    if (!user) return;
+    setSaving(true);
+    try {
+      if (minhaAvaliacao) {
+        // Atualiza review existente
+        await putAvaliacao({
+          id: minhaAvaliacao.id,
+          usuarioId: user.id,
+          igdbGameId: game.id,
+          nota,
+          comentario: comentarioParam || "",
+        });
+      } else {
+        // Cria nova review
+        await postAvaliacao({
+          usuarioId: user.id,
+          igdbGameId: game.id,
+          nota,
+          comentario: comentarioParam || "",
+        });
+      }
+      await fetchAvaliacoes();
+    } catch (e) {
+      alert("Erro ao salvar avaliação");
+    }
+    setSaving(false);
+  };
+
+  // Função para salvar review do modal (cria ou atualiza)
+  const handleSalvarReview = async () => {
+    if (!user || (!modalComentario.trim() && !modalStars)) return;
+    setSaving(true);
+    try {
+      if (minhaAvaliacao) {
+        await putAvaliacao({
+          id: minhaAvaliacao.id,
+          usuarioId: user.id,
+          igdbGameId: game.id,
+          nota: modalStars || 0,
+          comentario: modalComentario,
+        });
+      } else {
+        await postAvaliacao({
+          usuarioId: user.id,
+          igdbGameId: game.id,
+          nota: modalStars || 0,
+          comentario: modalComentario,
+        });
+      }
+      setComentario("");
+      setShowReviewModal(false);
+      await fetchAvaliacoes();
+    } catch (e) {
+      alert("Erro ao salvar review");
+    }
+    setSaving(false);
+  };
+
+  const handleFavoriteClick = () => {
+    handleStatusClick("liked");
+  };
 
   return (
     <div className="min-h-screen bg-zinc-900">
@@ -227,23 +524,39 @@ export default function GameSelected() {
       <section className="w-full flex flex-col items-center">
         <div className="w-full flex flex-col md:flex-row gap-8 px-0 md:px-48 mt-10">
           {/* Coluna da esquerda: Stats/Estrelas */}
-          <div className="flex flex-col gap-6 bg-zinc-800/90 rounded-2xl p-6 shadow-lg min-w-[260px] max-w-xs">
+          <div className="flex flex-col gap-6 bg-zinc-800/90 rounded-2xl p-6 shadow-lg min-w-[260px] max-w-xs sticky top-24 self-start h-fit z-10">
             {/* Avaliação por estrelas */}
             <div>
               <span className="text-zinc-300 font-semibold block mb-2">
                 Sua avaliação:
               </span>
-              <div className="flex items-center gap-1 mb-3">
-                {[1, 2, 3, 4, 5].map((n) => (
-                  <Star
-                    key={n}
-                    size={28}
-                    className="cursor-pointer"
-                    color={userStars >= n ? "#facc15" : "#334155"}
-                    fill={userStars >= n ? "#facc15" : "none"}
-                    onClick={() => setUserStars(n)}
-                  />
-                ))}
+              <div className="flex flex-col gap-2 mb-3">
+                <button
+                  className={`mb-2 px-4 py-2 rounded-lg font-bold cursor-pointer transition ${
+                    minhaAvaliacao
+                      ? "bg-yellow-500 text-zinc-900 hover:bg-yellow-400"
+                      : "bg-cyan-600 text-white hover:bg-cyan-700"
+                  }`}
+                  onClick={() => {
+                    setShowReviewModal(true);
+                    setModalStars(userStars);
+                    setModalComentario(comentario);
+                  }}
+                >
+                  {minhaAvaliacao ? "Editar Review" : "Fazer Review"}
+                </button>
+                <div className="flex items-center gap-1">
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <Star
+                      key={n}
+                      size={28}
+                      className="cursor-pointer"
+                      color={userStars >= n ? "#facc15" : "#334155"}
+                      fill={userStars >= n ? "#facc15" : "none"}
+                      onClick={() => handleStarClick(n)}
+                    />
+                  ))}
+                </div>
               </div>
               <hr className="my-3 border-zinc-700" />
               {/* Botões de status */}
@@ -254,13 +567,7 @@ export default function GameSelected() {
                       ? "bg-cyan-600 text-white"
                       : "bg-zinc-700 text-cyan-300 hover:bg-cyan-800"
                   }`}
-                  onClick={() => {
-                    setUserStatus((prev) =>
-                      prev.includes("playing")
-                        ? prev.filter((s) => s !== "playing")
-                        : [...prev, "playing"]
-                    );
-                  }}
+                  onClick={() => handleStatusClick("playing")}
                 >
                   <Hourglass size={18} /> Jogando
                 </button>
@@ -270,13 +577,7 @@ export default function GameSelected() {
                       ? "bg-green-600 text-white"
                       : "bg-zinc-700 text-green-400 hover:bg-green-800"
                   }`}
-                  onClick={() => {
-                    setUserStatus((prev) =>
-                      prev.includes("played")
-                        ? prev.filter((s) => s !== "played")
-                        : [...prev, "played"]
-                    );
-                  }}
+                  onClick={() => handleStatusClick("played")}
                 >
                   <CheckCircle size={18} /> Zerado
                 </button>
@@ -286,13 +587,7 @@ export default function GameSelected() {
                       ? "bg-fuchsia-600 text-white"
                       : "bg-zinc-700 text-fuchsia-400 hover:bg-fuchsia-800"
                   }`}
-                  onClick={() => {
-                    setUserStatus((prev) =>
-                      prev.includes("wishlist")
-                        ? prev.filter((s) => s !== "wishlist")
-                        : [...prev, "wishlist"]
-                    );
-                  }}
+                  onClick={() => handleStatusClick("wishlist")}
                 >
                   <Bookmark size={18} /> Desejo
                 </button>
@@ -313,31 +608,31 @@ export default function GameSelected() {
                       ? "bg-pink-600 text-white"
                       : "bg-zinc-700 text-pink-400 hover:bg-pink-700"
                   }`}
-                  onClick={() => setIsFavorited((v) => !v)}
+                  onClick={handleFavoriteClick}
                 >
                   <Heart
                     size={20}
                     fill={isFavorited ? "#db2777" : "none"}
                     color="#db2777"
                   />
-                  {isFavorited ? "Favoritado" : "Favoritar"}
+                  {isFavorited ? "Curtido" : "Curtir"}
                 </button>
               </div>
             </div>
             {/* Ratings e stats*/}
             <div>
               <hr className="mb-4 border-zinc-700" />
-              <div className="flex items-center  gap-3 mb-6">
+              <div className="flex items-center gap-3 mb-6">
                 <Star size={32} fill="#facc15" color="#facc15" />
-                <span className="text-3xl font-bold  text-yellow-300">
-                  {game.rating}
+                <span className="text-3xl font-bold text-yellow-300">
+                  {userAvgRating}
                 </span>
                 <span className="text-zinc-400 text-base font-semibold">
                   Média dos usuários
                 </span>
               </div>
               {/* Distribuição de avaliações */}
-              <div className="flex items-center  flex-col">
+              <div className="flex items-center flex-col">
                 <span className="text-zinc-400 font-semibold block mb-10 mt-4">
                   Distribuição de avaliações:
                 </span>
@@ -345,16 +640,16 @@ export default function GameSelected() {
               </div>
               <div className="flex flex-col items-center gap-2 mt-4">
                 <div className="flex items-center gap-2 text-pink-400">
-                  <Heart size={18} /> {stats.favorites} Favoritaram
+                  <Heart size={18} /> {likedCount} Curtiram
                 </div>
                 <div className="flex items-center gap-2 text-cyan-400">
-                  <Users size={18} /> {stats.played} Jogaram
+                  <Users size={18} /> {playedCount + playingCount} Jogaram
                 </div>
                 <div className="flex items-center gap-2 text-yellow-300">
-                  <MessageCircle size={18} /> {stats.reviews} Reviews
+                  <MessageCircle size={18} /> {reviewsCount} Reviews
                 </div>
                 <div className="flex items-center gap-2 text-fuchsia-400">
-                  <Bookmark size={18} /> {stats.wishlists} Wishlist
+                  <Bookmark size={18} /> {wishlistCount} Desejos
                 </div>
               </div>
             </div>
@@ -436,45 +731,67 @@ export default function GameSelected() {
               ) : (
                 <div className="w-full flex flex-col items-center">
                   <div
-                    className="relative w-full flex justify-center items-center mb-2"
-                    style={{ minHeight: 240 }}
+                    className="relative w-full flex justify-center items-center mb-4"
+                    style={{ minHeight: 380 }}
                   >
                     <button
-                      className="absolute left-0 z-10 bg-zinc-800/70 hover:bg-cyan-600 text-white rounded-full p-2 transition"
+                      className="absolute left-2 z-10 bg-zinc-900/80 hover:bg-cyan-600 text-white rounded-full p-4 shadow-lg transition"
                       onClick={handlePrevImage}
                       aria-label="Imagem anterior"
                       style={{ top: "50%", transform: "translateY(-50%)" }}
                     >
-                      &#8592;
+                      <span className="text-2xl">&#8592;</span>
                     </button>
-                    <img
-                      src={images[galleryIndex]}
-                      alt={`Imagem ${galleryIndex + 1}`}
-                      className="rounded-xl shadow-lg object-contain max-h-60 max-w-full"
-                      style={{ background: "#222", minHeight: 180 }}
-                    />
+                    <div
+                      className="rounded-2xl overflow-hidden shadow-2xl border-4 border-cyan-700 bg-zinc-800 flex items-center justify-center w-full"
+                      style={{
+                        maxWidth: "100%",
+                        minHeight: 320,
+                        height: "55vh",
+                        background: "#18181b",
+                      }}
+                    >
+                      <img
+                        src={images[galleryIndex]}
+                        alt={`Imagem ${galleryIndex + 1}`}
+                        className="object-contain w-full h-full transition-all duration-300"
+                        style={{
+                          maxHeight: "55vh",
+                          minHeight: 240,
+                          width: "100%",
+                          background: "#222",
+                        }}
+                      />
+                    </div>
                     <button
-                      className="absolute right-0 z-10 bg-zinc-800/70 hover:bg-cyan-600 text-white rounded-full p-2 transition"
+                      className="absolute right-2 z-10 bg-zinc-900/80 hover:bg-cyan-600 text-white rounded-full p-4 shadow-lg transition"
                       onClick={handleNextImage}
                       aria-label="Próxima imagem"
                       style={{ top: "50%", transform: "translateY(-50%)" }}
                     >
-                      &#8594;
+                      <span className="text-2xl">&#8594;</span>
                     </button>
                   </div>
                   <div className="flex gap-2 justify-center mt-2">
                     {images.map((img, idx) => (
                       <button
                         key={idx}
-                        className={`w-3 h-3 rounded-full border-2 ${
+                        className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${
                           galleryIndex === idx
-                            ? "bg-cyan-400 border-cyan-600"
-                            : "bg-zinc-600 border-zinc-400"
+                            ? "bg-cyan-400 border-cyan-600 scale-125 shadow-lg"
+                            : "bg-zinc-600 border-zinc-400 opacity-60"
                         }`}
                         onClick={() => setGalleryIndex(idx)}
                         aria-label={`Selecionar imagem ${idx + 1}`}
+                        style={{
+                          outline:
+                            galleryIndex === idx ? "2px solid #06b6d4" : "none",
+                        }}
                       />
                     ))}
+                  </div>
+                  <div className="text-zinc-400 text-xs mt-2">
+                    {galleryIndex + 1} / {images.length}
                   </div>
                 </div>
               )}
@@ -653,89 +970,207 @@ export default function GameSelected() {
                   )}
               </div>
             </div>
-          </div>
-        </div>
-        {/* Seção de comentários */}
-        <div className="w-full md:px-48 mt-8">
-          <div className="w-full rounded-2xl p-6 shadow-none md:col-span-2">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold text-cyan-300">Comentários</h2>
-              <div className="flex gap-2">
-                <button
-                  className={`px-3 cursor-pointer py-1 rounded ${
+            {/* Seção de comentários movida para cá */}
+            <div className="w-full rounded-2xl p-6 shadow-none md:col-span-2 bg-zinc-900/80 mt-0">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-cyan-300">
+                  Comentários
+                </h2>
+                <div className="flex gap-2">
+                  <button
+                    className={`px-3 cursor-pointer py-1 rounded ${
+                      filter === "recent"
+                        ? "bg-cyan-600 text-white"
+                        : "bg-zinc-700 text-zinc-300"
+                    }`}
+                    onClick={() => setFilter("recent")}
+                  >
+                    Mais recentes
+                  </button>
+                  <button
+                    className={`px-3 cursor-pointer py-1 rounded ${
+                      filter === "liked"
+                        ? "bg-cyan-600 text-white"
+                        : "bg-zinc-700 text-zinc-300"
+                    }`}
+                    onClick={() => setFilter("liked")}
+                  >
+                    Mais curtidos
+                  </button>
+                </div>
+              </div>
+              <div className="space-y-6">
+                {avaliacoes.length === 0 && (
+                  <div className="text-zinc-400 text-center">
+                    Nenhum comentário ainda.
+                  </div>
+                )}
+                {/* Renderização dos comentários */}
+                {[...avaliacoes]
+                  .filter((c) => c.comentario && c.comentario.trim())
+                  .sort((a, b) =>
                     filter === "recent"
-                      ? "bg-cyan-600 text-white"
-                      : "bg-zinc-700 text-zinc-300"
-                  }`}
-                  onClick={() => setFilter("recent")}
-                >
-                  Mais recentes
-                </button>
-                <button
-                  className={`px-3 cursor-pointer py-1 rounded ${
-                    filter === "liked"
-                      ? "bg-cyan-600 text-white"
-                      : "bg-zinc-700 text-zinc-300"
-                  }`}
-                  onClick={() => setFilter("liked")}
-                >
-                  Mais curtidos
-                </button>
+                      ? new Date(b.data) - new Date(a.data)
+                      : (b.likes || 0) - (a.likes || 0)
+                  )
+                  .map((c, idx) => (
+                    <div
+                      key={c.id || idx}
+                      className="flex gap-4 bg-zinc-900/80 rounded-xl p-4 items-start"
+                    >
+                      <img
+                        src={
+                          c.usuario?.imgUser
+                            ? c.usuario.imgUser.startsWith("/profile-images/")
+                              ? `http://localhost:5069${c.usuario.imgUser}`
+                              : c.usuario.imgUser
+                            : "/profile-images/default-profile.png"
+                        }
+                        alt={c.usuario?.nome || "Usuário"}
+                        className="w-12 h-12 rounded-full object-cover border-2 border-cyan-400"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-bold text-cyan-300">
+                            {c.usuario?.nome || "Usuário"}
+                          </span>
+                          {/* Nota em estrelas */}
+                          <div className="flex items-center ml-2">
+                            {[1, 2, 3, 4, 5].map((n) => (
+                              <Star
+                                key={n}
+                                size={18}
+                                color={
+                                  n <= Number(c.nota) ? "#facc15" : "#334155"
+                                }
+                                fill={n <= Number(c.nota) ? "#facc15" : "none"}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        {/* Só exibe comentário se não for nulo ou vazio */}
+                        {c.comentario && c.comentario.trim() && (
+                          <div className="text-zinc-200 mb-2">
+                            {c.comentario}
+                          </div>
+                        )}
+                        <div className="flex items-center gap-4 text-zinc-400 text-sm">
+                          <span>
+                            {c.data
+                              ? new Date(c.data).toLocaleDateString()
+                              : ""}
+                          </span>
+                          {/* Espaço para likes */}
+                          <span className="flex items-center gap-1">
+                            <ThumbsUp size={16} className="text-cyan-400" />
+                            {c.likes || 0} curtidas
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
-            {/* Espaço para novo comentário */}
-            <div className="flex flex-col md:flex-row gap-4 items-start mb-8">
-              <textarea
-                className="flex-1 bg-zinc-900 text-zinc-200 rounded-xl px-4 py-3 border-2 border-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition min-h-[60px] resize-none"
-                placeholder="Compartilhe sua experiência com este jogo..."
-                maxLength={600}
-              />
-              <button
-                className="flex cursor-pointer items-center gap-2 px-5 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold transition shadow-lg"
-                disabled
-              >
-                Comentar
-              </button>
-            </div>
-            <div className="space-y-6">
-              {comments.length === 0 && (
-                <div className="text-zinc-400 text-center">
-                  Nenhum comentário ainda.
-                </div>
-              )}
-              {comments.map((c, idx) => (
-                <div
-                  key={idx}
-                  className="flex gap-4 bg-zinc-900/80 rounded-xl p-4 items-start"
-                >
-                  <img
-                    src={c.user.avatar}
-                    alt={c.user.name}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-cyan-400"
+          </div>
+        </div>
+        {/* Remova a seção de comentários daqui */}
+        {/* ...existing code... */}
+      </section>
+      {/* Modal de Review */}
+      {showReviewModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+          <div className="bg-zinc-800 rounded-2xl p-8 w-full max-w-2xl shadow-2xl relative flex flex-col md:flex-row gap-8">
+            <button
+              className="absolute top-3 right-3 text-zinc-400 hover:text-white"
+              onClick={() => setShowReviewModal(false)}
+            >
+              ✕
+            </button>
+            <img
+              src={game.cover?.url || "/profile-images/default-profile.png"}
+              alt={game.name}
+              className="w-40 h-56 object-cover rounded-lg shadow-lg self-center md:self-start"
+            />
+            <div className="flex-1 flex flex-col gap-4">
+              <h2 className="text-2xl font-bold text-cyan-300 mb-2">
+                {game.name}
+              </h2>
+              <div className="flex items-center gap-2 mb-2">
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <Star
+                    key={n}
+                    size={36}
+                    className="cursor-pointer"
+                    color={modalStars >= n ? "#facc15" : "#334155"}
+                    fill={modalStars >= n ? "#facc15" : "none"}
+                    onClick={() => setModalStars(n)}
                   />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-bold text-cyan-300">
-                        {c.user.name}
-                      </span>
-                      <span className="text-zinc-400 text-xs ml-2">
-                        {c.platform}
-                      </span>
-                    </div>
-                    <div className="text-zinc-200 mb-2">{c.text}</div>
-                    <div className="flex items-center gap-4 text-zinc-400 text-sm">
-                      <span>{new Date(c.date).toLocaleDateString()}</span>
-                      <span className="flex items-center gap-1">
-                        <ThumbsUp size={16} /> {c.likes}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <textarea
+                className="w-full min-h-[80px] rounded-lg p-2 bg-zinc-800 text-zinc-100 mb-2"
+                placeholder="Adicione um comentário..."
+                value={modalComentario}
+                onChange={(e) => setModalComentario(e.target.value)}
+              />
+              <div className="flex flex-wrap gap-2 mb-4">
+                <button
+                  className={`px-3 py-1 cursor-pointer rounded-lg font-semibold transition flex items-center gap-1 ${
+                    userStatus.includes("playing")
+                      ? "bg-cyan-600 text-white"
+                      : "bg-zinc-700 text-cyan-300 hover:bg-cyan-800"
+                  }`}
+                  onClick={() => handleStatusClick("playing")}
+                >
+                  <Hourglass size={18} /> Jogando
+                </button>
+                <button
+                  className={`px-3 py-1 rounded-lg cursor-pointer font-semibold transition flex items-center gap-1 ${
+                    userStatus.includes("played")
+                      ? "bg-green-600 text-white"
+                      : "bg-zinc-700 text-green-400 hover:bg-green-800"
+                  }`}
+                  onClick={() => handleStatusClick("played")}
+                >
+                  <CheckCircle size={18} /> Zerado
+                </button>
+                <button
+                  className={`px-3 py-1 rounded-lg cursor-pointer font-semibold transition flex items-center gap-1 ${
+                    userStatus.includes("wishlist")
+                      ? "bg-fuchsia-600 text-white"
+                      : "bg-zinc-700 text-fuchsia-400 hover:bg-fuchsia-800"
+                  }`}
+                  onClick={() => handleStatusClick("wishlist")}
+                >
+                  <Bookmark size={18} /> Desejo
+                </button>
+                <button
+                  className={`px-3 py-1 rounded-lg cursor-pointer font-semibold transition flex items-center gap-1 ${
+                    isFavorited
+                      ? "bg-pink-600 text-white"
+                      : "bg-zinc-700 text-pink-400 hover:bg-pink-700"
+                  }`}
+                  onClick={handleFavoriteClick}
+                >
+                  <Heart
+                    size={18}
+                    fill={isFavorited ? "#db2777" : "none"}
+                    color="#db2777"
+                  />{" "}
+                  Curtir
+                </button>
+              </div>
+              <button
+                className="w-full px-4 py-2 cursor-pointer rounded-lg bg-cyan-600 text-white font-bold hover:bg-cyan-700 transition"
+                onClick={handleSalvarReview}
+                disabled={modalStars === 0}
+              >
+                Salvar Review
+              </button>
             </div>
           </div>
         </div>
-      </section>
+      )}
     </div>
   );
 }
