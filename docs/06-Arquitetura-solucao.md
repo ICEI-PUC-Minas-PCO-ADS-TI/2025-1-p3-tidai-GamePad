@@ -37,8 +37,10 @@ O Esquema Relacional corresponde à representação dos dados em tabelas juntame
 ![Exemplo de um modelo relacional](images/modelo_relacional.png "Exemplo de modelo relacional.")
 ---
 
+<!--
 > **Links úteis**:
 > - [Criando um modelo relacional - documentação da IBM](https://www.ibm.com/docs/pt-br/cognos-analytics/12.0.0?topic=designer-creating-relational-model)
+-->
 
 ### Modelo físico
 
