@@ -1,44 +1,57 @@
-import React, { useState } from "react";
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, Navigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import ProfileTabs from "../../components/Profile/ProfileTabs";
 import ProfileBio from "../../components/Profile/ProfileBio";
 import ProfileStats from "../../components/Profile/ProfileStats";
-import LikedGames from "../../components/Profile/LikedGames";
 import GamesTab from "../../components/Profile/GamesTab";
-import ActivityTab from "../../components/Profile/ActivityTab";
 import ReviewsTab from "../../components/Profile/ReviewsTab";
 import ListsTab from "../../components/Profile/ListsTab";
-import ConnectionsTab from "../../components/Profile/ConnectionsTab";
 import ProfileActionButton from "../../components/Profile/ProfileActionButton";
 import ProfileTab from "../../components/Profile/ProfileTab";
+import { fetchUserGamesWithStatuses } from "../../service/userGamesService";
 
 // Abas do menu horizontal em português
 const TABS = [
   { key: "profile", label: "Perfil" },
-  { key: "liked", label: "Curtidos" },
   { key: "games", label: "Jogos" },
-  { key: "activity", label: "Atividades" },
   { key: "reviews", label: "Reviews" },
   { key: "lists", label: "Listas" },
-  { key: "connections", label: "Conexões" },
 ];
 
 const TAB_COMPONENTS = {
   profile: ProfileTab,
-  liked: LikedGames,
   games: GamesTab,
-  activity: ActivityTab,
   reviews: ReviewsTab,
   lists: ListsTab,
-  connections: ConnectionsTab,
 };
 
 export default function Profile() {
   const { username } = useParams();
   const { user } = useUser();
   const [activeTab, setActiveTab] = useState("profile");
-  const navigate = useNavigate();
+  const [userGames, setUserGames] = useState([]);
+  const [loadingGames, setLoadingGames] = useState(false);
+
+  useEffect(() => {
+    async function loadUserGames() {
+      if (!user?.id) return;
+      setLoadingGames(true);
+      try {
+        const games = await fetchUserGamesWithStatuses(user.id);
+        setUserGames(games);
+      } catch {
+        setUserGames([]);
+      } finally {
+        setLoadingGames(false);
+      }
+    }
+    if (activeTab === "games" && user?.id) {
+      loadUserGames();
+    } else if (activeTab !== "games") {
+      setUserGames([]);
+    }
+  }, [user, activeTab]);
 
   if (
     user &&
@@ -55,10 +68,7 @@ export default function Profile() {
 
   const TabComponent = TAB_COMPONENTS[activeTab] || (() => <div />);
 
-  const profileUser = user; 
-
-  
-
+  const profileUser = user;
 
   return (
     <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-0 md:px-48 py-10">
@@ -69,8 +79,6 @@ export default function Profile() {
             user.imgUser && user.imgUser.startsWith("/profile-images/")
               ? `http://localhost:5069${user.imgUser}`
               : user.imgUser;
-          console.log("[DEBUG] Navbar imgUser:", navbarImg);
-          console.log("[DEBUG] Profile imgUser src:", user.imgUser);
           return (
             <img
               src={navbarImg}
@@ -88,7 +96,7 @@ export default function Profile() {
               username.toLowerCase() ===
               user.nome.toLowerCase().replace(/\s+/g, "-")
             }
-            onEdit={() => navigate("/settings")}
+            onEdit={() => {}}
             onFollow={() => {}}
           />
         </div>
@@ -110,7 +118,17 @@ export default function Profile() {
         {/* Coluna direita */}
         <section className="flex-1 min-w-0">
           {/* Passe o usuário para o TabComponent */}
-          <TabComponent user={profileUser} />
+          {activeTab === "reviews" ? (
+            <ReviewsTab userId={profileUser?.id} />
+          ) : activeTab === "games" ? (
+            loadingGames ? (
+              <div className="text-zinc-400">Carregando jogos...</div>
+            ) : (
+              <GamesTab userGames={userGames} />
+            )
+          ) : (
+            <TabComponent user={profileUser} />
+          )}
         </section>
       </div>
     </div>

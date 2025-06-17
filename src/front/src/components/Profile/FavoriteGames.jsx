@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { fetchGamesByIds } from "../../service/igdbService";
+import { useNavigate } from "react-router-dom";
 
-// Permite receber o usuário como prop 
+// Permite receber o usuário como prop
 export default function FavoriteGames({ user: userProp }) {
   const { user: userContext } = useUser();
   const user = userProp || userContext;
+  const navigate = useNavigate();
 
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // IDs dos jogos favoritos 
+  // IDs dos jogos favoritos
   let favoriteIds = [];
   if (user && user.favoriteGames) {
     if (Array.isArray(user.favoriteGames)) {
@@ -40,7 +42,6 @@ export default function FavoriteGames({ user: userProp }) {
     }
   }
 
-
   useEffect(() => {
     async function fetchFavoriteGames() {
       if (!favoriteIds.length) {
@@ -52,7 +53,7 @@ export default function FavoriteGames({ user: userProp }) {
       try {
         const results = await fetchGamesByIds(favoriteIds);
         setGames(results.filter(Boolean));
-      // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars
       } catch (err) {
         setError("Erro ao buscar jogos favoritos.");
       } finally {
@@ -67,7 +68,7 @@ export default function FavoriteGames({ user: userProp }) {
 
   return (
     <div className="mb-8">
-      <h3 className="text-lg font-semibold text-cyan-200 mb-1">
+      <h3 className="text-xs font-semibold text-cyan-200 mb-1 tracking-widest uppercase">
         Jogos Favoritos
       </h3>
       <hr className="mb-4 border-zinc-700" />
@@ -82,7 +83,8 @@ export default function FavoriteGames({ user: userProp }) {
           {games.map((game, i) => (
             <div
               key={game.id || i}
-              className="w-52 h-72 bg-zinc-800 rounded-xl overflow-hidden flex flex-col items-center justify-between shadow-lg"
+              className="w-52 h-72 bg-zinc-800 rounded-xl overflow-hidden flex flex-col items-center justify-between shadow-lg cursor-pointer hover:scale-105 transition"
+              onClick={() => navigate(`/games/${game.id}`)}
             >
               <img
                 src={

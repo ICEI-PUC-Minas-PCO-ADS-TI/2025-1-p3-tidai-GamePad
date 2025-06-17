@@ -9,48 +9,13 @@ import GameCard from "../../components/Cards/GameCard";
 import { Save, Hourglass, Telescope, HeartPlus, Joystick } from "lucide-react";
 import GlassButton from "../../components/GlassButton/GlassButton";
 import CommentSlider from "../../components/slider/CommentSlider";
-import { fetchGames } from "../../service/igdbService";
-
-
+import { fetchGames, fetchGamesByIds } from "../../service/igdbService";
 
 export default function Home() {
-
   const navigate = useNavigate();
 
-  // Comentários para o slider
-  const comments = [
-    {
-      cover: "https://via.placeholder.com/150",
-      gameTitle: "Cyberpunk: 2077",
-      gameYear: "2023",
-      userAvatar: "https://randomuser.me/api/portraits/men/32.jpg",
-      userName: "Yalle Gamer",
-      stars: 4,
-      comment: "Me sinto um samurai em night city!",
-      likes: 32,
-    },
-    {
-      cover: "https://via.placeholder.com/150",
-      gameTitle: "The Witcher 3",
-      gameYear: "2015",
-      userAvatar: "https://randomuser.me/api/portraits/women/44.jpg",
-      userName: "Andry Jogos",
-      stars: 5,
-      comment: "É o bruxão não tem como",
-      likes: 54,
-    },
-    {
-      cover: "https://via.placeholder.com/150",
-      gameTitle: "Hollow Knight",
-      gameYear: "2017",
-      userAvatar: "https://randomuser.me/api/portraits/men/65.jpg",
-      userName: "Alex Tutoriais",
-      stars: 5,
-      comment: "Um dos melhores indies que já joguei.",
-      likes: 41,
-    },
-  ];
-
+  // Estado para comentários reais
+  const [comments, setComments] = React.useState([]);
   // Estado para jogos da IGDB
   const [games, setGames] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -66,9 +31,89 @@ export default function Home() {
         setError(err.message);
         setLoading(false);
       });
+    // Busca todos os comentários reais do banco e seleciona 2 para exibir
+    fetch("http://localhost:5069/api/AvaliacoesApi")
+      .then((res) => res.json())
+      .then(async (data) => {
+        // Filtra apenas avaliações com comentário não vazio
+        const commentsWithText = data.filter(
+          (a) => a.comentario && a.comentario.trim()
+        );
+        // Seleciona 2 comentários aleatórios
+        const shuffled = commentsWithText.sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 4);
+        // Busca dados dos jogos relacionados
+        const gameIds = [
+          ...new Set(
+            selected.map(
+              (c) =>
+                c.IgdbGameId || c.igdbGameId || c.igdbgameid || c.IGDBGameId
+            )
+          ),
+        ].filter(Boolean);
+        let gamesData = [];
+        if (gameIds.length > 0) {
+          gamesData = await fetchGamesByIds(gameIds);
+        }
+        // Mapeia os comentários para o formato esperado
+        const mapped = selected.map((c) => {
+          // Tenta encontrar o campo correto do ID do jogo
+          const igdbId =
+            c.IgdbGameId || c.igdbGameId || c.igdbgameid || c.IGDBGameId;
+          const game = gamesData.find(
+            (g) => g.id === igdbId || g.id === Number(igdbId)
+          );
+          const mappedComment = {
+            cover:
+              game?.cover && game.cover.url
+                ? (() => {
+                    const url = game.cover.url.replace(
+                      /t_thumb|t_cover_small/g,
+                      "t_original"
+                    );
+                    return url.startsWith("http") ? url : `https:${url}`;
+                  })()
+                : game?.cover_url
+                ? game.cover_url
+                : "https://placehold.co/200x280?text=No+Cover",
+            gameTitle: game?.name || "Jogo desconhecido",
+            gameYear: game?.first_release_date
+              ? new Date(game.first_release_date * 1000).getFullYear()
+              : game?.release_date
+              ? new Date(game.release_date * 1000).getFullYear()
+              : "-",
+            userAvatar:
+              c.UsuarioImg && c.UsuarioImg.startsWith("/profile-images/")
+                ? `http://localhost:5069${c.UsuarioImg}`
+                : c.UsuarioImg && c.UsuarioImg.startsWith("http")
+                ? c.UsuarioImg
+                : c.UsuarioImg
+                ? `${window.location.origin}${c.UsuarioImg}`
+                : c.usuarioImg && c.usuarioImg.startsWith("/profile-images/")
+                ? `http://localhost:5069${c.usuarioImg}`
+                : c.usuarioImg && c.usuarioImg.startsWith("http")
+                ? c.usuarioImg
+                : c.usuarioImg
+                ? `${window.location.origin}${c.usuarioImg}`
+                : c.imgUser && c.imgUser.startsWith("/profile-images/")
+                ? `http://localhost:5069${c.imgUser}`
+                : c.imgUser && c.imgUser.startsWith("http")
+                ? c.imgUser
+                : c.imgUser
+                ? `${window.location.origin}${c.imgUser}`
+                : "https://placehold.co/64x64?text=User",
+            userName: c.UsuarioNome || c.usuarioNome || c.nome || "Usuário",
+            stars: Number(c.Nota || c.nota) || 0,
+            comment: c.Comentario || c.comentario,
+            likes: 0,
+          };
+          console.log("[DEBUG] Comentário mapeado:", mappedComment);
+          return mappedComment;
+        });
+        setComments(mapped);
+        console.log("[DEBUG] Comentários finais para o slider:", mapped);
+      });
   }, []);
-
-console.log("Jogos carregados:", games);
 
   return (
     <>
@@ -149,10 +194,10 @@ console.log("Jogos carregados:", games);
                 icon={Joystick}
                 iconColor="#FF0000"
                 text="Conheça tudo que você pode fazer."
-                hoverGradient="hover:bg-gradient-to-br hover:from-cyan-500/30 hover:to-purple-500/30"
-                hoverBorder="hover:border-cyan-400"
-                hoverRing="hover:shadow-2xl hover:ring-2 hover:ring-cyan-400/40"
-                hoverText="text-cyan-100"
+                hoverGradient="hover:bg-gradient-to-br hover:from-red-500/30 hover:to-purple-500/30"
+                hoverBorder="hover:border-red-400"
+                hoverRing="hover:shadow-2xl hover:ring-2 hover:ring-red-400/40"
+                hoverText="text-red-100"
                 onClick={() => navigate("/guia")}
               />
             </div>

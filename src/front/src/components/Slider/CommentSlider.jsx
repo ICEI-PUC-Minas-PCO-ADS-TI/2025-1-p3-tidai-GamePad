@@ -53,7 +53,6 @@ const CommentSlider = ({ comments }) => {
           <ChevronRight size={24} />
         </button>
       </div>
-      {/* Indicadores de página discretos */}
       <div className="flex gap-1 mt-3">
         {Array.from({ length: Math.ceil(comments.length / 2) }).map(
           (_, idx) => (

@@ -29,7 +29,10 @@ async function postUserGameStatus({ usuarioId, igdbGameId, status }) {
       status,
     }),
   });
-  if (!res.ok) throw new Error("Erro ao salvar status");
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error("Erro ao salvar status: " + errorText);
+  }
   return res.json();
 }
 
@@ -99,7 +102,7 @@ export default function GameSelected() {
   // Estado para comentário
   const [comentario, setComentario] = useState("");
   // Estado para loading de ações
-  const [saving, setSaving] = useState(false);
+  const [, setSaving] = useState(false);
   // Estado para avaliações/comentários
   const [avaliacoes, setAvaliacoes] = useState([]);
   // Estado para avaliação do usuário logado
@@ -198,10 +201,10 @@ export default function GameSelected() {
             // Converte o status para o nome do status
             const statusStr = statusList
               .map((s) => {
-                if (s.status === 1) return "playing";
-                if (s.status === 2) return "played";
-                if (s.status === 3) return "wishlist";
-                if (s.status === 4) return "liked";
+                if (s.status === 0) return "playing";
+                if (s.status === 1) return "played";
+                if (s.status === 2) return "wishlist";
+                if (s.status === 3) return "liked";
                 return null;
               })
               .filter(Boolean);
@@ -325,19 +328,19 @@ export default function GameSelected() {
     );
   }
 
-  const stats = {
-    favorites: game.favorites || 0,
-    played: game.played || 0,
-    reviews: game.reviews || 0,
-    wishlists: game.wishlists || 0,
-    ratings: game.ratings || [10, 5, 15, 40, 80],
-  };
-  // Lista de comentários ordenada conforme filtro
-  const comments = [...avaliacoes].sort((a, b) =>
-    filter === "recent"
-      ? new Date(b.data) - new Date(a.data)
-      : (b.likes || 0) - (a.likes || 0)
-  );
+  // const stats = {
+  //   favorites: game.favorites || 0,
+  //   played: game.played || 0,
+  //   reviews: game.reviews || 0,
+  //   wishlists: game.wishlists || 0,
+  //   ratings: game.ratings || [10, 5, 15, 40, 80],
+  // };
+  // // Lista de comentários ordenada conforme filtro
+  // const comments = [...avaliacoes].sort((a, b) =>
+  //   filter === "recent"
+  //     ? new Date(b.data) - new Date(a.data)
+  //     : (b.likes || 0) - (a.likes || 0)
+  // );
 
   // Função para formatar a data de lançamento
   function formatReleaseDate(timestamp) {
@@ -362,11 +365,11 @@ export default function GameSelected() {
     if (!user) return;
     setSaving(true);
     try {
-      let statusNum = 1;
-      if (status === "playing") statusNum = 1;
-      else if (status === "played") statusNum = 2;
-      else if (status === "wishlist") statusNum = 3;
-      else if (status === "liked") statusNum = 4;
+      let statusNum = 0;
+      if (status === "playing") statusNum = 0;
+      else if (status === "played") statusNum = 1;
+      else if (status === "wishlist") statusNum = 2;
+      else if (status === "liked") statusNum = 3;
 
       if (userStatus.includes(status)) {
         // Remove do banco
@@ -390,6 +393,7 @@ export default function GameSelected() {
       // Atualiza os status gerais do jogo após alteração
       const updatedStatuses = await fetchAllStatuses();
       setAllStatuses(updatedStatuses);
+      // eslint-disable-next-line no-unused-vars
     } catch (e) {
       alert("Erro ao salvar status");
     }
@@ -420,6 +424,7 @@ export default function GameSelected() {
         });
       }
       await fetchAvaliacoes();
+      // eslint-disable-next-line no-unused-vars
     } catch (e) {
       alert("Erro ao salvar avaliação");
     }
@@ -450,6 +455,7 @@ export default function GameSelected() {
       setComentario("");
       setShowReviewModal(false);
       await fetchAvaliacoes();
+      // eslint-disable-next-line no-unused-vars
     } catch (e) {
       alert("Erro ao salvar review");
     }
@@ -525,103 +531,105 @@ export default function GameSelected() {
         <div className="w-full flex flex-col md:flex-row gap-8 px-0 md:px-48 mt-10">
           {/* Coluna da esquerda: Stats/Estrelas */}
           <div className="flex flex-col gap-6 bg-zinc-800/90 rounded-2xl p-6 shadow-lg min-w-[260px] max-w-xs sticky top-24 self-start h-fit z-10">
-            {/* Avaliação por estrelas */}
-            <div>
-              <span className="text-zinc-300 font-semibold block mb-2">
-                Sua avaliação:
-              </span>
-              <div className="flex flex-col gap-2 mb-3">
-                <button
-                  className={`mb-2 px-4 py-2 rounded-lg font-bold cursor-pointer transition ${
-                    minhaAvaliacao
-                      ? "bg-yellow-500 text-zinc-900 hover:bg-yellow-400"
-                      : "bg-cyan-600 text-white hover:bg-cyan-700"
-                  }`}
-                  onClick={() => {
-                    setShowReviewModal(true);
-                    setModalStars(userStars);
-                    setModalComentario(comentario);
-                  }}
-                >
-                  {minhaAvaliacao ? "Editar Review" : "Fazer Review"}
-                </button>
-                <div className="flex items-center gap-1">
-                  {[1, 2, 3, 4, 5].map((n) => (
-                    <Star
-                      key={n}
-                      size={28}
-                      className="cursor-pointer"
-                      color={userStars >= n ? "#facc15" : "#334155"}
-                      fill={userStars >= n ? "#facc15" : "none"}
-                      onClick={() => handleStarClick(n)}
+            {/* Avaliação e botões só para usuário logado */}
+            {user && (
+              <div>
+                <span className="text-zinc-300 font-semibold block mb-2">
+                  Sua avaliação:
+                </span>
+                <div className="flex flex-col gap-2 mb-3">
+                  <button
+                    className={`mb-2 px-4 py-2 rounded-lg font-bold cursor-pointer transition ${
+                      minhaAvaliacao
+                        ? "bg-yellow-500 text-zinc-900 hover:bg-yellow-400"
+                        : "bg-cyan-600 text-white hover:bg-cyan-700"
+                    }`}
+                    onClick={() => {
+                      setShowReviewModal(true);
+                      setModalStars(userStars);
+                      setModalComentario(comentario);
+                    }}
+                  >
+                    {minhaAvaliacao ? "Editar Review" : "Fazer Review"}
+                  </button>
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((n) => (
+                      <Star
+                        key={n}
+                        size={28}
+                        className="cursor-pointer"
+                        color={userStars >= n ? "#facc15" : "#334155"}
+                        fill={userStars >= n ? "#facc15" : "none"}
+                        onClick={() => handleStarClick(n)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <hr className="my-3 border-zinc-700" />
+                {/* Botões de status */}
+                <div className="grid grid-cols-2 gap-2 mb-3">
+                  <button
+                    className={`flex cursor-pointer items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
+                      userStatus.includes("playing")
+                        ? "bg-cyan-600 text-white"
+                        : "bg-zinc-700 text-cyan-300 hover:bg-cyan-800"
+                    }`}
+                    onClick={() => handleStatusClick("playing")}
+                  >
+                    <Hourglass size={18} /> Jogando
+                  </button>
+                  <button
+                    className={`flex cursor-pointer items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
+                      userStatus.includes("played")
+                        ? "bg-green-600 text-white"
+                        : "bg-zinc-700 text-green-400 hover:bg-green-800"
+                    }`}
+                    onClick={() => handleStatusClick("played")}
+                  >
+                    <CheckCircle size={18} /> Zerado
+                  </button>
+                  <button
+                    className={`flex items-center cursor-pointer gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
+                      userStatus.includes("wishlist")
+                        ? "bg-fuchsia-600 text-white"
+                        : "bg-zinc-700 text-fuchsia-400 hover:bg-fuchsia-800"
+                    }`}
+                    onClick={() => handleStatusClick("wishlist")}
+                  >
+                    <Bookmark size={18} /> Desejo
+                  </button>
+                  <button
+                    className="flex cursor-pointer items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold bg-zinc-700 text-zinc-300 hover:bg-zinc-800"
+                    title="Adicionar a uma lista (em breve)"
+                    disabled
+                  >
+                    <List size={18} /> Lista
+                  </button>
+                </div>
+                <hr className="my-3 border-zinc-700" />
+                {/* Botão de favoritar */}
+                <div className="flex justify-center">
+                  <button
+                    className={`flex cursor-pointer items-center gap-2 px-4 py-2 rounded-lg font-bold mt-2 transition ${
+                      isFavorited
+                        ? "bg-pink-600 text-white"
+                        : "bg-zinc-700 text-pink-400 hover:bg-pink-700"
+                    }`}
+                    onClick={handleFavoriteClick}
+                  >
+                    <Heart
+                      size={20}
+                      fill={isFavorited ? "#fff" : "none"}
+                      color={isFavorited ? "#fff" : "#db2777"}
                     />
-                  ))}
+                    {isFavorited ? "Curtido" : "Curtir"}
+                  </button>
+                  <hr className="mb-4 border-zinc-700" />
                 </div>
               </div>
-              <hr className="my-3 border-zinc-700" />
-              {/* Botões de status */}
-              <div className="grid grid-cols-2 gap-2 mb-3">
-                <button
-                  className={`flex cursor-pointer items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
-                    userStatus.includes("playing")
-                      ? "bg-cyan-600 text-white"
-                      : "bg-zinc-700 text-cyan-300 hover:bg-cyan-800"
-                  }`}
-                  onClick={() => handleStatusClick("playing")}
-                >
-                  <Hourglass size={18} /> Jogando
-                </button>
-                <button
-                  className={`flex cursor-pointer items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
-                    userStatus.includes("played")
-                      ? "bg-green-600 text-white"
-                      : "bg-zinc-700 text-green-400 hover:bg-green-800"
-                  }`}
-                  onClick={() => handleStatusClick("played")}
-                >
-                  <CheckCircle size={18} /> Zerado
-                </button>
-                <button
-                  className={`flex items-center cursor-pointer gap-1 px-3 py-1 rounded-lg text-sm font-semibold transition ${
-                    userStatus.includes("wishlist")
-                      ? "bg-fuchsia-600 text-white"
-                      : "bg-zinc-700 text-fuchsia-400 hover:bg-fuchsia-800"
-                  }`}
-                  onClick={() => handleStatusClick("wishlist")}
-                >
-                  <Bookmark size={18} /> Desejo
-                </button>
-                <button
-                  className="flex cursor-pointer items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold bg-zinc-700 text-zinc-300 hover:bg-zinc-800"
-                  title="Adicionar a uma lista (em breve)"
-                  disabled
-                >
-                  <List size={18} /> Lista
-                </button>
-              </div>
-              <hr className="my-3 border-zinc-700" />
-              {/* Botão de favoritar */}
-              <div className="flex justify-center">
-                <button
-                  className={`flex cursor-pointer items-center gap-2 px-4 py-2 rounded-lg font-bold mt-2 transition ${
-                    isFavorited
-                      ? "bg-pink-600 text-white"
-                      : "bg-zinc-700 text-pink-400 hover:bg-pink-700"
-                  }`}
-                  onClick={handleFavoriteClick}
-                >
-                  <Heart
-                    size={20}
-                    fill={isFavorited ? "#db2777" : "none"}
-                    color="#db2777"
-                  />
-                  {isFavorited ? "Curtido" : "Curtir"}
-                </button>
-              </div>
-            </div>
-            {/* Ratings e stats*/}
+            )}
+            {/* Ratings e stats  */}
             <div>
-              <hr className="mb-4 border-zinc-700" />
               <div className="flex items-center gap-3 mb-6">
                 <Star size={32} fill="#facc15" color="#facc15" />
                 <span className="text-3xl font-bold text-yellow-300">
@@ -967,7 +975,7 @@ export default function GameSelected() {
                   )}
               </div>
             </div>
-            {/* Seção de comentários movida para cá */}
+            {/* Seção de comentários */}
             <div className="w-full rounded-2xl p-6 shadow-none md:col-span-2 bg-zinc-900/80 mt-0">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-cyan-300">
@@ -1070,8 +1078,6 @@ export default function GameSelected() {
             </div>
           </div>
         </div>
-        {/* Remova a seção de comentários daqui */}
-        {/* ...existing code... */}
       </section>
       {/* Modal de Review */}
       {showReviewModal && (
@@ -1084,7 +1090,17 @@ export default function GameSelected() {
               ✕
             </button>
             <img
-              src={game.cover?.url || "/profile-images/default-profile.png"}
+              src={
+                game.cover && game.cover.url
+                  ? (() => {
+                      const url = game.cover.url.replace(
+                        /t_thumb|t_cover_small/g,
+                        "t_original"
+                      );
+                      return url.startsWith("http") ? url : `https:${url}`;
+                    })()
+                  : "/profile-images/default-profile.png"
+              }
               alt={game.name}
               className="w-40 h-56 object-cover rounded-lg shadow-lg self-center md:self-start"
             />
@@ -1151,8 +1167,8 @@ export default function GameSelected() {
                 >
                   <Heart
                     size={18}
-                    fill={isFavorited ? "#db2777" : "none"}
-                    color="#db2777"
+                    fill={isFavorited ? "#fff" : "none"}
+                    color={isFavorited ? "#fff" : "#db2777"}
                   />{" "}
                   Curtir
                 </button>
