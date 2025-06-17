@@ -83,6 +83,34 @@ async function deleteUserGameStatus({ usuarioId, igdbGameId, status }) {
   return;
 }
 
+// Funções para curtir/descurtir avaliação
+async function likeAvaliacao(avaliacaoId, usuarioId) {
+  const res = await fetch(
+    `http://localhost:5069/api/AvaliacoesApi/${avaliacaoId}/like?usuarioId=${usuarioId}`,
+    {
+      method: "POST",
+    }
+  );
+  if (!res.ok) throw new Error("Erro ao curtir comentário");
+}
+async function unlikeAvaliacao(avaliacaoId, usuarioId) {
+  const res = await fetch(
+    `http://localhost:5069/api/AvaliacoesApi/${avaliacaoId}/like?usuarioId=${usuarioId}`,
+    {
+      method: "DELETE",
+    }
+  );
+  if (!res.ok) throw new Error("Erro ao remover curtida");
+}
+// Atualizado: agora retorna { count, isLiked }
+async function fetchLikes(avaliacaoId, usuarioId) {
+  let url = `http://localhost:5069/api/AvaliacoesApi/likes/${avaliacaoId}`;
+  if (usuarioId) url += `?usuarioId=${usuarioId}`;
+  const res = await fetch(url);
+  if (!res.ok) return { count: 0, isLiked: false };
+  return res.json();
+}
+
 export default function GameSelected() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -114,6 +142,9 @@ export default function GameSelected() {
 
   // Estado para status de todos os usuários deste jogo
   const [allStatuses, setAllStatuses] = useState([]);
+  // Estado para likes de cada avaliação
+  const [likesMap, setLikesMap] = useState({});
+  const [userLikedMap, setUserLikedMap] = useState({});
 
   // Função para buscar dados de usuário por ID
   async function fetchUserById(id) {
@@ -223,6 +254,23 @@ export default function GameSelected() {
       cancelled = true;
     };
   }, [id, user]);
+
+  // Atualiza likes ao buscar avaliações
+  useEffect(() => {
+    async function updateLikes() {
+      if (!avaliacoes.length || !user) return;
+      const map = {};
+      const userMap = {};
+      for (const a of avaliacoes) {
+        const { count, isLiked } = await fetchLikes(a.id, user.id);
+        map[a.id] = count;
+        userMap[a.id] = isLiked;
+      }
+      setLikesMap(map);
+      setUserLikedMap(userMap);
+    }
+    updateLikes();
+  }, [avaliacoes, user]);
 
   // Estatísticas calculadas a partir dos dados do banco
   // Distribuição de avaliações (quantos deram 1, 2, 3, 4, 5 estrelas)
@@ -464,6 +512,25 @@ export default function GameSelected() {
 
   const handleFavoriteClick = () => {
     handleStatusClick("liked");
+  };
+
+  // Handler de curtir/descurtir
+  const handleLikeClick = async (avaliacao) => {
+    if (!user || avaliacao.usuarioId === user.id) return;
+    const liked = userLikedMap[avaliacao.id];
+    try {
+      if (liked) {
+        await unlikeAvaliacao(avaliacao.id, user.id);
+      } else {
+        await likeAvaliacao(avaliacao.id, user.id);
+      }
+      // Atualiza likes após ação
+      const { count, isLiked } = await fetchLikes(avaliacao.id, user.id);
+      setLikesMap((prev) => ({ ...prev, [avaliacao.id]: count }));
+      setUserLikedMap((prev) => ({ ...prev, [avaliacao.id]: isLiked }));
+    } catch (e) {
+      alert(e.message);
+    }
   };
 
   return (
@@ -1066,10 +1133,31 @@ export default function GameSelected() {
                               : ""}
                           </span>
                           {/* Espaço para likes */}
-                          <span className="flex items-center gap-1">
-                            <ThumbsUp size={16} className="text-cyan-400" />
-                            {c.likes || 0} curtidas
-                          </span>
+                          <button
+                            className={`flex items-center cursor-pointer gap-1 transition px-2 py-1 rounded-full text-sm font-semibold ${
+                              user && c.usuarioId !== user.id
+                                ? userLikedMap[c.id]
+                                  ? "bg-cyan-600 text-white"
+                                  : "bg-zinc-800 text-cyan-400 hover:bg-cyan-700"
+                                : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
+                            }`}
+                            disabled={!user || c.usuarioId === user.id}
+                            onClick={() => handleLikeClick(c)}
+                            title={
+                              user && c.usuarioId === user.id
+                                ? "Você não pode curtir seu próprio comentário"
+                                : userLikedMap[c.id]
+                                ? "Remover curtida"
+                                : "Curtir"
+                            }
+                          >
+                            <ThumbsUp
+                              size={16}
+                              className="mr-1 "
+                              fill={userLikedMap[c.id] ? "#22d3ee" : "none"}
+                            />
+                            {likesMap[c.id] || 0} curtidas
+                          </button>
                         </div>
                       </div>
                     </div>

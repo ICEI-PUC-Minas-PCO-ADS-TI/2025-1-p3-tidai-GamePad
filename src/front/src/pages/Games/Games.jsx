@@ -9,7 +9,7 @@ import GamesMenu from "../../components/GamesMenu/GamesMenu";
 import GameSection from "../../components/GameSection/GameSection";
 import GameCard from "../../components/Cards/GameCard";
 import GameFilters from "../../components/GameFilters/GameFilters";
-import { fetchGames } from "../../service/igdbService";
+import { fetchGames, fetchGamesByIds } from "../../service/igdbService";
 import { useUser } from "../../context/UserContext";
 
 const pageSize = 48;
@@ -29,6 +29,7 @@ const Games = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredByRatingIds, setFilteredByRatingIds] = useState(null);
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
@@ -50,6 +51,27 @@ const Games = () => {
     let cancelled = false;
     setLoading(true);
     setError(null);
+
+    // Se está filtrando por média de avaliação
+    if (filteredByRatingIds && Array.isArray(filteredByRatingIds)) {
+      fetchGamesByIds(filteredByRatingIds)
+        .then((data) => {
+          if (!cancelled) {
+            setGames(data);
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          if (!cancelled) {
+            setError(err.message);
+            setGames([]);
+            setLoading(false);
+          }
+        });
+      return () => {
+        cancelled = true;
+      };
+    }
 
     // Se está na rota de busca, só faz search
     if (location.pathname.startsWith("/games/search/")) {
@@ -108,7 +130,14 @@ const Games = () => {
     return () => {
       cancelled = true;
     };
-  }, [filters, selectedMenu, page, location.pathname, params.searchTerm]);
+  }, [
+    filters,
+    selectedMenu,
+    page,
+    location.pathname,
+    params.searchTerm,
+    filteredByRatingIds,
+  ]);
 
   // Troca de menu reseta a página
   const handleMenuSelect = (menu) => {
@@ -153,6 +182,7 @@ const Games = () => {
           setFilters={handleFiltersChange}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
+          onFilterByRating={setFilteredByRatingIds}
         />
       )}
       {loading && (

@@ -124,5 +124,67 @@ namespace GamePadAPI.Controllers
 
             return NoContent();
         }
+
+        // GET: api/AvaliacoesApi/medias?minMedia=4
+        [HttpGet("medias")]
+        public async Task<ActionResult<IEnumerable<object>>> GetMedias([FromQuery] double? minMedia = null)
+        {
+            // Agrupa avaliações por jogo e calcula a média
+            var medias = await _context.Avaliacoes
+                .Where(a => a.IgdbGameId != null && a.Nota != null && a.Nota != "")
+                .ToListAsync();
+
+            var mediasPorJogo = medias
+                .GroupBy(a => a.IgdbGameId)
+                .Select(g => new {
+                    IgdbGameId = g.Key,
+                    Media = g.Average(a => double.Parse(a.Nota))
+                })
+                .ToList();
+
+            if (minMedia.HasValue)
+            {
+                mediasPorJogo = mediasPorJogo.Where(m => m.Media >= minMedia.Value).ToList();
+            }
+            return Ok(mediasPorJogo);
+        }
+
+        // POST: api/AvaliacoesApi/{id}/like
+        [HttpPost("{id}/like")]
+        public async Task<IActionResult> LikeAvaliacao(int id, [FromQuery] int usuarioId)
+        {
+            var avaliacao = await _context.Avaliacoes.FindAsync(id);
+            if (avaliacao == null) return NotFound();
+            if (avaliacao.UsuarioId == usuarioId) return BadRequest("Não pode curtir o próprio comentário.");
+            var existing = await _context.AvaliacaoLikes.FirstOrDefaultAsync(l => l.AvaliacaoId == id && l.UsuarioId == usuarioId);
+            if (existing != null) return BadRequest("Já curtiu este comentário.");
+            _context.AvaliacaoLikes.Add(new AvaliacaoLike { AvaliacaoId = id, UsuarioId = usuarioId });
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        // DELETE: api/AvaliacoesApi/{id}/like?usuarioId=123
+        [HttpDelete("{id}/like")]
+        public async Task<IActionResult> UnlikeAvaliacao(int id, [FromQuery] int usuarioId)
+        {
+            var like = await _context.AvaliacaoLikes.FirstOrDefaultAsync(l => l.AvaliacaoId == id && l.UsuarioId == usuarioId);
+            if (like == null) return NotFound();
+            _context.AvaliacaoLikes.Remove(like);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        // GET: api/AvaliacoesApi/likes/{avaliacaoId}
+        [HttpGet("likes/{avaliacaoId}")]
+        public async Task<ActionResult<object>> GetLikes(int avaliacaoId, [FromQuery] int? usuarioId = null)
+        {
+            var count = await _context.AvaliacaoLikes.CountAsync(l => l.AvaliacaoId == avaliacaoId);
+            bool isLiked = false;
+            if (usuarioId.HasValue)
+            {
+                isLiked = await _context.AvaliacaoLikes.AnyAsync(l => l.AvaliacaoId == avaliacaoId && l.UsuarioId == usuarioId.Value);
+            }
+            return Ok(new { count, isLiked });
+        }
     }
 }

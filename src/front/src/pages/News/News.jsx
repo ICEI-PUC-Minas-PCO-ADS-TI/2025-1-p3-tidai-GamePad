@@ -1,13 +1,10 @@
-import React, { useState, createContext } from 'react'
+import React, { createContext } from 'react'
 import CardNews from '../../components/News/cardNews'
 import newsBanner from "../../assets/newsBanner.png";
 
 
 const UserContext = createContext();
 
-export function UserProvider({ children }) {
-  // ... your provider logic here
-}
 
 const News = () => {
   

@@ -3,7 +3,22 @@ import { fetchPlatforms, fetchGenres } from "../../service/igdbService";
 import SearchBar from "../SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
 
-function GameFilters({ filters, setFilters, searchTerm, setSearchTerm }) {
+// Função para buscar jogos por média mínima de avaliação
+async function fetchGameIdsByMinRating(minRating) {
+  const res = await fetch(
+    `http://localhost:5069/api/AvaliacoesApi/medias?minMedia=${minRating}`
+  );
+  if (!res.ok) return [];
+  return res.json(); // [{ igdbGameId, media }]
+}
+
+function GameFilters({
+  filters,
+  setFilters,
+  searchTerm,
+  setSearchTerm,
+  onFilterByRating,
+}) {
   const [platforms, setPlatforms] = useState([]);
   const [loadingPlatforms, setLoadingPlatforms] = useState(false);
   const [platformsError, setPlatformsError] = useState(null);
@@ -105,9 +120,19 @@ function GameFilters({ filters, setFilters, searchTerm, setSearchTerm }) {
         <select
           className="px-3 py-2 rounded-lg border cursor-pointer border-zinc-600 bg-zinc-800 text-zinc-200"
           value={filters.rating}
-          onChange={(e) =>
-            setFilters((f) => ({ ...f, rating: e.target.value }))
-          }
+          onChange={async (e) => {
+            const value = e.target.value;
+            setFilters((f) => ({ ...f, rating: value }));
+            if (value) {
+              // Busca jogos por média mínima
+              const gamesWithMedia = await fetchGameIdsByMinRating(value);
+              if (onFilterByRating) {
+                onFilterByRating(gamesWithMedia.map((g) => g.igdbGameId));
+              }
+            } else if (onFilterByRating) {
+              onFilterByRating(null); // Limpa filtro
+            }
+          }}
         >
           <option value="">Todas as notas</option>
           {[5, 4.5, 4, 3.5, 3].map((r) => (

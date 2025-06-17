@@ -10,6 +10,9 @@ import { Save, Hourglass, Telescope, HeartPlus, Joystick } from "lucide-react";
 import GlassButton from "../../components/GlassButton/GlassButton";
 import CommentSlider from "../../components/slider/CommentSlider";
 import { fetchGames, fetchGamesByIds } from "../../service/igdbService";
+import CardNews from "../../components/News/cardNews";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -31,7 +34,7 @@ export default function Home() {
         setError(err.message);
         setLoading(false);
       });
-    // Busca todos os comentários reais do banco e seleciona 2 para exibir
+    // Busca todos os comentários reais do banco
     fetch("http://localhost:5069/api/AvaliacoesApi")
       .then((res) => res.json())
       .then(async (data) => {
@@ -39,9 +42,24 @@ export default function Home() {
         const commentsWithText = data.filter(
           (a) => a.comentario && a.comentario.trim()
         );
-        // Seleciona 2 comentários aleatórios
-        const shuffled = commentsWithText.sort(() => 0.5 - Math.random());
-        const selected = shuffled.slice(0, 4);
+        // Busca likes de cada comentário
+        const commentsWithLikes = await Promise.all(
+          commentsWithText.map(async (c) => {
+            const res = await fetch(
+              `http://localhost:5069/api/AvaliacoesApi/likes/${c.id}`
+            );
+            let likes = 0;
+            if (res.ok) {
+              const result = await res.json();
+              likes = result.count ?? result;
+            }
+            return { ...c, likes };
+          })
+        );
+        // Ordena pelos mais curtidos
+        const sorted = commentsWithLikes.sort((a, b) => b.likes - a.likes);
+        // Seleciona os 4 mais curtidos
+        const selected = sorted.slice(0, 4);
         // Busca dados dos jogos relacionados
         const gameIds = [
           ...new Set(
@@ -105,49 +123,79 @@ export default function Home() {
             userName: c.UsuarioNome || c.usuarioNome || c.nome || "Usuário",
             stars: Number(c.Nota || c.nota) || 0,
             comment: c.Comentario || c.comentario,
-            likes: 0,
+            likes: c.likes || 0,
+            igdbGameId: igdbId, // Adiciona o id do jogo explicitamente
           };
-          console.log("[DEBUG] Comentário mapeado:", mappedComment);
           return mappedComment;
         });
         setComments(mapped);
-        console.log("[DEBUG] Comentários finais para o slider:", mapped);
       });
   }, []);
 
   return (
     <>
       <main>
-        <header className="flex justify-center items-start w-full">
+        <motion.header
+          className="flex justify-center items-start w-full"
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           <div className="relative w-full md:px-full ">
             {/* Imagem principal do header, alinhada com a navbar */}
-            <img
+            <motion.img
               src={imgHeader}
               alt="Header"
               className="mask-x-from-70% mask-x-to-90% mask-y-from-80% mask-y-to-90% w-full h-150 object-cover rounded-3xl"
+              initial={{ scale: 1.1, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1.2, delay: 0.2 }}
             />
             {/* Texto centralizado sobre a imagem, com transição para transparência */}
-            <div className="absolute left-1/2 bottom-4 -translate-x-1/2 w-[90%] text-white text-center text-3xl font-semibold drop-shadow-lg pointer-events-none flex flex-col gap-y-2">
+            <motion.div
+              className="absolute left-1/2 bottom-4 -translate-x-1/2 w-[90%] text-white text-center text-3xl font-semibold drop-shadow-lg pointer-events-none flex flex-col gap-y-2"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.7 }}
+            >
               <span>Acompanhe os jogos que você zerou.</span>
               <span>Salve os que quer jogar.</span>
               <span>Compartilhe o que realmente vale a pena.</span>
-            </div>
+            </motion.div>
           </div>
-        </header>
+        </motion.header>
         {/* Botão principal, centralizado abaixo do header */}
-        <div className="flex justify-center mt-8">
+        <motion.div
+          className="flex justify-center mt-8"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
           <Button className="text-lg px-8 py-3">
             Comece agora - é gratis!
           </Button>
-        </div>
+        </motion.div>
         {/* Subtítulo com cor mais apagada */}
-        <div className="flex justify-center mt-8">
+        <motion.div
+          className="flex justify-center mt-8"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+        >
           <span className="text-zinc-400 text-lg text-center">
             A rede social feita para quem vive o mundo dos games.
           </span>
-        </div>
+        </motion.div>
         {/* Grid de cards de jogos em alta */}
-        <section className="mt-10 flex justify-center">
+        <motion.section
+          className="mt-10 flex justify-center"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 w-full px-48">
             {loading && (
               <div className="col-span-6 text-center text-white">
@@ -176,14 +224,32 @@ export default function Home() {
                 </Link>
               ))}
           </div>
-        </section>
-        <h2 className="w-full text-2xl font-bold mb-8 text-center pt-15 text-white md:col-span-2">
+        </motion.section>
+        <motion.h2
+          className="w-full text-2xl font-bold mb-8 text-center pt-15 text-white md:col-span-2"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
           Aqui você está no controle...
-        </h2>
+        </motion.h2>
         {/* Seção dividida em duas colunas */}
-        <section className="mt-16 flex flex-col md:flex-row justify-center items-center gap-12 w-full px-48 mx-auto">
+        <motion.section
+          className="mt-16 flex flex-col md:flex-row justify-center items-center gap-12 w-full px-48 mx-auto"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
           {/* Coluna Esquerda */}
-          <div className="relative flex items-center justify-center w-full md:w-1/2 md:pl-0">
+          <motion.div
+            className="relative flex items-center justify-center w-full md:w-1/2 md:pl-0"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             <img
               src={gamepad1}
               alt="Controle"
@@ -201,9 +267,15 @@ export default function Home() {
                 onClick={() => navigate("/guia")}
               />
             </div>
-          </div>
+          </motion.div>
           {/* Coluna Direita*/}
-          <div className="relative grid grid-cols-2 gap-12 w-full md:w-1/2">
+          <motion.div
+            className="relative grid grid-cols-2 gap-12 w-full md:w-1/2"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
             <img
               src={gamepad2}
               alt="Gamepad sobreposto"
@@ -245,13 +317,115 @@ export default function Home() {
               hoverRing="hover:shadow-2xl hover:ring-2 hover:ring-green-400/40"
               hoverText="text-green-100"
             />
-          </div>
-        </section>
+          </motion.div>
+        </motion.section>
         {/* Seção de comentário de usuário sobre um jogo */}
-        <section className="mt-16 flex flex-col md:flex-row items-center w-full px-48 mx-auto gap-8 pb-8">
+        <motion.h2
+          className="w-full text-2xl font-bold mb-8 text-center pt-15 text-white md:col-span-2"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          Comentários populares
+        </motion.h2>
+        <motion.section
+          className="mt-16 flex flex-col md:flex-row items-center w-full px-48 mx-auto gap-8 pb-8"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
           <CommentSlider comments={comments} />
-        </section>
+        </motion.section>
+        {/* Preview de notícias */}
+        <motion.section
+          className="w-full flex flex-col items-center px-48 mt-22 "
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h2 className="text-2xl font-bold text-white mb-8 text-center">
+            Últimas notícias
+          </h2>
+          <NewsPreview />
+          <div className="flex justify-center mt-6 mb-10">
+            <a
+              href="/news"
+              className="text-cyan-400 font-semibold hover:underline text-lg"
+            >
+              Ver todas as notícias
+            </a>
+          </div>
+        </motion.section>
       </main>
     </>
+  );
+}
+
+// Preview de notícias para a Home
+function NewsPreview() {
+  const [news, setNews] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  React.useEffect(() => {
+    fetch(
+      `https://newsapi.org/v2/everything?q=games&language=pt&sortBy=publishedAt&pageSize=3&apiKey=d5ed40d54b23432db5ad32a4a0feedb9`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.articles) {
+          setNews(data.articles.slice(0, 3));
+        } else {
+          setNews([]);
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setNews([]);
+        setLoading(false);
+      });
+  }, []);
+  if (loading) return <div className="text-white">Carregando notícias...</div>;
+  if (!news.length)
+    return <div className="text-zinc-400">Nenhuma notícia encontrada.</div>;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+      {news.map((item, idx) => (
+        <a
+          key={idx}
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-zinc-900 rounded-xl shadow hover:shadow-lg transition-shadow duration-200 flex flex-col overflow-hidden border border-zinc-800 hover:border-cyan-500 group min-h-[180px]"
+        >
+          {item.urlToImage && (
+            <img
+              src={item.urlToImage}
+              alt={item.title}
+              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-200"
+              style={{ borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}
+            />
+          )}
+          <div className="p-3 flex flex-col flex-1">
+            <h3 className="text-sm font-bold text-cyan-300 mb-1 line-clamp-2 group-hover:text-cyan-400 transition-colors">
+              {item.title}
+            </h3>
+            <p className="text-zinc-400 text-xs mb-2 flex-1 line-clamp-2">
+              {item.description
+                ? item.description
+                : "Sem descrição disponível."}
+            </p>
+            <div className="text-[10px] text-zinc-500 mt-auto flex items-center gap-2">
+              <span className="truncate max-w-[80px]">{item.source?.name}</span>
+              <span className="opacity-60">•</span>
+              <span>
+                {new Date(item.publishedAt).toLocaleDateString("pt-BR")}
+              </span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
   );
 }

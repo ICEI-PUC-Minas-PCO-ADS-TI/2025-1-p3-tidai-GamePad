@@ -53,6 +53,28 @@ namespace GamePadAPI.Migrations
                     b.ToTable("Avaliacoes");
                 });
 
+            modelBuilder.Entity("GamePad_TIDAI_2025.Models.AvaliacaoLike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AvaliacaoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AvaliacaoLikes");
+                });
+
             modelBuilder.Entity("GamePad_TIDAI_2025.Models.ConsoleP", b =>
                 {
                     b.Property<int>("Id")

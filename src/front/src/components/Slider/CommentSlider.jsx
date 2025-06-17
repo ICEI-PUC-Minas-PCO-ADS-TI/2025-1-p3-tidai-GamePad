@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SimpleComment from "../SimpleComments/SimpleComment";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CommentSlider = ({ comments }) => {
   const [current, setCurrent] = useState(0);
@@ -37,11 +38,24 @@ const CommentSlider = ({ comments }) => {
         </button>
         {/* Comentários lado a lado, visual simples */}
         <div className="flex flex-col md:flex-row gap-4 w-full justify-center transition-all duration-300">
-          {visibleComments.map((comment, idx) => (
-            <div key={idx} className="w-full md:w-1/2">
-              <SimpleComment {...comment} />
-            </div>
-          ))}
+          {visibleComments.map((comment, idx) => {
+            // Tenta pegar o id do jogo do comentário
+            const igdbGameId =
+              comment.IgdbGameId ||
+              comment.igdbGameId ||
+              comment.igdbgameid ||
+              comment.IGDBGameId;
+            return (
+              <Link
+                key={idx}
+                to={igdbGameId ? `/games/${igdbGameId}` : "#"}
+                className="w-full md:w-1/2 hover:scale-[1.02] transition-transform duration-200"
+                style={{ textDecoration: "none" }}
+              >
+                <SimpleComment {...comment} />
+              </Link>
+            );
+          })}
         </div>
         {/* Botão próximo */}
         <button
