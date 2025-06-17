@@ -46,12 +46,10 @@ export default function Profile() {
         setLoadingGames(false);
       }
     }
-    if (activeTab === "games" && user?.id) {
+    if (user?.id) {
       loadUserGames();
-    } else if (activeTab !== "games") {
-      setUserGames([]);
     }
-  }, [user, activeTab]);
+  }, [user]);
 
   if (
     user &&
@@ -113,7 +111,7 @@ export default function Profile() {
         <aside className="w-full md:w-80 flex-shrink-0 flex flex-col gap-8">
           {/* Bio */}
           <ProfileBio user={user} onExpand={() => {}} />
-          <ProfileStats />
+          <ProfileStats userGames={userGames} />
         </aside>
         {/* Coluna direita */}
         <section className="flex-1 min-w-0">

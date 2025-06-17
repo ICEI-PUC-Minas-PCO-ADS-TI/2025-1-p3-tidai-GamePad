@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
 export default function ListView() {
   const { username, listId } = useParams();
   const { user } = useUser();
+  const navigate = useNavigate();
   const [list, setList] = useState(null);
   const [loading, setLoading] = useState(true);
   // Ordenação
@@ -58,7 +59,7 @@ export default function ListView() {
     user.nome.toLowerCase().replace(/\s+/g, "-") === username;
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="w-full mx-auto px-48 mt-8">
       <div className="flex items-center  gap-4 mb-2">
         <img
           src={
@@ -76,7 +77,10 @@ export default function ListView() {
           </span>
         </div>
         {isOwner && (
-          <button className="ml-auto bg-cyan-700 cursor-pointer hover:bg-cyan-600 text-white px-6 py-2 rounded-lg text-base font-bold shadow transition-all border-2 border-cyan-400">
+          <button
+            className="ml-auto bg-cyan-700 cursor-pointer hover:bg-cyan-600 text-white px-6 py-2 rounded-lg text-base font-bold shadow transition-all border-2 border-cyan-400"
+            onClick={() => navigate(`/list/${listId}/edit`)}
+          >
             Editar Lista
           </button>
         )}
@@ -111,6 +115,7 @@ export default function ListView() {
             key={item.id}
             className="flex flex-col items-center group transition-transform hover:-translate-y-2 cursor-pointer"
             style={{ minWidth: 120 }}
+            onClick={() => navigate(`/games/${item.igdbGameId}`)}
           >
             <img
               src={

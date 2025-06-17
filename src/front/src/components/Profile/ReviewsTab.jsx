@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 async function fetchGameById(gameId) {
   const res = await fetch(`http://localhost:5069/api/igdb/games?id=${gameId}`);
@@ -27,6 +28,7 @@ export default function ReviewsTab({ userId }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [games, setGames] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchReviews() {
@@ -51,7 +53,7 @@ export default function ReviewsTab({ userId }) {
           })
         );
         setGames(gamesObj);
-      // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars
       } catch (e) {
         setReviews([]);
         setGames({});
@@ -83,7 +85,8 @@ export default function ReviewsTab({ userId }) {
             return (
               <li
                 key={review.id}
-                className="flex gap-4 border-b border-zinc-800 pb-6"
+                className="flex gap-4 border-b border-zinc-800 pb-6 cursor-pointer hover:bg-zinc-800 transition"
+                onClick={() => navigate(`/games/${review.igdbGameId}`)}
               >
                 <img
                   src={
