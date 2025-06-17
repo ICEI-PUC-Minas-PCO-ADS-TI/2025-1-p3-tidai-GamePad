@@ -289,6 +289,7 @@ export default function Home() {
               hoverBorder="hover:border-cyan-400"
               hoverRing="hover:shadow-2xl hover:ring-2 hover:ring-cyan-400/40"
               hoverText="text-cyan-100"
+              onClick={() => navigate("/games")}
             />
             <GlassButton
               icon={Telescope}
@@ -298,6 +299,7 @@ export default function Home() {
               hoverBorder="hover:border-yellow-400"
               hoverRing="hover:shadow-2xl hover:ring-2 hover:ring-yellow-400/40"
               hoverText="text-yellow-100"
+              onClick={() => navigate("/games")}
             />
             <GlassButton
               icon={Hourglass}
@@ -307,6 +309,7 @@ export default function Home() {
               hoverBorder="hover:border-pink-400"
               hoverRing="hover:shadow-2xl hover:ring-2 hover:ring-pink-400/40"
               hoverText="text-pink-100"
+              onClick={() => navigate("/games")}
             />
             <GlassButton
               icon={HeartPlus}
@@ -316,6 +319,7 @@ export default function Home() {
               hoverBorder="hover:border-green-400"
               hoverRing="hover:shadow-2xl hover:ring-2 hover:ring-green-400/40"
               hoverText="text-green-100"
+              onClick={() => navigate("/games")}
             />
           </motion.div>
         </motion.section>

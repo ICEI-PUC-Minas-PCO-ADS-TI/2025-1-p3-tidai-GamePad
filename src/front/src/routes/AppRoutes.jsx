@@ -9,6 +9,8 @@ import Profile from "../pages/Profile/Profile";
 import GamesSearch from "../pages/Games/GamesSearch";
 import Settings from "../pages/Settings/Settings";
 import Guia from "../pages/Guia/Guia";
+import ListView from "../pages/Profile/ListView";
+import ListEdit from "../pages/Profile/ListEdit";
 
 export default function AppRoutes() {
   return (
@@ -22,6 +24,9 @@ export default function AppRoutes() {
         <Route path="/:username" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/guia" element={<Guia />} />
+        <Route path="/profile/list/:listId" element={<ListView />} />
+        <Route path="/:username/list/:listId" element={<ListView />} />
+        <Route path="/list/:listId/edit" element={<ListEdit />} />
       </Route>
     </Routes>
   );

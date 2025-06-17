@@ -111,6 +111,40 @@ async function fetchLikes(avaliacaoId, usuarioId) {
   return res.json();
 }
 
+// Funções para listas de jogos
+async function fetchUserLists(usuarioId) {
+  const res = await fetch(
+    `http://localhost:5069/api/GameLists/user/${usuarioId}`
+  );
+  if (!res.ok) throw new Error("Erro ao buscar listas");
+  return res.json();
+}
+async function createUserList(usuarioId, title) {
+  const res = await fetch(`http://localhost:5069/api/GameLists`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ usuarioId, title }),
+  });
+  if (!res.ok) throw new Error("Erro ao criar lista");
+  return res.json();
+}
+async function addGameToList(listId, game) {
+  const res = await fetch(`http://localhost:5069/api/GameLists/${listId}/add`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(game),
+  });
+  if (!res.ok) throw new Error("Erro ao adicionar jogo à lista");
+  return res.json();
+}
+async function removeGameFromList(listId, itemId) {
+  const res = await fetch(
+    `http://localhost:5069/api/GameLists/${listId}/remove/${itemId}`,
+    { method: "DELETE" }
+  );
+  if (!res.ok) throw new Error("Erro ao remover jogo da lista");
+}
+
 export default function GameSelected() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -145,6 +179,14 @@ export default function GameSelected() {
   // Estado para likes de cada avaliação
   const [likesMap, setLikesMap] = useState({});
   const [userLikedMap, setUserLikedMap] = useState({});
+
+  // Estado para listas do usuário
+  const [userLists, setUserLists] = useState([]);
+  const [showListModal, setShowListModal] = useState(false);
+  const [newListTitle, setNewListTitle] = useState("");
+  const [selectedListId, setSelectedListId] = useState(null);
+  const [addingToList, setAddingToList] = useState(false);
+  const [addListError, setAddListError] = useState("");
 
   // Função para buscar dados de usuário por ID
   async function fetchUserById(id) {
@@ -533,6 +575,51 @@ export default function GameSelected() {
     }
   };
 
+  // Busca listas do usuário ao abrir modal
+  const handleOpenListModal = async () => {
+    if (!user) return;
+    setShowListModal(true);
+    try {
+      const lists = await fetchUserLists(user.id);
+      setUserLists(lists);
+    } catch (e) {
+      setUserLists([]);
+    }
+  };
+  const handleCreateList = async () => {
+    if (!user || !newListTitle.trim()) return;
+    setAddingToList(true);
+    try {
+      const list = await createUserList(user.id, newListTitle);
+      setUserLists([...userLists, list]);
+      setNewListTitle("");
+    } finally {
+      setAddingToList(false);
+    }
+  };
+  const handleAddGameToList = async (listId) => {
+    if (!user || !game) return;
+    setAddingToList(true);
+    setAddListError("");
+    try {
+      await addGameToList(listId, {
+        igdbGameId: game.id,
+        gameTitle: game.name,
+        coverUrl: game.cover?.url || "",
+      });
+      setSelectedListId(listId);
+      setShowListModal(false);
+    } catch (e) {
+      if (e instanceof Response && e.status === 409) {
+        setAddListError("Este jogo já está nesta lista.");
+      } else {
+        setAddListError("Erro ao adicionar jogo à lista.");
+      }
+    } finally {
+      setAddingToList(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-zinc-900">
       <header
@@ -667,8 +754,7 @@ export default function GameSelected() {
                   </button>
                   <button
                     className="flex cursor-pointer items-center gap-1 px-3 py-1 rounded-lg text-sm font-semibold bg-zinc-700 text-zinc-300 hover:bg-zinc-800"
-                    title="Adicionar a uma lista (em breve)"
-                    disabled
+                    onClick={handleOpenListModal}
                   >
                     <List size={18} /> Lista
                   </button>
@@ -1269,6 +1355,103 @@ export default function GameSelected() {
                 Salvar Review
               </button>
             </div>
+          </div>
+        </div>
+      )}
+      {/* Modal de Listas */}
+      {showListModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="bg-zinc-900 p-6 rounded-xl w-full max-w-md">
+            <h2 className="text-xl font-bold mb-4 text-white">
+              Adicionar a uma lista
+            </h2>
+            <div className="mb-4">
+              <input
+                type="text"
+                className="w-full p-2 rounded bg-zinc-800 text-white mb-2"
+                placeholder="Nova lista: digite o título e clique em criar"
+                value={newListTitle}
+                onChange={(e) => setNewListTitle(e.target.value)}
+                disabled={addingToList}
+              />
+              <button
+                className="bg-cyan-600 text-white px-3 py-1 rounded hover:bg-cyan-700"
+                onClick={handleCreateList}
+                disabled={addingToList || !newListTitle.trim()}
+              >
+                Criar lista
+              </button>
+            </div>
+            <div>
+              <div className="mb-2 text-zinc-300">Suas listas:</div>
+              {userLists.length === 0 && (
+                <div className="text-zinc-400">Nenhuma lista encontrada.</div>
+              )}
+              {userLists.map((list) => {
+                // Verifica se o jogo já está na lista
+                const existingItem = list.items.find(
+                  (i) => i.igdbGameId === game?.id
+                );
+                return (
+                  <div
+                    key={list.id}
+                    className="flex items-center justify-between mb-2 bg-zinc-800 rounded p-2"
+                  >
+                    <span className="text-white">{list.title}</span>
+                    {existingItem ? (
+                      <button
+                        className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
+                        onClick={async () => {
+                          setAddingToList(true);
+                          setAddListError("");
+                          try {
+                            await removeGameFromList(list.id, existingItem.id);
+                            setUserLists((prev) =>
+                              prev.map((l) =>
+                                l.id === list.id
+                                  ? {
+                                      ...l,
+                                      items: l.items.filter(
+                                        (i) => i.id !== existingItem.id
+                                      ),
+                                    }
+                                  : l
+                              )
+                            );
+                          } catch {
+                            setAddListError("Erro ao remover jogo da lista.");
+                          } finally {
+                            setAddingToList(false);
+                          }
+                        }}
+                        disabled={addingToList}
+                      >
+                        Remover
+                      </button>
+                    ) : (
+                      <button
+                        className="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700"
+                        onClick={() => handleAddGameToList(list.id)}
+                        disabled={addingToList}
+                      >
+                        Adicionar
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            {addListError && (
+              <div className="text-red-400 mb-2 text-center">
+                {addListError}
+              </div>
+            )}
+            <button
+              className="mt-4 text-zinc-400 hover:text-white"
+              onClick={() => setShowListModal(false)}
+            >
+              Cancelar
+            </button>
           </div>
         </div>
       )}
