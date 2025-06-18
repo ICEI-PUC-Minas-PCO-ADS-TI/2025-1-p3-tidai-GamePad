@@ -9,7 +9,7 @@ export default function ListView() {
   const [list, setList] = useState(null);
   const [loading, setLoading] = useState(true);
   // Ordenação
-  const [sort, setSort] = useState("title-asc");
+  const [sort, setSort] = useState(null); // null = ordem salva
 
   useEffect(() => {
     fetch(`http://localhost:5069/api/GameLists/${listId}`)
@@ -35,13 +35,14 @@ export default function ListView() {
         if (!b.gameTitle) return -1;
         return a.gameTitle.localeCompare(b.gameTitle);
       });
-    if (sort === "title-desc")
+    else if (sort === "title-desc")
       games.sort((a, b) => {
         if (!a.gameTitle && !b.gameTitle) return 0;
         if (!a.gameTitle) return 1;
         if (!b.gameTitle) return -1;
         return b.gameTitle.localeCompare(a.gameTitle);
       });
+    // Se sort for null, mantém a ordem original (do banco)
     return games;
   };
   const sortedGames = getSortedGames();
@@ -88,6 +89,16 @@ export default function ListView() {
       <h1 className="text-2xl font-bold text-white mb-1">{list.title}</h1>
       <div className="flex gap-2 mb-4">
         <span className="text-zinc-400 text-sm mr-2">Ordenar por:</span>
+        <button
+          className={`px-4 py-1 rounded font-semibold text-sm border transition ${
+            sort === null
+              ? "bg-zinc-700 border-cyan-400 text-cyan-200"
+              : "bg-zinc-800 border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-cyan-300"
+          }`}
+          onClick={() => setSort(null)}
+        >
+          Ordem da Lista
+        </button>
         <button
           className={`px-4 py-1 rounded font-semibold text-sm border transition ${
             sort === "title-asc"

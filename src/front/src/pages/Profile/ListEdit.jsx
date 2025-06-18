@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 export default function ListEdit() {
   const { listId } = useParams();
@@ -12,6 +13,10 @@ export default function ListEdit() {
   const [title, setTitle] = useState("");
   const [games, setGames] = useState([]);
   const [error, setError] = useState("");
+  const [showAdd, setShowAdd] = useState(false);
+  const [search, setSearch] = useState("");
+  const [searching, setSearching] = useState(false);
+  const [searchError, setSearchError] = useState("");
 
   useEffect(() => {
     fetch(`http://localhost:5069/api/GameLists/${listId}`)
@@ -34,23 +39,118 @@ export default function ListEdit() {
     setGames(reordered);
   }
 
-  // Funções para remover, adicionar, editar nome e apagar lista serão implementadas
+  // Remover jogo
+  function handleRemoveGame(idx) {
+    setGames(games.filter((_, i) => i !== idx));
+  }
+
+  // Adicionar jogo
+  function handleAddGame(game) {
+    if (!games.some((g) => g.igdbGameId === game.id)) {
+      setGames([
+        ...games,
+        {
+          igdbGameId: game.id,
+          gameTitle: game.name,
+          coverUrl:
+            game.cover && game.cover.url
+              ? game.cover.url.startsWith("http")
+                ? game.cover.url
+                : `https:${game.cover.url}`
+              : game.coverUrl || "",
+        },
+      ]);
+    }
+    setShowAdd(false);
+    setSearch("");
+  }
+
+  // Salvar alterações
+  async function handleSave() {
+    setError("");
+    const payload = {
+      id: list.id,
+      title,
+      usuarioId: list.usuarioId,
+      items: games.map((g) => ({
+        id: g.id, // pode ser undefined para novos
+        igdbGameId: g.igdbGameId,
+        gameTitle: g.gameTitle,
+        coverUrl: g.coverUrl,
+      })),
+    };
+    const res = await fetch(`http://localhost:5069/api/GameLists/${list.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      navigate(
+        `/${user.nome.toLowerCase().replace(/\s+/g, "-")}/list/${list.id}`
+      );
+    } else {
+      setError("Erro ao salvar alterações.");
+    }
+  }
+
+  // Apagar lista
+  async function handleDelete() {
+    if (!window.confirm("Tem certeza que deseja apagar esta lista?")) return;
+    const res = await fetch(`http://localhost:5069/api/GameLists/${list.id}`, {
+      method: "DELETE",
+    });
+    if (res.ok) {
+      navigate(`/${user.nome.toLowerCase().replace(/\s+/g, "-")}`);
+    } else {
+      setError("Erro ao apagar lista.");
+    }
+  }
 
   if (loading) return <div className="text-zinc-400">Carregando...</div>;
   if (error) return <div className="text-red-400">{error}</div>;
   if (!list) return <div className="text-red-400">Lista não encontrada.</div>;
 
   return (
-    <div className="max-w-5xl mx-auto w-full bg-zinc-900 p-6 rounded-lg shadow-lg">
+    <div className="max-w-5xl mx-48 w-full bg-zinc-900 p-6">
       <h2 className="text-xl font-bold text-white mb-4">Editar Lista</h2>
       <label className="block text-zinc-300 mb-2">Nome da lista:</label>
       <input
-        className="w-full p-2 rounded mb-4 bg-zinc-800 text-white border border-cyan-400"
+        className="w-xl p-2 rounded mb-4 bg-zinc-800 text-white border border-cyan-400"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <div className="mb-4">
-        <h3 className="text-zinc-200 font-semibold mb-2">Jogos na lista:</h3>
+              {showAdd && (
+        <div className="mb-4">
+          <SearchBar
+            placeholder="Buscar jogo para adicionar..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onSelect={handleAddGame}
+            className="mb-2"
+          />
+        </div>
+      )}
+      <button
+        className="bg-cyan-700 text-white px-4 py-2 rounded mr-2"
+        onClick={() => setShowAdd((v) => !v)}
+      >
+        {showAdd ? "Cancelar" : "Adicionar Jogo"}
+      </button>
+      <button
+        className="bg-green-700 text-white px-4 py-2 rounded mr-2"
+        onClick={handleSave}
+      >
+        Salvar Alterações
+      </button>
+      <button
+        className="bg-red-700 text-white px-4 py-2 rounded"
+        onClick={handleDelete}
+      >
+        Apagar Lista
+      </button>
+        <h3 className="text-zinc-200 font-semibold mb-4 mt-4">Jogos na lista:</h3>
+        
         <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="games-list" direction="horizontal">
             {(provided) => (
@@ -93,7 +193,10 @@ export default function ListEdit() {
                         <div className="text-lg text-white text-center font-semibold mb-1 truncate w-full mt-2">
                           {item.gameTitle}
                         </div>
-                        <button className="px-2 py-1 text-xs bg-red-700 text-white rounded mt-2">
+                        <button
+                          className="px-2 py-1 text-xs bg-red-700 text-white rounded mt-2"
+                          onClick={() => handleRemoveGame(idx)}
+                        >
                           Remover
                         </button>
                       </div>
@@ -106,15 +209,8 @@ export default function ListEdit() {
           </Droppable>
         </DragDropContext>
       </div>
-      <button className="bg-cyan-700 text-white px-4 py-2 rounded mr-2">
-        Adicionar Jogo
-      </button>
-      <button className="bg-green-700 text-white px-4 py-2 rounded mr-2">
-        Salvar Alterações
-      </button>
-      <button className="bg-red-700 text-white px-4 py-2 rounded">
-        Apagar Lista
-      </button>
+
+      {error && <div className="text-red-500 mt-2">{error}</div>}
     </div>
   );
 }

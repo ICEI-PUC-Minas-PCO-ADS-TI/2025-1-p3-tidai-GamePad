@@ -11,6 +11,7 @@ import Settings from "../pages/Settings/Settings";
 import Guia from "../pages/Guia/Guia";
 import ListView from "../pages/Profile/ListView";
 import ListEdit from "../pages/Profile/ListEdit";
+import ListCreate from "../pages/ListCreate";
 
 export default function AppRoutes() {
   return (
@@ -27,6 +28,7 @@ export default function AppRoutes() {
         <Route path="/profile/list/:listId" element={<ListView />} />
         <Route path="/:username/list/:listId" element={<ListView />} />
         <Route path="/list/:listId/edit" element={<ListEdit />} />
+        <Route path="/list/create" element={<ListCreate />} />
       </Route>
     </Routes>
   );

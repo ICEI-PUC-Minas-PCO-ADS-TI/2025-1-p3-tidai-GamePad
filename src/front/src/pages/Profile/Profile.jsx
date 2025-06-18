@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import ProfileTabs from "../../components/Profile/ProfileTabs";
 import ProfileBio from "../../components/Profile/ProfileBio";
@@ -32,6 +32,7 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState("profile");
   const [userGames, setUserGames] = useState([]);
   const [loadingGames, setLoadingGames] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadUserGames() {
@@ -94,7 +95,7 @@ export default function Profile() {
               username.toLowerCase() ===
               user.nome.toLowerCase().replace(/\s+/g, "-")
             }
-            onEdit={() => {}}
+            onEdit={() => navigate("/settings")}
             onFollow={() => {}}
           />
         </div>

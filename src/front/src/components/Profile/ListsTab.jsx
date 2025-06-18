@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { Pencil } from "lucide-react";
+import ListCreate from "../../pages/ListCreate";
 
 export default function ListsTab() {
   const { user } = useUser();
   const [lists, setLists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (!user?.id) return;
@@ -39,7 +41,10 @@ export default function ListsTab() {
       </h3>
       <hr className="mb-4 border-zinc-700" />
       <div className="flex mb-4">
-        <button className="flex items-center gap-2 cursor-pointer bg-cyan-900 hover:bg-cyan-800 text-cyan-200 font-semibold px-5 py-2 rounded-lg text-sm shadow transition-colors border border-cyan-700">
+        <button
+          className="flex items-center gap-2 cursor-pointer bg-cyan-900 hover:bg-cyan-800 text-cyan-200 font-semibold px-5 py-2 rounded-lg text-sm shadow transition-colors border border-cyan-700"
+          onClick={() => setShowModal(true)}
+        >
           <span className="text-lg">+</span> Nova Lista
         </button>
       </div>
@@ -48,7 +53,6 @@ export default function ListsTab() {
           const covers = list.items.slice(0, 5).map((item) => {
             if (!item.coverUrl)
               return "https://placehold.co/120x160?text=No+Cover";
-            // Substitui t_thumb, t_cover_big, etc por t_original para maior qualidade
             return item.coverUrl.replace(
               /t_(thumb|cover_big|screenshot_med|720p|1080p)/,
               "t_original"
@@ -99,7 +103,7 @@ export default function ListsTab() {
                   </div>
                 </div>
                 <div className="flex gap-2 mt-2">
-                  <button className="bg-zinc-700 hover:bg-zinc-600 text-zinc-200 px-2 py-1 rounded text-xs flex items-center gap-1 w-full justify-center">
+                  <button className="bg-zinc-700 cursor-pointer hover:bg-zinc-600 text-zinc-200 px-2 py-1 rounded text-xs flex items-center gap-1 w-full justify-center">
                     <Pencil size={14} /> Editar Lista
                   </button>
                 </div>
@@ -108,6 +112,22 @@ export default function ListsTab() {
           );
         })}
       </div>
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-zinc-900 rounded-2xl shadow-2xl p-0 w-full max-w-2xl relative animate-fadeIn">
+            <button
+              className="absolute cursor-pointer top-4 right-5 text-zinc-400 hover:text-fuchsia-400 text-2xl font-bold transition"
+              onClick={() => setShowModal(false)}
+              aria-label="Fechar"
+            >
+              ×
+            </button>
+            <div className="p-8">
+              <ListCreate onClose={() => setShowModal(false)} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -73,7 +73,8 @@ namespace GamePadAPI.Controllers
         {
             _context.GameLists.Add(list);
             await _context.SaveChangesAsync();
-            return Ok(list);
+            // Retorne apenas o id da lista criada para evitar ciclos de serialização
+            return Ok(new { id = list.Id });
         }
 
         // POST: api/GameLists/{listId}/add
@@ -88,6 +89,52 @@ namespace GamePadAPI.Controllers
             _context.GameListItems.Add(item);
             await _context.SaveChangesAsync();
             return Ok(item);
+        }
+
+        // PUT: api/GameLists/{listId}
+        [HttpPut("{listId}")]
+        public async Task<IActionResult> UpdateList(int listId, [FromBody] GameList updated)
+        {
+            var list = await _context.GameLists
+                .Include(l => l.Items)
+                .FirstOrDefaultAsync(l => l.Id == listId);
+
+            if (list == null)
+                return NotFound();
+
+            list.Title = updated.Title;
+
+            // Atualiza/remonta os itens
+            list.Items.Clear();
+            foreach (var item in updated.Items)
+            {
+                list.Items.Add(new GameListItem
+                {
+                    IgdbGameId = item.IgdbGameId,
+                    GameTitle = item.GameTitle,
+                    CoverUrl = item.CoverUrl
+                });
+            }
+
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        // DELETE: api/GameLists/{listId}
+        [HttpDelete("{listId}")]
+        public async Task<IActionResult> DeleteList(int listId)
+        {
+            var list = await _context.GameLists
+                .Include(l => l.Items)
+                .FirstOrDefaultAsync(l => l.Id == listId);
+
+            if (list == null)
+                return NotFound();
+
+            _context.GameListItems.RemoveRange(list.Items);
+            _context.GameLists.Remove(list);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
         // DELETE: api/GameLists/{listId}/remove/{itemId}

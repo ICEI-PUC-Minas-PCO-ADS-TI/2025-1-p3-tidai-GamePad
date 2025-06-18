@@ -368,18 +368,39 @@ export default function Home() {
   );
 }
 
+const GAME_KEYWORDS = [
+  "game",
+  "games",
+  "jogo",
+  "jogos",
+  "videogame",
+  "videogames",
+  "xbox",
+  "playstation",
+  "nintendo",
+  "switch",
+  "ps5",
+  "ps4",
+  "console",
+];
+function isGameNews(article) {
+  const title = (article.title || "").toLowerCase();
+  return GAME_KEYWORDS.some((keyword) => title.includes(keyword));
+}
+
 // Preview de notícias para a Home
 function NewsPreview() {
   const [news, setNews] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     fetch(
-      `https://newsapi.org/v2/everything?q=games&language=pt&sortBy=publishedAt&pageSize=3&apiKey=d5ed40d54b23432db5ad32a4a0feedb9`
+      `https://newsapi.org/v2/everything?q=games&language=pt&sortBy=publishedAt&pageSize=10&apiKey=d5ed40d54b23432db5ad32a4a0feedb9`
     )
       .then((res) => res.json())
       .then((data) => {
         if (data.articles) {
-          setNews(data.articles.slice(0, 3));
+          const filtered = data.articles.filter(isGameNews).slice(0, 3);
+          setNews(filtered);
         } else {
           setNews([]);
         }
