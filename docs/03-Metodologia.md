@@ -174,7 +174,7 @@ Essa abordagem garantir√° um acompanhamento claro das atividades e possibilitar√
 
 ### Back-end
 ![badge-sql]
-![badge-.Net]
+![badge-dotnet]
 
 ### Deploy
 ![badge-azure]
@@ -207,6 +207,6 @@ Essa abordagem garantir√° um acompanhamento claro das atividades e possibilitar√
 
 [badge-sql]: https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white
 
-[babdge-.Net]: https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white
+[badge-dotnet]: https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white
 
 [badge-jwt]: https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens
