@@ -146,7 +146,7 @@ export default function ListCreate() {
       {error && <div className="text-red-500 mb-2">{error}</div>}
       <div className="flex gap-2 justify-end mt-6">
         <button
-          className="bg-cyan-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-cyan-700 transition"
+          className="bg-cyan-600 cursor-pointer text-white px-6 py-2 rounded-lg font-bold hover:bg-cyan-700 transition"
           onClick={handleSave}
           disabled={saving}
         >

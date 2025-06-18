@@ -131,19 +131,19 @@ export default function ListEdit() {
         </div>
       )}
       <button
-        className="bg-cyan-700 text-white px-4 py-2 rounded mr-2"
+        className="bg-cyan-700 cursor-pointer text-white px-4 py-2 rounded mr-2"
         onClick={() => setShowAdd((v) => !v)}
       >
         {showAdd ? "Cancelar" : "Adicionar Jogo"}
       </button>
       <button
-        className="bg-green-700 text-white px-4 py-2 rounded mr-2"
+        className="bg-green-700 cursor-pointer text-white px-4 py-2 rounded mr-2"
         onClick={handleSave}
       >
         Salvar Alterações
       </button>
       <button
-        className="bg-red-700 text-white px-4 py-2 rounded"
+        className="bg-red-700 cursor-pointer text-white px-4 py-2 rounded"
         onClick={handleDelete}
       >
         Apagar Lista
@@ -193,7 +193,7 @@ export default function ListEdit() {
                           {item.gameTitle}
                         </div>
                         <button
-                          className="px-2 py-1 text-xs bg-red-700 text-white rounded mt-2"
+                          className="px-2 py-1 text-xs cursor-pointer bg-red-700 text-white rounded mt-2"
                           onClick={() => handleRemoveGame(idx)}
                         >
                           Remover
