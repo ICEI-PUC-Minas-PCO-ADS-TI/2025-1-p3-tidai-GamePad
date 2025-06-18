@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "../components/SearchBar/SearchBar";
-
-// Arquivo movido para src/components/Profile/ListCreate.jsx
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function ListCreate() {
   const { user } = useUser();
@@ -11,7 +9,6 @@ export default function ListCreate() {
   const [title, setTitle] = useState("");
   const [games, setGames] = useState([]); // [{id, name, coverUrl}]
   const [search, setSearch] = useState("");
-  const [searchSelected, setSearchSelected] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -21,7 +18,6 @@ export default function ListCreate() {
       setGames([...games, game]);
     }
     setSearch("");
-    setSearchSelected(null);
   };
 
   // Remove jogo da lista

@@ -11,7 +11,7 @@ import Settings from "../pages/Settings/Settings";
 import Guia from "../pages/Guia/Guia";
 import ListView from "../pages/Profile/ListView";
 import ListEdit from "../pages/Profile/ListEdit";
-import ListCreate from "../pages/ListCreate";
+import ListCreate from "../components/Profile/ListCreate";
 
 export default function AppRoutes() {
   return (

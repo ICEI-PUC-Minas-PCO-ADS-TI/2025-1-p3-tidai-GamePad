@@ -15,8 +15,7 @@ export default function ListEdit() {
   const [error, setError] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [search, setSearch] = useState("");
-  const [searching, setSearching] = useState(false);
-  const [searchError, setSearchError] = useState("");
+
 
   useEffect(() => {
     fetch(`http://localhost:5069/api/GameLists/${listId}`)

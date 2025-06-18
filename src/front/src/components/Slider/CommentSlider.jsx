@@ -36,7 +36,6 @@ const CommentSlider = ({ comments }) => {
         >
           <ChevronLeft size={24} />
         </button>
-        {/* Comentários lado a lado, visual simples */}
         <div className="flex flex-col md:flex-row gap-4 w-full justify-center transition-all duration-300">
           {visibleComments.map((comment, idx) => {
             // Tenta pegar o id do jogo do comentário

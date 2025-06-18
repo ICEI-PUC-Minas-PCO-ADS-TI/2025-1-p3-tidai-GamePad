@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
-import { Pencil } from "lucide-react";
-import ListCreate from "../../pages/ListCreate";
+import GameListCardProfile from "./GameListCardProfile";
+import ListCreate from "./ListCreate";
+import { useNavigate } from "react-router-dom";
 
 export default function ListsTab() {
   const { user } = useUser();
@@ -9,6 +10,7 @@ export default function ListsTab() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user?.id) return;
@@ -49,68 +51,20 @@ export default function ListsTab() {
         </button>
       </div>
       <div className="flex flex-wrap gap-8 mt-4">
-        {lists.map((list) => {
-          const covers = list.items.slice(0, 5).map((item) => {
-            if (!item.coverUrl)
-              return "https://placehold.co/120x160?text=No+Cover";
-            return item.coverUrl.replace(
-              /t_(thumb|cover_big|screenshot_med|720p|1080p)/,
-              "t_original"
-            );
-          });
-          return (
-            <div
-              key={list.id}
-              className="rounded-xl p-4 w-64 flex flex-col cursor-pointer hover:bg-zinc-800 transition"
-              onClick={() =>
-                (window.location.href = `/${user?.nome
-                  ?.toLowerCase()
-                  .replace(/\s+/g, "-")}/list/${list.id}`)
-              }
-            >
-              <div className="flex -space-x-8 mb-3 h-32">
-                {covers.length === 0 && (
-                  <div className="w-24 h-32 bg-zinc-900 rounded-lg border-2 border-zinc-700" />
-                )}
-                {covers.map((cover, idx) => (
-                  <img
-                    key={idx}
-                    src={cover}
-                    alt="Capa"
-                    className={`w-24 h-32 object-cover rounded-lg border-2 border-zinc-700 shadow ${
-                      idx > 0 ? "-ml-8" : ""
-                    }`}
-                    style={{ zIndex: 10 - idx }}
-                  />
-                ))}
-                {[...Array(5 - covers.length)].map((_, idx) => (
-                  <div
-                    key={idx}
-                    className="w-24 h-32 bg-zinc-900 rounded-lg border-2 border-zinc-700 -ml-8"
-                    style={{ zIndex: 10 - covers.length - idx }}
-                  />
-                ))}
-              </div>
-              <div className="flex flex-col flex-1 justify-between">
-                <div>
-                  <div className="text-lg font-bold text-white truncate mb-1">
-                    {list.title || "Untitled"}
-                  </div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-zinc-400 text-xs">
-                      {list.items.length} Jogos
-                    </span>
-                  </div>
-                </div>
-                <div className="flex gap-2 mt-2">
-                  <button className="bg-zinc-700 cursor-pointer hover:bg-zinc-600 text-zinc-200 px-2 py-1 rounded text-xs flex items-center gap-1 w-full justify-center">
-                    <Pencil size={14} /> Editar Lista
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {lists.map((list) => (
+          <GameListCardProfile
+            key={list.id}
+            list={list}
+            user={user}
+            onEdit={() =>
+              navigate(
+                `/${user?.nome?.toLowerCase().replace(/\s+/g, "-")}/list/${
+                  list.id
+                }/edit`
+              )
+            }
+          />
+        ))}
       </div>
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">

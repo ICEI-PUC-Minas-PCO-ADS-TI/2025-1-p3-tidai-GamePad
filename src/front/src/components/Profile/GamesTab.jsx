@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import GameCardProfile from "./GameCardProfile";
 
 const FILTERS = [
   { key: "played", label: "Zerado" },
@@ -51,22 +52,11 @@ export default function GamesTab({ userGames = [] }) {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-6 justify-center">
             {filteredGames.map((game) => (
-              <div
+              <GameCardProfile
                 key={game.id}
-                className="relative flex flex-col items-center group transition-transform hover:-translate-y-2 cursor-pointer"
-                style={{ minWidth: 120 }}
+                game={game}
                 onClick={() => navigate(`/games/${game.id}`)}
-              >
-                <img
-                  src={game.coverUrl}
-                  alt={game.name}
-                  className="w-32 h-48 object-cover rounded-lg shadow-lg border-2 border-zinc-700 group-hover:border-cyan-400 transition"
-                  style={{ boxShadow: "0 4px 16px 0 rgba(0,0,0,0.45)" }}
-                />
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-zinc-900/80 px-2 py-1 rounded text-xs text-cyan-200 font-semibold opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap z-10">
-                  {game.name}
-                </div>
-              </div>
+              />
             ))}
           </div>
         )}

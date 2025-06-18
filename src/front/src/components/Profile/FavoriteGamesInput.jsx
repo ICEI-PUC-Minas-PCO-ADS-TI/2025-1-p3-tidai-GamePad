@@ -4,7 +4,6 @@ import { Plus, Trash2, X } from "lucide-react";
 import { fetchGamesByIds } from "../../service/igdbService"; // Use o serviço global
 
 export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
-  // Inicialização segura para searchValues e inputTexts
   const [searchValues, setSearchValues] = useState(
     value && Array.isArray(value)
       ? value.map((g) =>
@@ -21,10 +20,8 @@ export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
   const [modalIdx, setModalIdx] = useState(null);
   const modalRef = useRef();
 
-  // Sempre que value mudar, busque dados completos se necessário
   useEffect(() => {
     let isMounted = true;
-    console.log("[DEBUG] useEffect triggered. value:", value);
 
     async function fetchMissingGames() {
       const normalized =
@@ -38,7 +35,6 @@ export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
         .filter((g) => g && (!g.cover || !g.name))
         .map((g) => g.id);
 
-      console.log("[DEBUG] idsToFetch:", idsToFetch);
 
       if (idsToFetch.length === 0) {
         if (isMounted) {
@@ -50,7 +46,6 @@ export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
 
       try {
         const data = await fetchGamesByIds(idsToFetch);
-        console.log("[DEBUG] fetchGamesByIds result:", data);
 
         const updated = normalized.map((g) => {
           if (!g) return null;
@@ -67,10 +62,9 @@ export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
           if (shouldUpdate) {
             onChange(updated);
           }
-          console.log("[DEBUG] updated searchValues:", updated);
         }
       } catch (err) {
-        console.error("[DEBUG] fetchMissingGames error:", err);
+        err;
       }
     }
     fetchMissingGames();
@@ -107,9 +101,7 @@ export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
     setInputTexts(texts);
     setModalOpen(false);
     setModalIdx(null);
-    // Sempre envie o array de objetos completos
     onChange(updated);
-    console.log("[DEBUG] handleSelect game:", game);
   };
 
   const handleRemove = (idx) => {
@@ -129,7 +121,6 @@ export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
       <div className="flex gap-4">
         {Array.from({ length: max }).map((_, idx) => {
           const game = searchValues[idx];
-          console.log(`[DEBUG] Render card idx=${idx}`, game);
           return (
             <div
               key={idx}
@@ -143,7 +134,6 @@ export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
               tabIndex={0}
               aria-label="Adicionar jogo favorito"
             >
-              {/* Card vazio: botão + */}
               {!game && (
                 <div className="flex cursor-pointer flex-col items-center justify-center w-full h-full text-zinc-400 hover:text-cyan-400 transition select-none">
                   <Plus size={36} />
