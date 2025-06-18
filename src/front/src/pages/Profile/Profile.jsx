@@ -52,22 +52,11 @@ export default function Profile() {
     }
   }, [user]);
 
-  if (
-    user &&
-    username &&
-    username.toLowerCase() !== user.nome.toLowerCase().replace(/\s+/g, "-")
-  ) {
-    return (
-      <Navigate
-        to={`/profile/${user.nome.toLowerCase().replace(/\s+/g, "-")}`}
-        replace
-      />
-    );
-  }
+  // Remover redirecionamento automático para /profile/username
 
   const TabComponent = TAB_COMPONENTS[activeTab] || (() => <div />);
 
-  const profileUser = user;
+  const profileUser = user; // Este valor será ajustado depois para buscar o usuário correto
 
   return (
     <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-0 md:px-48 py-10">

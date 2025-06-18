@@ -17,5 +17,12 @@ namespace GamePad_TIDAI_2025.Models
         public DbSet<GameList> GameLists { get; set; }
         public DbSet<GameListItem> GameListItems { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Usuario>()
+                .HasIndex(u => u.Nome)
+                .IsUnique();
+        }
     }
 }
