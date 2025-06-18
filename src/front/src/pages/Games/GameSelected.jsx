@@ -1189,7 +1189,18 @@ export default function GameSelected() {
                       />
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="font-bold text-cyan-300">
+                          <span
+                            className="font-bold text-cyan-300 cursor-pointer hover:underline"
+                            onClick={() => {
+                              if (c.usuario?.nome) {
+                                navigate(
+                                  `/${c.usuario.nome
+                                    .toLowerCase()
+                                    .replace(/\s+/g, "-")}`
+                                );
+                              }
+                            }}
+                          >
                             {c.usuario?.nome || "Usuário"}
                           </span>
                           {/* Nota em estrelas */}

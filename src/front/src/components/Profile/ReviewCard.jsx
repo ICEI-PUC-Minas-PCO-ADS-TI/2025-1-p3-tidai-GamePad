@@ -16,7 +16,7 @@ function renderStars(nota) {
   return stars;
 }
 
-export default function ReviewCard({ review, game, onClick }) {
+export default function ReviewCard({ review, game, onClick, onClickUser }) {
   const year = game?.first_release_date
     ? new Date(game.first_release_date * 1000).getFullYear()
     : "";
@@ -59,6 +59,17 @@ export default function ReviewCard({ review, game, onClick }) {
                   year: "numeric",
                 })
               : ""}
+          </span>
+        </div>
+        <div className="flex items-center gap-2 mb-2 mt-1">
+          <span
+            className="text-cyan-400 text-xs font-semibold cursor-pointer hover:underline"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClickUser && onClickUser();
+            }}
+          >
+            {review.usuarioNome}
           </span>
         </div>
         <div className="text-zinc-200 text-sm mb-2 mt-1">

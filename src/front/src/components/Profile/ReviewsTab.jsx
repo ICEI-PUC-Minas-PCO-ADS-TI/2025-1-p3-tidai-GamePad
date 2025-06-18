@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useUserReviews from "./useUserReviews";
 import ReviewCard from "./ReviewCard";
 
-export default function ReviewsTab({ userId }) {
+export default function ReviewsTab({ userId, userName }) {
   const { reviews, games, loading } = useUserReviews(userId);
   const navigate = useNavigate();
 
@@ -26,6 +26,10 @@ export default function ReviewsTab({ userId }) {
               key={review.id}
               review={review}
               game={games[review.igdbGameId]}
+              onClickUser={() =>
+                userName &&
+                navigate(`/${userName.toLowerCase().replace(/\s+/g, "-")}`)
+              }
               onClick={() =>
                 games[review.igdbGameId] &&
                 navigate(`/games/${games[review.igdbGameId].id}`)

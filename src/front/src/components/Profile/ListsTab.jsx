@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "../../context/UserContext";
 import GameListCardProfile from "./GameListCardProfile";
 import ListCreate from "./ListCreate";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 
-export default function ListsTab() {
-  const { user } = useUser();
+export default function ListsTab({ user }) {
+  const { user: loggedUser } = useUser();
   const [lists, setLists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -43,12 +43,14 @@ export default function ListsTab() {
       </h3>
       <hr className="mb-4 border-zinc-700" />
       <div className="flex mb-4">
-        <button
-          className="flex items-center gap-2 cursor-pointer bg-cyan-900 hover:bg-cyan-800 text-cyan-200 font-semibold px-5 py-2 rounded-lg text-sm shadow transition-colors border border-cyan-700"
-          onClick={() => setShowModal(true)}
-        >
-          <span className="text-lg">+</span> Nova Lista
-        </button>
+        {loggedUser && user?.id === loggedUser.id && (
+          <button
+            className="flex items-center gap-2 cursor-pointer bg-cyan-900 hover:bg-cyan-800 text-cyan-200 font-semibold px-5 py-2 rounded-lg text-sm shadow transition-colors border border-cyan-700"
+            onClick={() => setShowModal(true)}
+          >
+            <span className="text-lg">+</span> Nova Lista
+          </button>
+        )}
       </div>
       <div className="flex flex-wrap gap-8 mt-4">
         {lists.map((list) => (

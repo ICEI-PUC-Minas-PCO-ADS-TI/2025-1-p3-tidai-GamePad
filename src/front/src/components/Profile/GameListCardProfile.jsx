@@ -2,10 +2,13 @@ import React from "react";
 import { Pencil } from "lucide-react";
 import { getListCovers } from "./profileUtils";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 
 export default function GameListCardProfile({ list, user }) {
   const covers = getListCovers(list);
   const navigate = useNavigate();
+  const { user: loggedUser } = useUser();
+  const isOwner = loggedUser && user?.id === loggedUser.id;
   return (
     <div
       className="rounded-xl p-4 w-64 flex flex-col cursor-pointer hover:bg-zinc-800 transition"
@@ -50,15 +53,17 @@ export default function GameListCardProfile({ list, user }) {
           </div>
         </div>
         <div className="flex gap-2 mt-2">
-          <button
-            className="bg-zinc-700 cursor-pointer hover:bg-zinc-600 text-zinc-200 px-2 py-1 rounded text-xs flex items-center gap-1 w-full justify-center"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(`/list/${list.id}/edit`);
-            }}
-          >
-            <Pencil size={14} /> Editar Lista
-          </button>
+          {isOwner && (
+            <button
+              className="bg-zinc-700 cursor-pointer hover:bg-zinc-600 text-zinc-200 px-2 py-1 rounded text-xs flex items-center gap-1 w-full justify-center"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/list/${list.id}/edit`);
+              }}
+            >
+              <Pencil size={14} /> Editar Lista
+            </button>
+          )}
         </div>
       </div>
     </div>
