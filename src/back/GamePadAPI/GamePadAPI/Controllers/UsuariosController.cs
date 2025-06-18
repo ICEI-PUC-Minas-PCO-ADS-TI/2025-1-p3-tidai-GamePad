@@ -121,7 +121,6 @@ namespace GamePadAPI.Controllers
                 }
             }
 
-            // Atualize apenas os campos enviados (não sobrescreva com null)
             if (!string.IsNullOrWhiteSpace(dto.Nome)) usuarioDb.Nome = dto.Nome;
             if (!string.IsNullOrWhiteSpace(dto.Bio)) usuarioDb.Bio = dto.Bio;
             if (!string.IsNullOrWhiteSpace(dto.Email)) usuarioDb.Email = dto.Email;
@@ -150,7 +149,6 @@ namespace GamePadAPI.Controllers
         }
 
         // POST: api/Usuarios
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
@@ -216,8 +214,7 @@ namespace GamePadAPI.Controllers
             var claims = new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-                new Claim(ClaimTypes.Email, usuario.Email),
-                //new Claim(ClaimTypes.Role, usuario.PerfiL)
+                new Claim(ClaimTypes.Email, usuario.Email)
             });
 
             var tokenDescriptor = new SecurityTokenDescriptor

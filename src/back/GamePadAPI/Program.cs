@@ -149,11 +149,10 @@ namespace GamePadAPI.Controllers
         }
 
         // POST: api/Usuarios
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
-            // Verifica se já existe usuário com o mesmo e-mail (case-insensitive)
+            // Verifica se já existe usuário com o mesmo e-mail
             var emailExists = await _context.Usuarios.AnyAsync(u => u.Email.ToLower() == usuario.Email.ToLower());
             if (emailExists)
             {

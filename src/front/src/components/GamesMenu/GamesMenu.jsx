@@ -31,10 +31,8 @@ function GamesMenu({ selected, onSelect }) {
         }`}
         onClick={() => onSelect("new")}
       >
-        <Flame size={18} /> Novos Lançamentos
+        <Flame size={18} /> Lançamentos
       </button>
-
-      {/* Botão de plataforma removido, filtro agora está nos filtros */}
     </div>
   );
 }

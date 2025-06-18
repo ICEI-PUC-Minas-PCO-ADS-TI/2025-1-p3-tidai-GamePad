@@ -139,6 +139,16 @@ const Games = () => {
     filteredByRatingIds,
   ]);
 
+  // Sincroniza o menu selecionado na página de games com o valor passado via state pela navbar, garantindo que o botão correto fique ativo.
+  useEffect(() => {
+    // Se vier do menu da navbar, sincroniza o menu selecionado
+    if (location.state && location.state.menu) {
+      setSelectedMenu(location.state.menu);
+    }
+    // Limpa o state para evitar reuso indevido
+    window.history.replaceState({}, document.title);
+  }, [location.state]);
+
   // Troca de menu reseta a página
   const handleMenuSelect = (menu) => {
     setSelectedMenu(menu);

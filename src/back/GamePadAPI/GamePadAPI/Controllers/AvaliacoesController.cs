@@ -52,8 +52,6 @@ namespace GamePadAPI.Controllers
         }
 
         // POST: Avaliacoes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nota,Comentario,Data,UsuarioId")] Avaliacao avaliacao)
@@ -86,8 +84,6 @@ namespace GamePadAPI.Controllers
         }
 
         // POST: Avaliacoes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nota,Comentario,Data,UsuarioId")] Avaliacao avaliacao)

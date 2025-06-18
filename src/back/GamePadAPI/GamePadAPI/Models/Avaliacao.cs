@@ -25,7 +25,6 @@ namespace GamePad_TIDAI_2025.Models
 
 
 
-            // Para jogos da IGDB
             public long? IgdbGameId { get; set; }
     }
 }

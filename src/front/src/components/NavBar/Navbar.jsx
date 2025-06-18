@@ -59,7 +59,6 @@ const Navbar = () => {
         </Link>
         {/* Menus principais */}
         <ul className="hidden xl:flex items-center gap-8 font-semibold text-base ml-8">
-          {/* gap-8 e ml-8 para espaçamento mais equilibrado */}
           <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
             <Link to="/">Home</Link>
           </li>
@@ -74,38 +73,45 @@ const Navbar = () => {
             </div>
             {gamesDropdownOpen && (
               <div className="absolute left-0 top-full mt-1 w-56 bg-zinc-900 border border-zinc-700 rounded-xl shadow-lg z-[9999] flex flex-col animate-fadeIn">
-                <Link
-                  to="/games"
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-cyan-400"
+                <button
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-cyan-400 text-left"
+                  onClick={() => {
+                    navigate("/games");
+                    setGamesDropdownOpen(false);
+                  }}
                 >
-                  <Flame size={16} /> Novos Lançamentos
-                </Link>
-                <Link
-                  to="/games"
-                  state={{ menu: "best" }}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-fuchsia-400"
+                  <Flame size={16} /> Populares
+                </button>
+                <button
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-fuchsia-400 text-left"
+                  onClick={() => {
+                    navigate("/games", { state: { menu: "best" } });
+                    setGamesDropdownOpen(false);
+                  }}
                 >
                   <Star size={16} /> Melhores
-                </Link>
-                <Link
-                  to="/games"
-                  state={{ menu: "all" }}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-zinc-300"
+                </button>
+                <button
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-zinc-300 text-left"
+                  onClick={() => {
+                    navigate("/games", { state: { menu: "new" } });
+                    setGamesDropdownOpen(false);
+                  }}
                 >
-                  <List size={16} /> Todos
-                </Link>
+                  <List size={16} /> Lançamentos
+                </button>
               </div>
             )}
           </li>
           <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
             <Link to="/news">Notícias</Link>
           </li>
+          <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
+            <Link to="/guia">Guia</Link>
+          </li>
         </ul>
 
-        {/* Resto da navbar: login/avatar/menu mobile */}
-
         <div className="relative hidden md:flex items-center justify-center gap-3 ">
-          {/* SearchBar */}
           <div className="mx-6 w-full max-w-xs flex items-center">
             <SearchBar
               value={navbarSearch}
@@ -153,9 +159,7 @@ const Navbar = () => {
                       </span>
                     </div>
                   </div>
-                  {/* itens de Navegacao */}
 
-                  {/* ao clicar na opção vai mudar a query string para ?tab=liked por exemplo e ira para a aba de menu seguindo a query string */}
                   <Link
                     to={`/${user.nome
                       .toLowerCase()
@@ -245,6 +249,9 @@ const Navbar = () => {
           </li>
           <li className="list-none w-full text-center p-4 hover:text-pink-500 active:text-pink-500 transition-all">
             <Link to="/news">Notícias</Link>
+          </li>
+          <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
+            <Link to="/guia">Guia</Link>
           </li>
           <li className="list-none w-full text-center p-4">
             <span

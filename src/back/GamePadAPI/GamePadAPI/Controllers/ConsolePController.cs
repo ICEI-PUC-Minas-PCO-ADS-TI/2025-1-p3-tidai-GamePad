@@ -43,7 +43,6 @@ namespace GamePadAPI.Controllers
         }
 
         // PUT: api/ConsoleP/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutConsoleP(int id, ConsoleP consoleP)
         {
@@ -74,7 +73,7 @@ namespace GamePadAPI.Controllers
         }
 
         // POST: api/ConsoleP
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPost]
         public async Task<ActionResult<ConsoleP>> PostConsoleP(ConsoleP consoleP)
         {

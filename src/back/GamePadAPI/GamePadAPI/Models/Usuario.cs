@@ -31,7 +31,6 @@ namespace GamePad_TIDAI_2025.Models
         // Armazena os IDs dos jogos favoritos do IGDB em formato JSON (ex: [123,456,789])
         public string FavoriteGames { get; set; }
 
-        // configurando as foreign keys
         public List<Avaliacao> Avaliacoes { get; set; }
         public List<Post> Posts { get; set; }
         public List<Sugestao> Sugestoes { get; set; }

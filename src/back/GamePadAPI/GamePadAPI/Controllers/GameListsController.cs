@@ -73,7 +73,6 @@ namespace GamePadAPI.Controllers
         {
             _context.GameLists.Add(list);
             await _context.SaveChangesAsync();
-            // Retorne apenas o id da lista criada para evitar ciclos de serialização
             return Ok(new { id = list.Id });
         }
 

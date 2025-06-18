@@ -12,11 +12,9 @@ namespace GamePadAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
 
             builder.Services.AddControllers();
 
-            // Adiciona o serviço HttpClient para requisições externas (IGDB)
             builder.Services.AddHttpClient();
 
             //Conex�o com o banco de dados
@@ -25,7 +23,6 @@ namespace GamePadAPI
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
 
-            // Adicione esta linha para configurar a política CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy(
@@ -61,19 +58,17 @@ namespace GamePadAPI
                     };
                 });
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
-            // Só executa migrations se estiver em desenvolvimento e o banco ainda não existir
             if (app.Environment.IsDevelopment())
             {
                 using (var scope = app.Services.CreateScope())
                 {
                     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                    // Só executa migrations se o banco não existir
+
                     if (!db.Database.CanConnect())
                     {
                         db.Database.Migrate();
@@ -90,10 +85,8 @@ namespace GamePadAPI
 
             app.UseHttpsRedirection();
 
-            // Permite servir arquivos estáticos da pasta wwwroot (incluindo /profile-images)
             app.UseStaticFiles();
 
-            // Adicione esta linha para usar a política CORS antes de Authentication/Authorization
             app.UseCors("AllowFrontend");
             app.UseAuthentication();
             app.UseAuthorization();

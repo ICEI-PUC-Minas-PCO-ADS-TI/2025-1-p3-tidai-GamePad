@@ -50,7 +50,7 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
     else if (form.senha.length < 6)
       newErrors.senha = "Senha deve ter pelo menos 6 caracteres";
     if (form.senha !== form.confirmarSenha)
-      newErrors.confirmarSenha = "As senhas não coincidem";
+      newErrors.confirmarSenha = "As senhas são diferentes";
     return newErrors;
   }
   function handleChange(e) {
@@ -59,10 +59,8 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
   }
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Tentando registrar usuário:", form);
     const validation = validate();
     if (Object.keys(validation).length > 0) {
-      console.log("Erros de validação:", validation);
       setErrors(validation);
       return;
     }
@@ -76,7 +74,6 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
         senha: form.senha,
         tipo: "User",
       });
-      console.log("Registro bem-sucedido:", result);
       setAlert({ type: "success", message: "Cadastro realizado com sucesso!" });
       setTimeout(() => {
         setAlert(null);
@@ -84,15 +81,12 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
       }, 1500);
       setForm({ nome: "", email: "", senha: "", confirmarSenha: "" });
     } catch (err) {
-      console.error("Erro ao registrar usuário:", err);
       setAlert({ type: "error", message: err.message });
     } finally {
       setLoading(false);
-      console.log("Finalizou tentativa de registro");
     }
   }
 
-  // Não renderiza nada se o modal estiver fechado
   if (!open) return null;
 
   return (
@@ -113,7 +107,7 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
             Crie sua conta
           </h2>
           <p className="text-zinc-400 text-center mb-7 text-sm font-mono">
-            Junte-se à comunidade e compartilhe sua paixão por games!
+            Junte-se à comunidade e compartilhe seus jogos favoritos!
           </p>
           {alert && (
             <div

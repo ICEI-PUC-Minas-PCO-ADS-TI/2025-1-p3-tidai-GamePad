@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import { loginUser, getUserByEmail } from "../../service/userService";
 import { useUser } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
 
 const LoginModal = ({ open, onClose, onSwitch }) => {
   const modalRef = useRef();
@@ -11,7 +10,6 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -47,10 +45,8 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Tentando login com:", form);
     const validation = validate();
     if (Object.keys(validation).length > 0) {
-      console.log("Erros de validação:", validation);
       setErrors(validation);
       return;
     }
@@ -59,8 +55,6 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
     setAlert(null);
     try {
       const data = await loginUser(form);
-      console.log("Login bem-sucedido, resposta:", data);
-      // Buscar dados completos do usuário
       const user = await getUserByEmail(form.email);
       setUser({ ...user, jwt: data.jwt });
       setAlert({ type: "success", message: "Bem-vindo!" });
@@ -70,21 +64,11 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
         onClose();
       }, 1200);
     } catch (err) {
-      console.error("Erro ao fazer login:", err);
       setAlert({ type: "error", message: err.message });
     } finally {
       setLoading(false);
-      console.log("Finalizou tentativa de login");
     }
   }
-
-  const handleProfileClick = () => {
-    if (user) {
-      navigate(`/${user.nome.toLowerCase().replace(/\s+/g, "-")}`);
-    } else {
-      setShowLoginModal(true);
-    }
-  };
 
   if (!open) return null;
 
@@ -103,10 +87,10 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
         </button>
         <div className="flex flex-col items-center px-8 py-10">
           <h2 className="text-3xl font-extrabold text-cyan-400 bg-clip-text  mb-2 tracking-tight drop-shadow-lg text-center font-mono">
-            Entrar na conta
+            Entrar
           </h2>
           <p className="text-zinc-400 text-center mb-7 text-sm font-mono">
-            Acesse sua conta e continue sua jornada gamer!
+            Volte ao seu savepoint e continue sua jornada nos jogos!
           </p>
           {alert && (
             <div
