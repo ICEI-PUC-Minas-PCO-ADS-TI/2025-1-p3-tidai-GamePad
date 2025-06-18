@@ -168,7 +168,6 @@ Essa abordagem garantir√° um acompanhamento claro das atividades e possibilitar√
 
 ### Front-end
 ![badge-react]
-![badge-axios]
 ![badge-vite]
 
 ### Back-end
@@ -201,8 +200,6 @@ Essa abordagem garantir√° um acompanhamento claro das atividades e possibilitar√
 [badge-nodejs]: https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
 
 [badge-vite]: https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E
-
-[badge-axios]: https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white
 
 [badge-vercel]: https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white
 
