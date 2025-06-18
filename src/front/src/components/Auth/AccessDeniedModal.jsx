@@ -11,9 +11,7 @@ export default function AccessDeniedModal({ open, onLogin }) {
         <p className="text-white mb-6">
           Você precisa estar logado para acessar esta página.
         </p>
-        <Button onClick={onLogin}>
-          Fazer login
-        </Button>
+        <Button onClick={onLogin}>Fazer login</Button>
       </div>
     </div>
   );

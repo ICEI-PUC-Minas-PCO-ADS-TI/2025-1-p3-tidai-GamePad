@@ -6,9 +6,12 @@ import { Menu } from "lucide-react";
 import logo from "../../assets/gamepadHeader.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
-import LoginModal from "../Modals/LoginModal";
-import RegisterModal from "../Modals/RegisterModal";
-import { ChevronDown, Flame, Star, List, Gamepad2 } from "lucide-react";
+import LoginModal from "../Auth/LoginModal";
+import RegisterModal from "../Auth/RegisterModal";
+import GamesDropdownMenu from "./GamesDropdownMenu";
+import UserDropdownMenu from "./UserDropdownMenu";
+import MobileMenu from "./MobileMenu";
+import AuthButtons from "../Auth/AuthButtons";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -62,47 +65,11 @@ const Navbar = () => {
           <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
             <Link to="/">Home</Link>
           </li>
-          <li
-            className="relative p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer"
-            onMouseEnter={() => setGamesDropdownOpen(true)}
-            onMouseLeave={() => setGamesDropdownOpen(false)}
-          >
-            <div className="flex items-center gap-1">
-              <Link to="/games">Jogos</Link>
-              <ChevronDown size={16} />
-            </div>
-            {gamesDropdownOpen && (
-              <div className="absolute left-0 top-full mt-1 w-56 bg-zinc-900 border border-zinc-700 rounded-xl shadow-lg z-[9999] flex flex-col animate-fadeIn">
-                <button
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-cyan-400 text-left"
-                  onClick={() => {
-                    navigate("/games");
-                    setGamesDropdownOpen(false);
-                  }}
-                >
-                  <Flame size={16} /> Populares
-                </button>
-                <button
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-fuchsia-400 text-left"
-                  onClick={() => {
-                    navigate("/games", { state: { menu: "best" } });
-                    setGamesDropdownOpen(false);
-                  }}
-                >
-                  <Star size={16} /> Melhores
-                </button>
-                <button
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-zinc-300 text-left"
-                  onClick={() => {
-                    navigate("/games", { state: { menu: "new" } });
-                    setGamesDropdownOpen(false);
-                  }}
-                >
-                  <List size={16} /> Lançamentos
-                </button>
-              </div>
-            )}
-          </li>
+          <GamesDropdownMenu
+            open={gamesDropdownOpen}
+            setOpen={setGamesDropdownOpen}
+            navigate={navigate}
+          />
           <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
             <Link to="/news">Notícias</Link>
           </li>
@@ -120,111 +87,17 @@ const Navbar = () => {
             />
           </div>
           {user && user.imgUser ? (
-            <div className="relative user-avatar-dropdown">
-              <img
-                src={
-                  user.imgUser && user.imgUser.startsWith("/profile-images/")
-                    ? `http://localhost:5069${user.imgUser}`
-                    : user.imgUser
-                }
-                alt="Perfil"
-                className="w-12 h-12 rounded-full  object-cover cursor-pointer"
-                onClick={() => setDropdownOpen((v) => !v)}
-              />
-              {dropdownOpen && (
-                <div
-                  className="absolute right-0 mt-2 w-64 bg-zinc-800 border border-zinc-700 rounded-xl shadow-2xl z-50 flex flex-col animate-fadeIn"
-                  style={{
-                    minWidth: "220px",
-                    padding: "0.5rem 0",
-                  }}
-                >
-                  <div className="flex items-center gap-3 px-5 py-3 border-b border-zinc-700">
-                    <img
-                      src={
-                        user.imgUser &&
-                        user.imgUser.startsWith("/profile-images/")
-                          ? `http://localhost:5069${user.imgUser}`
-                          : user.imgUser
-                      }
-                      alt="Avatar"
-                      className="w-10 h-10 rounded-full border border-zinc-600"
-                    />
-                    <div>
-                      <span className="block font-bold text-white text-base uppercase tracking-wide">
-                        {user.nome}
-                      </span>
-                      <span className="block text-xs text-zinc-400 truncate">
-                        {user.email}
-                      </span>
-                    </div>
-                  </div>
-
-                  <Link
-                    to={`/${user.nome
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}?tab=profile`}
-                    className="px-5 py-2 text-zinc-200 hover:bg-zinc-700 hover:text-cyan-300 transition text-left"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Meu Perfil
-                  </Link>
-                  <Link
-                    to={`/${user.nome
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}?tab=liked`}
-                    className="px-5 py-2 text-zinc-200 hover:bg-zinc-700 hover:text-cyan-300 transition text-left"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Jogos Curtidos
-                  </Link>
-                  <Link
-                    to={`/${user.nome
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}?tab=reviews`}
-                    className="px-5 py-2 text-zinc-200 hover:bg-zinc-700 hover:text-cyan-300 transition text-left"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Reviews
-                  </Link>
-                  <Link
-                    to={`/${user.nome
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}?tab=lists`}
-                    className="px-5 py-2 text-zinc-200 hover:bg-zinc-700 hover:text-cyan-300 transition text-left"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Listas
-                  </Link>
-                  <hr className="my-2 border-zinc-700" />
-                  <Link
-                    to="/settings"
-                    className="px-5 py-2 text-zinc-400 hover:bg-zinc-700 hover:text-cyan-300 transition text-left"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Configurações
-                  </Link>
-                  <button
-                    className="cursor-pointer w-full text-left px-5 py-2 text-red-400 hover:bg-zinc-700 hover:text-red-300 rounded-b-xl transition"
-                    onClick={handleLogout}
-                  >
-                    Sair
-                  </button>
-                </div>
-              )}
-            </div>
+            <UserDropdownMenu
+              user={user}
+              dropdownOpen={dropdownOpen}
+              setDropdownOpen={setDropdownOpen}
+              handleLogout={handleLogout}
+            />
           ) : (
-            <>
-              <Button className="" onClick={() => setShowLogin(true)}>
-                Entrar
-              </Button>
-              <Button
-                className="bg-fuchsia-600 border-fuchsia-500 hover:text-fuchsia-500  ml-2"
-                onClick={() => setShowRegister(true)}
-              >
-                Registrar
-              </Button>
-            </>
+            <AuthButtons
+              setShowLogin={setShowLogin}
+              setShowRegister={setShowRegister}
+            />
           )}
         </div>
 
@@ -235,41 +108,11 @@ const Navbar = () => {
           className="xl:hidden block text-5x1 cursor-pointer"
         />
 
-        <div
-          className={`absolute xl:hidden top-24 left-0 w-full bg-white flex flex-col item-center -gap-6 font-semibold -text-lg transform transition-transform ${
-            isMenuOpen ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ transtion: "transform 0.3s ease, opacity 0.3 ease" }}
-        >
-          <li className="list-none w-full text-center p-4 hover:text-pink-500 active:text-pink-500 transition-all">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="list-none w-full text-center p-4 hover:text-pink-500 active:text-pink-500 transition-all">
-            <Link to="/games">Jogos</Link>
-          </li>
-          <li className="list-none w-full text-center p-4 hover:text-pink-500 active:text-pink-500 transition-all">
-            <Link to="/news">Notícias</Link>
-          </li>
-          <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
-            <Link to="/guia">Guia</Link>
-          </li>
-          <li className="list-none w-full text-center p-4">
-            <span
-              className="text-fuchsia-600 font-bold hover:text-fuchsia-800 transition-all cursor-pointer"
-              onClick={() => setShowRegister(true)}
-            >
-              Cadastre-se
-            </span>
-          </li>
-          <li className="list-none w-full text-center p-4">
-            <span
-              className="text-cyan-600 font-bold hover:text-cyan-800 transition-all cursor-pointer"
-              onClick={() => setShowLogin(true)}
-            >
-              Entrar
-            </span>
-          </li>
-        </div>
+        <MobileMenu
+          isMenuOpen={isMenuOpen}
+          setShowLogin={setShowLogin}
+          setShowRegister={setShowRegister}
+        />
       </nav>
       <LoginModal
         open={showLogin}

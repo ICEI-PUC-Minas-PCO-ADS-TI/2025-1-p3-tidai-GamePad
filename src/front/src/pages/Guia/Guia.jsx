@@ -6,7 +6,7 @@ import GameCard from "../../components/Cards/GameCard";
 import { Newspaper, Star, Heart, List, MessageCircle, Gamepad as Gamepad2 } from "lucide-react";
 import { fetchGames } from "../../service/igdbService";
 import { UserContext } from "../../context/UserContext";
-import LoginModal from "../../components/Modals/LoginModal";
+import LoginModal from "../../components/Auth/LoginModal";
 
 
 export default function Home() {

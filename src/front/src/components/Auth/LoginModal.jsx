@@ -60,7 +60,7 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
       setAlert({ type: "success", message: "Bem-vindo!" });
       setTimeout(() => {
         setAlert(null);
-        setForm({ email: "", senha: "" }); // Limpa os campos do formulário
+        setForm({ email: "", senha: "" });
         onClose();
       }, 1200);
     } catch (err) {

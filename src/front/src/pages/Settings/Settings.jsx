@@ -6,7 +6,7 @@ import {
   deleteUser,
   verifyPasswordById,
 } from "../../service/userService";
-import PasswordConfirmModal from "../../components/Modals/PasswordConfirmModal";
+import PasswordConfirmModal from "../../components/Auth/PasswordConfirmModal";
 import { useNavigate, Navigate } from "react-router-dom";
 import {
   User,

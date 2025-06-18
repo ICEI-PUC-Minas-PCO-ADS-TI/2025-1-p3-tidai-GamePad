@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import { registerUser } from "../../service/userService";
 
-
 const RegisterModal = ({ open, onClose, onSwitch }) => {
   const modalRef = useRef();
   const [form, setForm] = useState({
@@ -16,27 +15,23 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    // Fecha o modal ao clicar fora dele
     function handleClickOutside(e) {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
         onClose();
       }
     }
-    // Quando o modal abrir bloquear o scroll
     if (open) {
       document.body.style.overflow = "hidden";
       window.addEventListener("mousedown", handleClickOutside);
     } else {
       document.body.style.overflow = "";
     }
-    // Desbloqueia o scroll e remove o evento de clique fora do modal
     return () => {
       window.removeEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "";
     };
   }, [open, onClose]);
 
-  // Validação dos campos
   function validate() {
     const newErrors = {};
     if (!form.nome.trim()) newErrors.nome = "Nome é obrigatório";
@@ -68,7 +63,7 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
     setErrors({});
     setAlert(null);
     try {
-      const result = await registerUser({
+      await registerUser({
         nome: form.nome,
         email: form.email,
         senha: form.senha,
