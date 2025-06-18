@@ -134,13 +134,14 @@ Legenda:
 - ❌: não iniciado
 
 
-#### Sprint 3
+#### Sprint 4
 
-Atualizado em: 11/06/2025
+Atualizado em: 18/06/2025
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| Pablo Marques         |    Refinamento do front-end        |    21/05/2025      | 15/05/2025     | 📝 |          |
+| Pablo Marques         |    Refinamento do front-end        |    21/05/2025      | 18/06/2025     | ✔️ |     18/06/2025     |
+| Pablo Marques         |    Refinamento do back-end        |    21/05/2025      | 18/06/2025     | ✔️ |    18/06/2025        |
 | Ramon Pereira         |    Testes funcionais       |    21/05/2025      | 15/05/2025     | 📝 |          |
 | Andry Marques        |    Testes de usabilidade        |    -      | 20/05/2025     | ❌ |          |
 
@@ -169,10 +170,11 @@ Essa abordagem garantirá um acompanhamento claro das atividades e possibilitar�
 ### Front-end
 ![badge-react]
 ![badge-vite]
+![badge-jwt]
 
 ### Back-end
-![badge-nodejs]
 ![badge-sql]
+![badge-.Net]
 
 ### Deploy
 ![badge-azure]
@@ -204,3 +206,7 @@ Essa abordagem garantirá um acompanhamento claro das atividades e possibilitar�
 [badge-vercel]: https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white
 
 [badge-sql]: https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white
+
+[babdge-.Net]: https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white
+
+[badge-jwt]: https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens
