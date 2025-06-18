@@ -1,7 +1,7 @@
 
 # Metodologia
 
-Para garantir um fluxo de trabalho eficiente e ágil, o desenvolvimento do Game Pede seguirá uma abordagem híbrida baseada no Scrum e Kanban.
+Para garantir um fluxo de trabalho eficiente e ágil, o desenvolvimento do Game Pad seguirá uma abordagem híbrida baseada no Scrum e Kanban.
 
 Scrum: Será utilizado para estruturar o desenvolvimento em ciclos iterativos e incrementais, denominados sprints. Cada sprint terá duração de duas semanas e contará com reuniões de planejamento, acompanhamento semanal (algo próximo da daily scrum), revisão e retrospectiva.
 
