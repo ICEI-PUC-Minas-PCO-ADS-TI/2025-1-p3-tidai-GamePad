@@ -7,7 +7,9 @@ import { useUser } from "../../context/UserContext";
 export default function ListsTab({ user }) {
   const { user: loggedUser } = useUser();
   const [lists, setLists] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -22,6 +24,7 @@ export default function ListsTab({ user }) {
       .finally(() => setLoading(false));
   }, [user]);
 
+  // eslint-disable-next-line no-unused-vars
   const handleRemove = async (listId, itemId) => {
     await fetch(
       `http://localhost:5069/api/GameLists/${listId}/remove/${itemId}`,

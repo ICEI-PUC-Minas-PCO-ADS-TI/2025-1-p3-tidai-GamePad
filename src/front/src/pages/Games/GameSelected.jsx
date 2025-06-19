@@ -184,6 +184,7 @@ export default function GameSelected() {
   const [userLists, setUserLists] = useState([]);
   const [showListModal, setShowListModal] = useState(false);
   const [newListTitle, setNewListTitle] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [selectedListId, setSelectedListId] = useState(null);
   const [addingToList, setAddingToList] = useState(false);
   const [addListError, setAddListError] = useState("");
