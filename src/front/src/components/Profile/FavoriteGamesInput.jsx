@@ -35,7 +35,6 @@ export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
         .filter((g) => g && (!g.cover || !g.name))
         .map((g) => g.id);
 
-
       if (idsToFetch.length === 0) {
         if (isMounted) {
           setSearchValues(normalized);
@@ -118,13 +117,14 @@ export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
 
   return (
     <>
-      <div className="flex gap-4">
+      {" "}
+      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
         {Array.from({ length: max }).map((_, idx) => {
           const game = searchValues[idx];
           return (
             <div
               key={idx}
-              className="relative group w-62 h-76 bg-zinc-800 rounded-xl flex flex-col items-center justify-center overflow-hidden shadow-lg border-2 border-zinc-700"
+              className="relative group w-16 h-24 xs:w-20 xs:h-28 sm:w-24 sm:h-32 md:w-32 md:h-44 lg:w-36 lg:h-48 bg-zinc-800 rounded-xl flex flex-col items-center justify-center overflow-hidden shadow-lg border-2 border-zinc-700"
               onClick={() => {
                 if (!game) {
                   setModalOpen(true);
@@ -160,11 +160,11 @@ export default function FavoriteGamesInput({ value, onChange, max = 5 }) {
                       }
                       className="w-full h-full object-cover"
                     />
-                  )}
-                  {/* Ícone de lixeira ao hover */}
+                  )}{" "}
+                  {/* Ícone de lixeira sempre visível */}
                   <button
                     type="button"
-                    className="absolute top-2 right-2 p-1 rounded-full bg-zinc-900/80 text-zinc-300 opacity-0 group-hover:opacity-100 hover:text-red-500 transition"
+                    className="absolute top-2 right-2 p-1 rounded-full bg-zinc-900/80 text-zinc-300 hover:text-red-500 transition"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleRemove(idx);

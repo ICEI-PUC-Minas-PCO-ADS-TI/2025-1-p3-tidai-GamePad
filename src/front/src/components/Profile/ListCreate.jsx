@@ -66,10 +66,9 @@ export default function ListCreate() {
     }
     setSaving(false);
   };
-
   return (
-    <div className="max-w-2xl mx-auto bg-zinc-900 p-8  mt-8 ">
-      <h2 className="text-2xl font-bold text-cyan-400 mb-6">
+    <div className="max-w-xs sm:max-w-md md:max-w-2xl mx-auto bg-zinc-900 p-4 sm:p-6 md:p-8 mt-6 sm:mt-8">
+      <h2 className="text-xl sm:text-2xl font-bold text-cyan-400 mb-4 sm:mb-6">
         Criar nova lista
       </h2>
       <div className="mb-4">

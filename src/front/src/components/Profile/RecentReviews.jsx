@@ -20,17 +20,19 @@ export default function RecentReviews({ user }) {
           Nenhuma avaliação recente.
         </div>
       ) : (
-        <ul className="space-y-6">
+        <ul className="space-y-4 sm:space-y-5 md:space-y-6 ">
           {reviews.map((review) => (
-            <ReviewCard
-              key={review.id}
-              review={review}
-              game={games[review.igdbGameId]}
-              onClick={() =>
-                games[review.igdbGameId] &&
-                navigate(`/games/${games[review.igdbGameId].id}`)
-              }
-            />
+            <li key={review.id} className="">
+              <ReviewCard
+                review={review}
+                game={games[review.igdbGameId]}
+                onClick={() =>
+                  games[review.igdbGameId] &&
+                  navigate(`/games/${games[review.igdbGameId].id}`)
+                }
+                className="text-xs sm:text-sm md:text-base px-2 py-2 sm:px-4 sm:py-3"
+              />
+            </li>
           ))}
         </ul>
       )}

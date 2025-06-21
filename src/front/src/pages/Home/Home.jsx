@@ -198,14 +198,16 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 w-full px-48">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-6 w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48">
             {loading && (
-              <div className="col-span-6 text-center text-white">
+              <div className="col-span-full text-center text-white">
                 Carregando jogos...
               </div>
             )}
             {error && (
-              <div className="col-span-6 text-center text-red-500">{error}</div>
+              <div className="col-span-full text-center text-red-500">
+                {error}
+              </div>
             )}
             {!loading &&
               !error &&
@@ -238,7 +240,7 @@ export default function Home() {
         </motion.h2>
         {/* Seção dividida em duas colunas */}
         <motion.section
-          className="mt-16 flex flex-col md:flex-row justify-center items-center gap-12 w-full px-48 mx-auto"
+          className="mt-16 flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 mx-auto"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -246,7 +248,7 @@ export default function Home() {
         >
           {/* Coluna Esquerda */}
           <motion.div
-            className="relative flex items-center justify-center w-full md:w-1/2 md:pl-0"
+            className="relative flex items-center justify-center w-full md:w-1/2 md:pl-0 mb-8 md:mb-0"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -255,9 +257,9 @@ export default function Home() {
             <img
               src={gamepad1}
               alt="Controle"
-              className="w-128 h-128 md:w-108 md:h-108 object-cover rounded-2xl"
+              className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto object-cover rounded-2xl"
             />
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+            <div className=" w-full absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
               <GlassButton
                 icon={Joystick}
                 iconColor="#FF0000"
@@ -272,7 +274,7 @@ export default function Home() {
           </motion.div>
           {/* Coluna Direita*/}
           <motion.div
-            className="relative grid grid-cols-2 gap-12 w-full md:w-1/2"
+            className="relative grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 w-full md:w-1/2"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -281,7 +283,7 @@ export default function Home() {
             <img
               src={gamepad2}
               alt="Gamepad sobreposto"
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-128 h-128 z-0"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 sm:w-64 md:w-96 h-auto z-0"
             />
             <GlassButton
               icon={Save}
@@ -336,17 +338,19 @@ export default function Home() {
           Comentários populares
         </motion.h2>
         <motion.section
-          className="mt-16 flex flex-col md:flex-row items-center w-full px-48 mx-auto gap-8 pb-8"
+          className="mt-16 flex flex-col md:flex-row items-center w-full px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32 mx-auto gap-4 md:gap-8 pb-6 md:pb-8 max-w-full sm:max-w-xl md:max-w-4xl"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <CommentSlider comments={comments} />
+          <div className="w-full flex justify-center items-center max-w-xs sm:max-w-sm md:max-w-2xl mx-auto">
+            <CommentSlider comments={comments} compact={true} />
+          </div>
         </motion.section>
         {/* Preview de notícias */}
         <motion.section
-          className="w-full flex flex-col items-center px-48 mt-22 "
+          className="w-full flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 mt-10 md:mt-22"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

@@ -72,9 +72,9 @@ export default function Profile() {
   if (!profileUser) return null;
 
   return (
-    <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-0 md:px-48 py-10">
+    <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-2 sm:px-4 md:px-12 lg:px-32 xl:px-48 py-6 sm:py-8 md:py-10">
       {/* Topo do perfil */}
-      <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mb-4">
+      <div className="flex flex-col md:flex-row items-center md:items-end gap-4 sm:gap-6 mb-4">
         {(() => {
           const navbarImg =
             profileUser.imgUser &&
@@ -85,13 +85,15 @@ export default function Profile() {
             <img
               src={navbarImg}
               alt="Avatar"
-              className="w-36 h-36 rounded-xl object-cover"
+              className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-xl object-cover"
             />
           );
         })()}
-        <div className="flex-1 flex flex-col md:flex-row md:items-end gap-2">
+        <div className="flex-1 flex flex-col md:flex-row md:items-end gap-2 sm:gap-4">
           <div>
-            <h2 className="text-3xl font-bold">{profileUser.nome}</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold break-words max-w-xs sm:max-w-md md:max-w-none">
+              {profileUser.nome}
+            </h2>
           </div>
           <ProfileActionButton
             isOwner={
@@ -109,18 +111,18 @@ export default function Profile() {
         tabs={TABS}
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        className="grid grid-cols-2 gap-2 sm:flex sm:gap-2 text-xs sm:text-sm md:text-base"
       />
       {/* Conteúdo em duas colunas */}
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
         {/* Coluna esquerda */}
-        <aside className="w-full md:w-80 flex-shrink-0 flex flex-col gap-8">
+        <aside className="w-full md:w-80 flex-shrink-0 flex flex-col gap-6 sm:gap-8 mb-6 md:mb-0">
           {/* Bio */}
           <ProfileBio user={profileUser} onExpand={() => {}} />
           <ProfileStats userGames={userGames} />
         </aside>
         {/* Coluna direita */}
         <section className="flex-1 min-w-0">
-          {/* Passe o usuário para o TabComponent */}
           {activeTab === "reviews" ? (
             <ReviewsTab userId={profileUser?.id} userName={profileUser?.nome} />
           ) : activeTab === "games" ? (

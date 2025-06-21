@@ -59,12 +59,10 @@ function GameFilters({
     console.log("Filtros atuais:", filters);
   }, [filters]);
 
-  // Gera anos de 1980 até o ano atual
   const currentYear = new Date().getFullYear();
   const years = [];
   for (let y = currentYear; y >= 1980; y--) years.push(y);
 
-  // Handler para busca
   const handleSearch = () => {
     if (searchTerm && searchTerm.trim()) {
       navigate(`/games/search/${encodeURIComponent(searchTerm.trim())}`);
@@ -75,6 +73,15 @@ function GameFilters({
     <div className="flex flex-row items-center gap-6 mb-8 w-full">
       {/* Filtros à esquerda */}
       <div className="flex flex-wrap gap-4 flex-1 min-w-0">
+        <div className="flex-shrink-0 w-full max-w-xs">
+          <SearchBar
+            placeholder="Buscar por nome de jogo..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onSearch={handleSearch}
+            className="w-full"
+          />
+        </div>
         <select
           className="px-3 py-2 rounded-lg cursor-pointer border border-zinc-600 bg-zinc-800 text-zinc-200"
           value={filters.genre}
@@ -155,16 +162,6 @@ function GameFilters({
         >
           Limpar filtros
         </button>
-      </div>
-      {/* SearchBar à direita */}
-      <div className="flex-shrink-0 w-full max-w-xs">
-        <SearchBar
-          placeholder="Buscar por nome de jogo..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onSearch={handleSearch}
-          className="w-full"
-        />
       </div>
     </div>
   );

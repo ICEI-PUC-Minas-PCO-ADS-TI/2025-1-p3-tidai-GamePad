@@ -4,7 +4,7 @@ import { Star } from "lucide-react";
 export default function GameMiniCard({ game, onClick }) {
   return (
     <div
-      className="flex items-center gap-3 bg-zinc-900 border border-zinc-700 rounded-lg p-2 cursor-pointer hover:bg-zinc-800 transition"
+      className="flex items-center gap-3  bg-zinc-900 border border-zinc-700 rounded-lg p-2 cursor-pointer hover:bg-zinc-800 transition"
       onClick={onClick}
       style={{ minWidth: 0 }}
     >

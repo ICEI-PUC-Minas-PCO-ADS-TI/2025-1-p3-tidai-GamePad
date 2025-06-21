@@ -52,17 +52,17 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="relative z-[999] flex justify-between items-center text-black py-5 px-8 md:px-48 bg-zinc-900 pdrop-shadow-md hover:">
-        <Link to="/">
+      <nav className="relative z-[999] flex justify-between items-center bg-zinc-900 py-3 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48  w-full">
+        <Link to="/" className="flex-shrink-0">
           <img
             src={logo}
             alt="Logo do site"
-            className="w-32 hover:scale-130  hover:-skew-y-3 transition-all"
+            className="w-24 sm:w-28 md:w-32 hover:scale-110 hover:-skew-y-3 transition-all"
           />
         </Link>
-        {/* Menus principais */}
-        <ul className="hidden xl:flex items-center gap-8 font-semibold text-base ml-8">
-          <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
+        {/* Menus principais - escondido em telas menores */}
+        <ul className="hidden xl:flex items-center gap-4 lg:gap-8 font-semibold text-base ml-2 lg:ml-8">
+          <li className="p-2 lg:p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
             <Link to="/">Home</Link>
           </li>
           <GamesDropdownMenu
@@ -70,16 +70,17 @@ const Navbar = () => {
             setOpen={setGamesDropdownOpen}
             navigate={navigate}
           />
-          <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
+          <li className="p-2 lg:p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
             <Link to="/news">Notícias</Link>
           </li>
-          <li className="p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
+          <li className="p-2 lg:p-3 hover:-skew-y-3 text-cyan-500 hover:bg-cyan-500 hover:text-zinc-900 rounded-md transition-all duration-500 cursor-pointer">
             <Link to="/guia">Guia</Link>
           </li>
         </ul>
 
-        <div className="relative hidden md:flex items-center justify-center gap-3 ">
-          <div className="mx-6 w-full max-w-xs flex items-center">
+        {/* Search e Auth - escondido em telas menores */}
+        <div className="relative hidden xl:flex items-center justify-center gap-2 lg:gap-3">
+          <div className="mx-2 lg:mx-6 w-full max-w-[120px] sm:max-w-xs flex items-center">
             <SearchBar
               value={navbarSearch}
               onChange={(e) => setNavbarSearch(e.target.value)}
@@ -101,17 +102,32 @@ const Navbar = () => {
           )}
         </div>
 
-        <Menu
+        {/* Botão do menu mobile - aparece só em telas menores que xl */}
+        <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          size={20}
-          color="#000000"
-          className="xl:hidden block text-5x1 cursor-pointer"
-        />
+          className="flex xl:hidden cursor-pointer items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          aria-label="Abrir menu"
+        >
+          <Menu size={28} color="#fff" />
+        </button>
 
+        {/* Menu mobile sobreposto */}
         <MobileMenu
           isMenuOpen={isMenuOpen}
-          setShowLogin={setShowLogin}
-          setShowRegister={setShowRegister}
+          setShowLogin={(v) => {
+            setShowLogin(v);
+            setIsMenuOpen(false);
+          }}
+          setShowRegister={(v) => {
+            setShowRegister(v);
+            setIsMenuOpen(false);
+          }}
+          user={user}
+          onLogout={() => {
+            setUser(null);
+            setIsMenuOpen(false);
+            navigate("/");
+          }}
         />
       </nav>
       <LoginModal

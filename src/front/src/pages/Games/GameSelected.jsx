@@ -624,55 +624,53 @@ export default function GameSelected() {
   return (
     <div className="min-h-screen bg-zinc-900">
       <header
-        className="w-full flex justify-center items-end"
-        style={{ minHeight: "400px" }}
+        className="w-full flex justify-center pt-30 items-end"
+        style={{ minHeight: "0px" }}
       >
         <div className="relative w-full md:px-full">
           <img
             src={backgroundImg}
             alt="Header"
-            className="mask-x-from-70% mask-x-to-90% mask-y-from-80% mask-y-to-90% w-full"
+            className="mask-x-from-70% mask-x-to-90% mask-y-from-80% mask-y-to-90% w-full object-cover rounded-b-3xl"
             style={{
-              height: "600px",
+              height: "45vw",
               maxHeight: "600px",
-              minHeight: "400px",
+              minHeight: "120px",
               objectFit: "cover",
               borderRadius: "1.5rem",
             }}
           />
           <div
-            className="absolute flex flex-row items-end gap-10 md:gap-16 left-0 bottom-0  px-48  w-full z-10"
+            className="absolute flex flex-col md:flex-row items-end gap-4 md:gap-16 left-0 bottom-0 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 w-full z-10"
             style={{ maxWidth: "100%" }}
           >
-            <img
-              src={
-                game.cover && game.cover.url
-                  ? game.cover.url.startsWith("http")
-                    ? game.cover.url.replace("t_thumb", "t_cover_big")
-                    : `https:${game.cover.url.replace(
-                        "t_thumb",
-                        "t_cover_big"
-                      )}`
-                  : ""
-              }
-              alt={game.name}
-              className="w-40 h-56 md:w-56 md:h-80 object-cover rounded-2xl shadow-2xl"
-              style={{
-                marginBottom: "1.5rem",
-                boxShadow:
-                  "0 8px 32px 0 rgba(0,0,0,0.45), 0 2px 8px 0 rgba(0,0,0,0.25)",
-                border: "none",
-                background: "none",
-              }}
-            />
-            <div
-              className="flex flex-col justify-end"
-              style={{ marginBottom: "1.5rem" }}
-            >
-              <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg mb-2">
+            <div className="w-full flex md:block justify-center md:justify-start">
+              <img
+                src={
+                  game.cover && game.cover.url
+                    ? game.cover.url.startsWith("http")
+                      ? game.cover.url.replace("t_thumb", "t_cover_big")
+                      : `https:${game.cover.url.replace(
+                          "t_thumb",
+                          "t_cover_big"
+                        )}`
+                    : ""
+                }
+                alt={game.name}
+                className="w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-56 lg:w-56 lg:h-80 object-cover rounded-2xl shadow-2xl mb-4 md:mb-6 mx-auto md:mx-0"
+                style={{
+                  boxShadow:
+                    "0 8px 32px 0 rgba(0,0,0,0.45), 0 2px 8px 0 rgba(0,0,0,0.25)",
+                  border: "none",
+                  background: "none",
+                }}
+              />
+            </div>
+            <div className="flex flex-col justify-end mb-4 md:mb-6">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg mb-2">
                 {game.name}
               </h1>
-              <span className="text-lg text-zinc-300 font-semibold mb-1">
+              <span className="text-base sm:text-lg text-zinc-300 font-semibold mb-1">
                 Lançamento:{" "}
                 <span className="text-white">
                   {formatReleaseDate(game.first_release_date)}
@@ -683,9 +681,9 @@ export default function GameSelected() {
         </div>
       </header>
       <section className="w-full flex flex-col items-center">
-        <div className="w-full flex flex-col md:flex-row gap-8 px-0 md:px-48 mt-10">
+        <div className="w-full flex flex-col md:flex-row gap-4 md:gap-8 px-2 sm:px-4 md:px-16 lg:px-32 xl:px-48 mt-6 md:mt-10">
           {/* Coluna da esquerda: Stats/Estrelas */}
-          <div className="flex flex-col gap-6 bg-zinc-800/90 rounded-2xl p-6 shadow-lg min-w-[260px] max-w-xs sticky top-24 self-start h-fit z-10">
+          <div className="flex flex-col gap-4 md:gap-6 bg-zinc-800/90 rounded-2xl p-3 sm:p-4 md:p-6 shadow-lg min-w-0 md:min-w-[260px] max-w-full md:max-w-xs sticky md:top-24 self-center md:self-start h-fit z-10 mx-auto md:mx-0">
             {/* Avaliação e botões só para usuário logado */}
             {user && (
               <div>
@@ -817,7 +815,7 @@ export default function GameSelected() {
             </div>
           </div>
           {/* Coluna da direita: Sobre o jogo + informações */}
-          <div className="flex-1 flex flex-col gap-8">
+          <div className="flex-1 flex flex-col gap-4 md:gap-8">
             {/* Sobre o jogo e galeria */}
             <div className="flex flex-col items-start justify-start w-full">
               {/* Abas */}
@@ -1130,14 +1128,14 @@ export default function GameSelected() {
               </div>
             </div>
             {/* Seção de comentários */}
-            <div className="w-full rounded-2xl p-6 shadow-none md:col-span-2 bg-zinc-900/80 mt-0">
+            <div className="w-full rounded-2xl p-3 sm:p-4 md:p-6 shadow-none md:col-span-2 bg-zinc-900/80 mt-0">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-cyan-300">
                   Comentários
                 </h2>
                 <div className="flex gap-2">
                   <button
-                    className={`px-3 cursor-pointer py-1 rounded ${
+                    className={`px-2 sm:px-3 cursor-pointer py-1 rounded text-xs sm:text-base ${
                       filter === "recent"
                         ? "bg-cyan-600 text-white"
                         : "bg-zinc-700 text-zinc-300"
@@ -1147,7 +1145,7 @@ export default function GameSelected() {
                     Mais recentes
                   </button>
                   <button
-                    className={`px-3 cursor-pointer py-1 rounded ${
+                    className={`px-2 sm:px-3 cursor-pointer py-1 rounded text-xs sm:text-base ${
                       filter === "liked"
                         ? "bg-cyan-600 text-white"
                         : "bg-zinc-700 text-zinc-300"
@@ -1268,9 +1266,9 @@ export default function GameSelected() {
       {/* Modal de Review */}
       {showReviewModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-          <div className="bg-zinc-800 rounded-2xl p-8 w-full max-w-2xl shadow-2xl relative flex flex-col md:flex-row gap-8">
+          <div className="bg-zinc-800 rounded-2xl p-4 sm:p-6 md:p-8 w-full max-w-xs sm:max-w-md md:max-w-2xl shadow-2xl relative flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8">
             <button
-              className="absolute top-3 right-3 text-zinc-400 hover:text-white"
+              className="absolute top-2 right-2 sm:top-3 sm:right-3 text-zinc-400 hover:text-white text-xl sm:text-2xl"
               onClick={() => setShowReviewModal(false)}
             >
               ✕
@@ -1288,17 +1286,17 @@ export default function GameSelected() {
                   : "/profile-images/default-profile.png"
               }
               alt={game.name}
-              className="w-40 h-56 object-cover rounded-lg shadow-lg self-center md:self-start"
+              className="w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-56 object-cover rounded-lg shadow-lg self-center md:self-start"
             />
-            <div className="flex-1 flex flex-col gap-4">
-              <h2 className="text-2xl font-bold text-cyan-300 mb-2">
+            <div className="flex-1 flex flex-col gap-3 sm:gap-4">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-cyan-300 mb-1 sm:mb-2">
                 {game.name}
               </h2>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
                 {[1, 2, 3, 4, 5].map((n) => (
                   <Star
                     key={n}
-                    size={36}
+                    size={24}
                     className="cursor-pointer"
                     color={modalStars >= n ? "#facc15" : "#334155"}
                     fill={modalStars >= n ? "#facc15" : "none"}
@@ -1307,44 +1305,44 @@ export default function GameSelected() {
                 ))}
               </div>
               <textarea
-                className="w-full min-h-[80px] rounded-lg p-2 bg-zinc-800 text-zinc-100 mb-2"
+                className="w-full min-h-[60px] sm:min-h-[80px] rounded-lg p-2 bg-zinc-800 text-zinc-100 mb-2 text-sm sm:text-base"
                 placeholder="Adicione um comentário..."
                 value={modalComentario}
                 onChange={(e) => setModalComentario(e.target.value)}
               />
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-4">
                 <button
-                  className={`px-3 py-1 cursor-pointer rounded-lg font-semibold transition flex items-center gap-1 ${
+                  className={`px-2 sm:px-3 py-1 cursor-pointer rounded-lg font-semibold transition flex items-center gap-1 text-xs sm:text-base ${
                     userStatus.includes("playing")
                       ? "bg-cyan-600 text-white"
                       : "bg-zinc-700 text-cyan-300 hover:bg-cyan-800"
                   }`}
                   onClick={() => handleStatusClick("playing")}
                 >
-                  <Hourglass size={18} /> Jogando
+                  <Hourglass size={16} /> Jogando
                 </button>
                 <button
-                  className={`px-3 py-1 rounded-lg cursor-pointer font-semibold transition flex items-center gap-1 ${
+                  className={`px-2 sm:px-3 py-1 rounded-lg cursor-pointer font-semibold transition flex items-center gap-1 text-xs sm:text-base ${
                     userStatus.includes("played")
                       ? "bg-green-600 text-white"
                       : "bg-zinc-700 text-green-400 hover:bg-green-800"
                   }`}
                   onClick={() => handleStatusClick("played")}
                 >
-                  <CheckCircle size={18} /> Zerado
+                  <CheckCircle size={16} /> Zerado
                 </button>
                 <button
-                  className={`px-3 py-1 rounded-lg cursor-pointer font-semibold transition flex items-center gap-1 ${
+                  className={`px-2 sm:px-3 py-1 rounded-lg cursor-pointer font-semibold transition flex items-center gap-1 text-xs sm:text-base ${
                     userStatus.includes("wishlist")
                       ? "bg-fuchsia-600 text-white"
                       : "bg-zinc-700 text-fuchsia-400 hover:bg-fuchsia-800"
                   }`}
                   onClick={() => handleStatusClick("wishlist")}
                 >
-                  <Bookmark size={18} /> Desejo
+                  <Bookmark size={16} /> Desejo
                 </button>
                 <button
-                  className={`px-3 py-1 rounded-lg cursor-pointer font-semibold transition flex items-center gap-1 ${
+                  className={`px-2 sm:px-3 py-1 rounded-lg cursor-pointer font-semibold transition flex items-center gap-1 text-xs sm:text-base ${
                     isFavorited
                       ? "bg-pink-600 text-white"
                       : "bg-zinc-700 text-pink-400 hover:bg-pink-700"
@@ -1352,7 +1350,7 @@ export default function GameSelected() {
                   onClick={handleFavoriteClick}
                 >
                   <Heart
-                    size={18}
+                    size={16}
                     fill={isFavorited ? "#fff" : "none"}
                     color={isFavorited ? "#fff" : "#db2777"}
                   />{" "}
@@ -1360,7 +1358,7 @@ export default function GameSelected() {
                 </button>
               </div>
               <button
-                className="w-full px-4 py-2 cursor-pointer rounded-lg bg-cyan-600 text-white font-bold hover:bg-cyan-700 transition"
+                className="w-full px-3 sm:px-4 py-2 cursor-pointer rounded-lg bg-cyan-600 text-white font-bold hover:bg-cyan-700 transition text-sm sm:text-base"
                 onClick={handleSalvarReview}
                 disabled={modalStars === 0}
               >
@@ -1373,21 +1371,21 @@ export default function GameSelected() {
       {/* Modal de Listas */}
       {showListModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-zinc-900 p-6 rounded-xl w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4 text-white">
+          <div className="bg-zinc-900 p-4 sm:p-6 rounded-xl w-full max-w-xs sm:max-w-md shadow-xl">
+            <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-white">
               Adicionar a uma lista
             </h2>
-            <div className="mb-4">
+            <div className="mb-3 sm:mb-4">
               <input
                 type="text"
-                className="w-full p-2 rounded bg-zinc-800 text-white mb-2"
+                className="w-full p-2 rounded bg-zinc-800 text-white mb-2 text-sm sm:text-base"
                 placeholder="Nova lista: digite o título e clique em criar"
                 value={newListTitle}
                 onChange={(e) => setNewListTitle(e.target.value)}
                 disabled={addingToList}
               />
               <button
-                className="bg-cyan-600 text-white px-3 py-1 rounded hover:bg-cyan-700"
+                className="bg-cyan-600 text-white px-2 sm:px-3 py-1 rounded hover:bg-cyan-700 text-xs sm:text-base"
                 onClick={handleCreateList}
                 disabled={addingToList || !newListTitle.trim()}
               >
@@ -1395,9 +1393,13 @@ export default function GameSelected() {
               </button>
             </div>
             <div>
-              <div className="mb-2 text-zinc-300">Suas listas:</div>
+              <div className="mb-2 text-zinc-300 text-sm sm:text-base">
+                Suas listas:
+              </div>
               {userLists.length === 0 && (
-                <div className="text-zinc-400">Nenhuma lista encontrada.</div>
+                <div className="text-zinc-400 text-xs sm:text-base">
+                  Nenhuma lista encontrada.
+                </div>
               )}
               {userLists.map((list) => {
                 // Verifica se o jogo já está na lista
@@ -1409,10 +1411,12 @@ export default function GameSelected() {
                     key={list.id}
                     className="flex items-center justify-between mb-2 bg-zinc-800 rounded p-2"
                   >
-                    <span className="text-white">{list.title}</span>
+                    <span className="text-white text-xs sm:text-base">
+                      {list.title}
+                    </span>
                     {existingItem ? (
                       <button
-                        className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
+                        className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-xs sm:text-base"
                         onClick={async () => {
                           setAddingToList(true);
                           setAddListError("");
@@ -1442,7 +1446,7 @@ export default function GameSelected() {
                       </button>
                     ) : (
                       <button
-                        className="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700"
+                        className="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 text-xs sm:text-base"
                         onClick={() => handleAddGameToList(list.id)}
                         disabled={addingToList}
                       >
@@ -1454,12 +1458,12 @@ export default function GameSelected() {
               })}
             </div>
             {addListError && (
-              <div className="text-red-400 mb-2 text-center">
+              <div className="text-red-400 mb-2 text-center text-xs sm:text-base">
                 {addListError}
               </div>
             )}
             <button
-              className="mt-4 text-zinc-400 hover:text-white"
+              className="mt-3 sm:mt-4 text-zinc-400 hover:text-white text-xs sm:text-base"
               onClick={() => setShowListModal(false)}
             >
               Cancelar

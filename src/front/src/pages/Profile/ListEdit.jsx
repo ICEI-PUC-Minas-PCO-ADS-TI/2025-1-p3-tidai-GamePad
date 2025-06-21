@@ -108,13 +108,12 @@ export default function ListEdit() {
   if (loading) return <div className="text-zinc-400">Carregando...</div>;
   if (error) return <div className="text-red-400">{error}</div>;
   if (!list) return <div className="text-red-400">Lista não encontrada.</div>;
-
   return (
-    <div className="max-w-5xl mx-48 w-full bg-zinc-900 p-6">
-      <h2 className="text-xl font-bold text-white mb-4">Editar Lista</h2>
-      <label className="block text-zinc-300 mb-2">Nome da lista:</label>
+    <div className="w-full mx-auto px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 mt-8 bg-zinc-900 py-4 sm:py-6">
+      <h2 className="text-lg sm:text-xl font-bold text-white mb-4">Editar Lista</h2>
+      <label className="block text-zinc-300 text-sm sm:text-base mb-2">Nome da lista:</label>
       <input
-        className="w-xl p-2 rounded mb-4 bg-zinc-800 text-white border border-cyan-400"
+        className="w-full sm:w-3/4 md:w-1/2 p-2 sm:p-3 rounded mb-4 bg-zinc-800 text-white border border-cyan-400 text-sm sm:text-base"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
@@ -130,31 +129,32 @@ export default function ListEdit() {
           />
         </div>
       )}
-      <button
-        className="bg-cyan-700 cursor-pointer text-white px-4 py-2 rounded mr-2"
-        onClick={() => setShowAdd((v) => !v)}
-      >
-        {showAdd ? "Cancelar" : "Adicionar Jogo"}
-      </button>
-      <button
-        className="bg-green-700 cursor-pointer text-white px-4 py-2 rounded mr-2"
-        onClick={handleSave}
-      >
-        Salvar Alterações
-      </button>
-      <button
-        className="bg-red-700 cursor-pointer text-white px-4 py-2 rounded"
-        onClick={handleDelete}
-      >
-        Apagar Lista
-      </button>
-        <h3 className="text-zinc-200 font-semibold mb-4 mt-4">Jogos na lista:</h3>
-        
-        <DragDropContext onDragEnd={handleDragEnd}>
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+        <button
+          className="bg-cyan-700 cursor-pointer text-white px-3 py-2 sm:px-4 text-sm sm:text-base rounded font-semibold transition hover:bg-cyan-600"
+          onClick={() => setShowAdd((v) => !v)}
+        >
+          {showAdd ? "Cancelar" : "Adicionar Jogo"}
+        </button>
+        <button
+          className="bg-green-700 cursor-pointer text-white px-3 py-2 sm:px-4 text-sm sm:text-base rounded font-semibold transition hover:bg-green-600"
+          onClick={handleSave}
+        >
+          Salvar Alterações
+        </button>
+        <button
+          className="bg-red-700 cursor-pointer text-white px-3 py-2 sm:px-4 text-sm sm:text-base rounded font-semibold transition hover:bg-red-600"
+          onClick={handleDelete}
+        >
+          Apagar Lista
+        </button>
+      </div>
+        <h3 className="text-zinc-200 font-semibold text-sm sm:text-base mb-4 mt-6">Jogos na lista:</h3>
+          <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="games-list" direction="horizontal">
             {(provided) => (
               <div
-                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 mt-4"
+                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6 mt-4"
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
@@ -173,7 +173,7 @@ export default function ListEdit() {
                           snapshot.isDragging ? "z-10" : ""
                         }`}
                         style={{
-                          minWidth: 120,
+                          minWidth: "auto",
                           ...provided.draggableProps.style,
                         }}
                       >
@@ -187,21 +187,24 @@ export default function ListEdit() {
                               : "https://placehold.co/200x280?text=No+Cover"
                           }
                           alt={item.gameTitle}
-                          className="w-48 h-72 object-cover rounded mb-2 border-2 border-cyan-400"
+                          className="w-20 h-28 sm:w-24 sm:h-32 md:w-28 md:h-36 lg:w-32 lg:h-44 xl:w-36 xl:h-52 object-cover rounded-lg shadow-lg border-2 border-cyan-400 transition"
                         />
-                        <div className="text-lg text-white text-center font-semibold mb-1 truncate w-full mt-2">
+                        <div className="text-xs sm:text-sm md:text-base text-white text-center font-semibold truncate w-full mt-2 mb-2">
                           {item.gameTitle}
-                        </div>
-                        <button
-                          className="px-2 py-1 text-xs cursor-pointer bg-red-700 text-white rounded mt-2"
+                        </div>                        <button
+                          className="px-2 py-1 text-xs cursor-pointer bg-red-700 text-white rounded font-semibold transition hover:bg-red-600"
                           onClick={() => handleRemoveGame(idx)}
                         >
                           Remover
                         </button>
                       </div>
                     )}
-                  </Draggable>
-                ))}
+                  </Draggable>                ))}
+                {games.length === 0 && (
+                  <div className="text-zinc-400 col-span-full text-center py-8 text-sm sm:text-base">
+                    Nenhum jogo adicionado à lista ainda.
+                  </div>
+                )}
                 {provided.placeholder}
               </div>
             )}

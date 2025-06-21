@@ -26,13 +26,13 @@ export default function GamesTab({ userGames = [] }) {
       <h3 className="text-xs font-semibold text-cyan-200 mb-1 tracking-widest uppercase">
         Jogos
       </h3>
-      <hr className="mb-4 border-zinc-700" />
+      <hr className="mb-4 border-zinc-700 b" />
       {/* Filtros de jogos */}
-      <div className="flex gap-2 mb-4">
+      <div className="grid grid-cols-2 gap-2 mb-4 sm:flex sm:gap-2">
         {FILTERS.map((filter) => (
           <button
             key={filter.key}
-            className={`cursor-pointer px-4 py-1 rounded font-semibold text-sm border transition
+            className={`cursor-pointer px-4 py-1  rounded font-semibold text-sm border transition
               ${
                 activeFilter === filter.key
                   ? "bg-zinc-700 border-cyan-400 text-cyan-200"
@@ -45,12 +45,12 @@ export default function GamesTab({ userGames = [] }) {
           </button>
         ))}
       </div>
-      <div className="rounded-lg p-8 text-zinc-500">
+      <div className="rounded-lg p-4 sm:p-6 md:p-8 text-zinc-500">
         {/* Renderiza os jogos de acordo com o filtro */}
         {filteredGames.length === 0 ? (
           <span>Nenhum jogo neste filtro.</span>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-6 justify-center">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 md:gap-6 w-full">
             {filteredGames.map((game) => (
               <GameCardProfile
                 key={game.id}
