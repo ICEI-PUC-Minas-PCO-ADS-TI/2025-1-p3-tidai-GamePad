@@ -61,7 +61,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-008| Permitir que usuário edite seu perfil | MÉDIA |
 |RF-009| Permitir criadores de conteúdo compartilharem lives e comunicados| ALTA |
 |RF-010| Permitir que usuários descubram criadores de conteúdo baseado em jogos de interesse | ALTA |
-|RF-011| Permitir que usuários de sugestão de jogos | ALTA |
+|RF-011| Permitir que usuários crie suas listas de jogos | ALTA |
 
 
 ### Requisitos não funcionais

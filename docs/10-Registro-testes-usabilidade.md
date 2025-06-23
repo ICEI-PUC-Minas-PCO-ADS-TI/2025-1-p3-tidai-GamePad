@@ -4,7 +4,7 @@
 
 Após realizar os testes de usabilidade, obtém-se um relatório a partir das análises realizadas. O registro de testes de usabilidade é um relatório que contém as evidências dos testes e os relatos dos usuários participantes, baseado no <a href="09-Plano-testes-usabilidade.md"> Plano de testes de usabilidade</a> desenvolvido para os casos de uso desta etapa.
 
-Cenário 1: Você é uma pessoa que deseja comprar um iPhone. Encontre no site um iPhone e veja detalhes de localização e contato da loja que o está anunciando.
+Cenário 1: Você é uma pessoa que deseja criar uma lista de jogos zerados, para salvar quais jogos você zerou por ano
 
 | Usuário | Taxa de sucesso | Satisfação subjetiva | Tempo para conclusão do cenário |
 |---------|-----------------|----------------------|---------------------------------|
@@ -13,13 +13,13 @@ Cenário 1: Você é uma pessoa que deseja comprar um iPhone. Encontre no site u
 | 3       | SIM             | 5                    | 39,09 segundos                  |
 |  |  |  |  |
 | **Média**     | 0%           | 0                | 0 segundos                           |
-| **Tempo para conclusão pelo especialista** | SIM | 5 | 8,66 segundos |
+| **Tempo para conclusão pelo especialista** | SIM | 5 | 87,26 segundos |
 
 
 Comentários dos usuários: Achei o site muito bom e intuitivo. Não tive dificuldades e acho que ficou bem intuitivo.
 
 
-Cenário 2: Você é uma pessoa que deseja comprar um smartphone até R$ 2.000,00. Encontre no site smartphones nessa faixa de preço.
+Cenário 2: Você é uma pessoa que deseja comentar e avaliar  seu jogo favorito.
 
 | Usuário | Taxa de sucesso | Satisfação subjetiva | Tempo para conclusão do cenário |
 |---------|-----------------|----------------------|---------------------------------|
@@ -28,9 +28,31 @@ Cenário 2: Você é uma pessoa que deseja comprar um smartphone até R$ 2.000,0
 | 3       | SIM             | 5                    | 36,21 segundos                          |
 |  |  |  |  |
 | **Média**     | 0%           | 0                | 0 segundos                           |
-| **Tempo para conclusão pelo especialista** | SIM | 5 | 13,57 segundos |
+| **Tempo para conclusão pelo especialista** | SIM | 5 | 18,19 segundos |
 
 Comentários dos usuários: O site é fácil de acessar, mas algumas páginas poderiam  redirecionar a gente automaticamente para outras. Senti a falta de mais opções de filtros,  tanto na hora da pesquisa, quanto depois dela, nos resultados.
+
+Cenário 3: Você é uma pessoa que deseja achar um jogos que tenha na sua plataforma
+
+| Usuário | Taxa de sucesso | Satisfação subjetiva | Tempo para conclusão do cenário |
+|---------|-----------------|----------------------|---------------------------------|
+| 1       | SIM             | 5                    | 22,54 segundos                          |
+| 2       | SIM             | 5                    | 31,42 segundos                          |
+| 3       | SIM             | 5                    | 36,21 segundos                          |
+|  |  |  |  |
+| **Média**     | 0%           | 0                | 0 segundos                           |
+| **Tempo para conclusão pelo especialista** | SIM | 5 | 5,15 segundos |
+
+Cenário 4: Você é uma pessoa que deseja achar notícias da sua plataforma de jogos
+
+| Usuário | Taxa de sucesso | Satisfação subjetiva | Tempo para conclusão do cenário |
+|---------|-----------------|----------------------|---------------------------------|
+| 1       | SIM             | 5                    | 22,54 segundos                          |
+| 2       | SIM             | 5                    | 31,42 segundos                          |
+| 3       | SIM             | 5                    | 36,21 segundos                          |
+|  |  |  |  |
+| **Média**     | 0%           | 0                | 0 segundos                           |
+| **Tempo para conclusão pelo especialista** | SIM | 5 | 13,17 segundos |
 
 
 

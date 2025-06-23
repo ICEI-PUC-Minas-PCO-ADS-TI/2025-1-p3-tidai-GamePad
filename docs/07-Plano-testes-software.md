@@ -2,13 +2,8 @@
 
 <!--<span style="color:red">Pré-requisitos: <a href="02-Especificacao.md"> Especificação do projeto</a></span>, <a href="04-Projeto-interface.md"> Projeto de interface</a>-->
 
-O plano de testes de software é gerado a partir da especificação do sistema e consiste em casos de teste que deverão ser executados quando a implementação estiver parcial ou totalmente pronta. Apresente os cenários de teste utilizados na realização dos testes da sua aplicação. Escolha cenários de teste que demonstrem os requisitos sendo satisfeitos.
+Requisitos associados cê encontram em: <a href="02-Especificacao.md">Especificação do projeto</a>.
 
-Enumere quais cenários de testes foram selecionados para teste. Neste tópico, o grupo deve detalhar quais funcionalidades foram avaliadas, o grupo de usuários que foi escolhido para participar do teste e as ferramentas utilizadas.
-
-Não deixe de enumerar os casos de teste de forma sequencial e garantir que o(s) requisito(s) associado(s) a cada um deles esteja(m) correto(s) — de acordo com o que foi definido na <a href="02-Especificacao.md">Especificação do projeto</a>.
-
-Por exemplo:
 
 | **Caso de teste**  | **CT-001 – Cadastrar perfil**  |
 |:---: |:---: |
@@ -69,7 +64,7 @@ Por exemplo:
 
 <br>
 
-| **Caso de teste**  | **CT-005 – Usar os filtros de jogos **  |
+| **Caso de teste**  | **CT-005 – Usar os filtros de jogos**  |
 |:---: |:---: |
 | Requisito associado | RF-005 Possibilitar filtragem de pesquisas por categorias  |
 | Objetivo do teste | Verificar se o usuário consegue usar todos os filtros na pesquisa de jogos. |
@@ -97,6 +92,35 @@ Por exemplo:
 | Tela 3  | <img src="../docs/images/testes/ct6/p3.png" width="2000px">
 | Tela 4  | <img src="../docs/images/testes/ct6/p5.png" width="2000px">
 | Tela 5  | <img src="../docs/images/testes/ct6/p4.png" width="2000px">
+
+<br>
+
+| **Caso de teste**  | **CT-007 – Novas Listas**  |
+|:---: |:---: |
+| Requisito associado | RF-011 - Permitir que usuários crie suas listas de jogos |
+| Objetivo do teste | O usuário poderá criar e editar listas de jogos |
+| Passos | - Acessar o navegador <br> - https://gamepad.com <br> - Ir em "Meu Perfil" <br> - Ir em "Listas" <br> - "Nova Lista" ou "Editar Lista" <br> - Criar o nome e definir os jogos da lista <br> - Salvar  |
+| Critério de êxito | - Verificar se o usuário consegue seguir este fluxo |
+| Responsável pela elaboração do caso de teste | Andry Marques |
+| Tela 1  | <img src="../docs/images/testes/ct7/p1.png" width="2000px">
+| Tela 2  | <img src="../docs/images/testes/ct7/p2.png" width="2000px">
+| Tela 3  | <img src="../docs/images/testes/ct7/p6.png" width="2000px">
+| Tela 4  | <img src="../docs/images/testes/ct7/p3.png" width="2000px">
+| Tela 5  | <img src="../docs/images/testes/ct7/p4.png" width="2000px">
+| Tela 6  | <img src="../docs/images/testes/ct7/p5.png" width="2000px">
+
+<br>
+
+| **Caso de teste**  | **CT-008 – Reviews**  |
+|:---: |:---: |
+| Requisito associado | RF-002 - Permitir que o usuário avalie jogos com notas e comentários |
+| Objetivo do teste | Verificar se o usuário dar notas e fazer comentários em jogos <br> - https://gamepad.com/games <br> - Selecionar o jogo no qual ele quer avaliar <br> - Clicar em fazer review <br> - Preencher os campos que ela quiser <br> - Clicar em "Salvar Review" |
+| Critério de êxito | - Comentário salvo e aparece na página do jogo |
+| Responsável pela elaboração do caso de teste | Andry Marques |
+| Tela 1  | <img src="../docs/images/testes/ct8/p1.png" width="2000px">
+| Tela 2  | <img src="../docs/images/testes/ct8/p2.png" width="2000px">
+| Tela 3  | <img src="../docs/images/testes/ct8/p3.png" width="2000px">
+| Tela 4  | <img src="../docs/images/testes/ct8/p4.png" width="2000px">
 
 <!--## Ferramentas de testes (opcional)
 

@@ -115,14 +115,23 @@ function GameFilters({
             setFilters((f) => ({ ...f, platform: e.target.value }))
           }
         >
+          {/* Opções fixas */}
           <option value="">Todas as plataformas</option>
-          {loadingPlatforms && <option>Carregando...</option>}
-          {platformsError && <option>{platformsError}</option>}
-          {platforms.map((p) => (
-            <option key={p.id} value={p.name}>
-              {p.abbreviation || p.name}
-            </option>
-          ))}
+          <option value="Xbox">Xbox Original</option>
+          <option value="Xbox 360">Xbox 360</option>
+          <option value="Xbox One">Xbox One</option>
+          <option value="Xbox Series X|S">Xbox S|X</option>
+          <option value="Super Nintendo Entertainment System">Super Nintendo</option>
+          <option value="Nintendo GameCube">GameCube</option>
+          <option value="Nintendo 64">Nintendo 64</option>
+          <option value="Wii">Nintendo Wii</option>
+          <option value="Wii U">Nintendo Wii U</option>
+          <option value="Nintendo Switch">Nintendo Switch</option>
+          <option value="PlayStation">PlayStation 1</option>
+          <option value="PlayStation 2">PlayStation 2</option>
+          <option value="PlayStation 3">PlayStation 3</option>
+          <option value="PlayStation 4">PlayStation 4</option>
+          <option value="PlayStation 5">PlayStation 5</option>
         </select>
         <select
           className="px-3 py-2 rounded-lg border cursor-pointer border-zinc-600 bg-zinc-800 text-zinc-200"
