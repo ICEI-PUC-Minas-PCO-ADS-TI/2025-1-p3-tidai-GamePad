@@ -12,6 +12,21 @@ namespace GamePadAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AvaliacaoLikes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AvaliacaoId = table.Column<int>(type: "int", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false),
+                    Data = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AvaliacaoLikes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Consoles",
                 columns: table => new
                 {
@@ -51,7 +66,7 @@ namespace GamePadAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nota = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Comentario = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Comentario = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Data = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
                     IgdbGameId = table.Column<long>(type: "bigint", nullable: true)
@@ -61,6 +76,26 @@ namespace GamePadAPI.Migrations
                     table.PrimaryKey("PK_Avaliacoes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Avaliacoes_Usuarios_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameLists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameLists", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GameLists_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
@@ -133,9 +168,41 @@ namespace GamePadAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "GameListItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GameListId = table.Column<int>(type: "int", nullable: false),
+                    IgdbGameId = table.Column<long>(type: "bigint", nullable: false),
+                    GameTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameListItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GameListItems_GameLists_GameListId",
+                        column: x => x.GameListId,
+                        principalTable: "GameLists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Avaliacoes_UsuarioId",
                 table: "Avaliacoes",
+                column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameListItems_GameListId",
+                table: "GameListItems",
+                column: "GameListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameLists_UsuarioId",
+                table: "GameLists",
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
@@ -158,10 +225,16 @@ namespace GamePadAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AvaliacaoLikes");
+
+            migrationBuilder.DropTable(
                 name: "Avaliacoes");
 
             migrationBuilder.DropTable(
                 name: "Consoles");
+
+            migrationBuilder.DropTable(
+                name: "GameListItems");
 
             migrationBuilder.DropTable(
                 name: "Posts");
@@ -171,6 +244,9 @@ namespace GamePadAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserGameStatuses");
+
+            migrationBuilder.DropTable(
+                name: "GameLists");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
