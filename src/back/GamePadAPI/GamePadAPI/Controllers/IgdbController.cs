@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json; // Adicione este using
+using Newtonsoft.Json;
 
 namespace GamePadAPI.Controllers
 {

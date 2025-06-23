@@ -8,7 +8,7 @@ const SearchBar = ({
   value = "",
   onChange,
   onSearch,
-  onSelect, // NOVO: callback ao selecionar um jogo
+  onSelect,
   className = "",
 }) => {
   const [suggestions, setSuggestions] = useState([]);

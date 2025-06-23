@@ -1,68 +1,52 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Button } from "../Button/Button";
-import { registerUser } from "../../service/userService";
+import { loginUser, getUserByEmail } from "../../service/userService";
+import { useUser } from "../../context/UserContext";
 
-
-const RegisterModal = ({ open, onClose, onSwitch }) => {
+const LoginModal = ({ open, onClose, onSwitch }) => {
   const modalRef = useRef();
-  const [form, setForm] = useState({
-    nome: "",
-    email: "",
-    senha: "",
-    confirmarSenha: "",
-  });
+  const { setUser } = useUser();
+  const [form, setForm] = useState({ email: "", senha: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    // Fecha o modal ao clicar fora dele
     function handleClickOutside(e) {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
         onClose();
       }
     }
-    // Quando o modal abrir bloquear o scroll
     if (open) {
       document.body.style.overflow = "hidden";
       window.addEventListener("mousedown", handleClickOutside);
     } else {
       document.body.style.overflow = "";
     }
-    // Desbloqueia o scroll e remove o evento de clique fora do modal
     return () => {
       window.removeEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "";
     };
   }, [open, onClose]);
 
-  // Validação dos campos
   function validate() {
     const newErrors = {};
-    if (!form.nome.trim()) newErrors.nome = "Nome é obrigatório";
-    if (!/^[a-zA-Z0-9 _-]{3,20}$/.test(form.nome))
-      newErrors.nome =
-        "Nome deve ter 3-20 caracteres e não conter símbolos especiais";
     if (!form.email) newErrors.email = "E-mail é obrigatório";
     else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/.test(form.email))
       newErrors.email = "E-mail inválido";
     if (!form.senha) newErrors.senha = "Senha é obrigatória";
-    else if (form.senha.length < 6)
-      newErrors.senha = "Senha deve ter pelo menos 6 caracteres";
-    if (form.senha !== form.confirmarSenha)
-      newErrors.confirmarSenha = "As senhas não coincidem";
     return newErrors;
   }
+
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: undefined });
   }
+
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Tentando registrar usuário:", form);
     const validation = validate();
     if (Object.keys(validation).length > 0) {
-      console.log("Erros de validação:", validation);
       setErrors(validation);
       return;
     }
@@ -70,29 +54,22 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
     setErrors({});
     setAlert(null);
     try {
-      const result = await registerUser({
-        nome: form.nome,
-        email: form.email,
-        senha: form.senha,
-        tipo: "User",
-      });
-      console.log("Registro bem-sucedido:", result);
-      setAlert({ type: "success", message: "Cadastro realizado com sucesso!" });
+      const data = await loginUser(form);
+      const user = await getUserByEmail(form.email);
+      setUser({ ...user, jwt: data.jwt });
+      setAlert({ type: "success", message: "Bem-vindo!" });
       setTimeout(() => {
         setAlert(null);
-        onSwitch();
-      }, 1500);
-      setForm({ nome: "", email: "", senha: "", confirmarSenha: "" });
+        setForm({ email: "", senha: "" });
+        onClose();
+      }, 1200);
     } catch (err) {
-      console.error("Erro ao registrar usuário:", err);
       setAlert({ type: "error", message: err.message });
     } finally {
       setLoading(false);
-      console.log("Finalizou tentativa de registro");
     }
   }
 
-  // Não renderiza nada se o modal estiver fechado
   if (!open) return null;
 
   return (
@@ -102,18 +79,18 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
         className="bg-zinc-900 rounded-2xl shadow-2xl p-8 w-full max-w-md  relative animate-fadeIn"
       >
         <button
-          className="absolute cursor-pointer top-4 right-5 text-zinc-400 hover:text-fuchsia-400 text-2xl font-bold transition"
+          className="absolute cursor-pointer top-4 right-5 text-zinc-400 hover:text-cyan-400 text-2xl font-bold transition"
           onClick={onClose}
           aria-label="Fechar"
         >
           ×
         </button>
         <div className="flex flex-col items-center px-8 py-10">
-          <h2 className="text-3xl font-extrabold bg-gradient-to-r  bg-clip-text text-fuchsia-400 mb-2 tracking-tight drop-shadow-lg text-center font-mono">
-            Crie sua conta
+          <h2 className="text-3xl font-extrabold text-cyan-400 bg-clip-text  mb-2 tracking-tight drop-shadow-lg text-center font-mono">
+            Entrar
           </h2>
           <p className="text-zinc-400 text-center mb-7 text-sm font-mono">
-            Junte-se à comunidade e compartilhe sua paixão por games!
+            Volte ao seu savepoint e continue sua jornada nos jogos!
           </p>
           {alert && (
             <div
@@ -132,36 +109,18 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
             noValidate
           >
             <input
-              type="text"
-              placeholder="Nome de usuário"
-              name="nome"
-              className={`bg-zinc-800 text-fuchsia-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
-                errors.nome
-                  ? "border-red-500 focus:ring-red-400"
-                  : "border-fuchsia-700 focus:ring-fuchsia-400"
-              }`}
-              value={form.nome}
-              onChange={handleChange}
-              required
-              autoFocus
-            />
-            {errors.nome && (
-              <span className="text-red-400 text-xs font-mono -mt-3">
-                {errors.nome}
-              </span>
-            )}
-            <input
               type="email"
               placeholder="E-mail"
               name="email"
-              className={`bg-zinc-800 text-fuchsia-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
+              className={`bg-zinc-800 text-cyan-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
                 errors.email
                   ? "border-red-500 focus:ring-red-400"
-                  : "border-fuchsia-700 focus:ring-fuchsia-400"
+                  : "border-cyan-700 focus:ring-cyan-400"
               }`}
               value={form.email}
               onChange={handleChange}
               required
+              autoFocus
             />
             {errors.email && (
               <span className="text-red-400 text-xs font-mono -mt-3">
@@ -172,10 +131,10 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
               type="password"
               placeholder="Senha"
               name="senha"
-              className={`bg-zinc-800 text-fuchsia-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
+              className={`bg-zinc-800 text-cyan-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
                 errors.senha
                   ? "border-red-500 focus:ring-red-400"
-                  : "border-fuchsia-700 focus:ring-fuchsia-400"
+                  : "border-cyan-700 focus:ring-cyan-400"
               }`}
               value={form.senha}
               onChange={handleChange}
@@ -186,39 +145,21 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
                 {errors.senha}
               </span>
             )}
-            <input
-              type="password"
-              placeholder="Confirmar senha"
-              name="confirmarSenha"
-              className={`bg-zinc-800 text-fuchsia-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
-                errors.confirmarSenha
-                  ? "border-red-500 focus:ring-red-400"
-                  : "border-fuchsia-700 focus:ring-fuchsia-400"
-              }`}
-              value={form.confirmarSenha}
-              onChange={handleChange}
-              required
-            />
-            {errors.confirmarSenha && (
-              <span className="text-red-400 text-xs font-mono -mt-3">
-                {errors.confirmarSenha}
-              </span>
-            )}
             <Button
               type="submit"
-              className="bg-fuchsia-500 border-fuchsia-500 hover:bg-transparent hover:text-fuchsia-500 text-zinc-900 font-bold rounded-lg py-3 mt-2 transition"
+              className="bg-cyan-500 hover:bg-transparent cursor-pointer text-zinc-900 font-bold rounded-lg py-3 mt-2 transition"
               disabled={loading}
             >
-              {loading ? "Registrando..." : "Registrar"}
+              {loading ? "Entrando..." : "Entrar"}
             </Button>
           </form>
           <div className="mt-7 text-center text-zinc-400 text-sm font-mono">
-            Já tem conta?{" "}
+            Não tem conta?{" "}
             <button
-              className="text-cyan-400 cursor-pointer hover:underline font-semibold transition"
+              className="text-fuchsia-400 cursor-pointer hover:underline font-semibold transition"
               onClick={onSwitch}
             >
-              Entrar
+              Cadastre-se
             </button>
           </div>
         </div>
@@ -236,4 +177,4 @@ const RegisterModal = ({ open, onClose, onSwitch }) => {
   );
 };
 
-export default RegisterModal;
+export default LoginModal;

@@ -1,17 +1,18 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Button } from "../Button/Button";
-import { loginUser, getUserByEmail } from "../../service/userService";
-import { useUser } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../service/userService";
 
-const LoginModal = ({ open, onClose, onSwitch }) => {
+const RegisterModal = ({ open, onClose, onSwitch }) => {
   const modalRef = useRef();
-  const { setUser } = useUser();
-  const [form, setForm] = useState({ email: "", senha: "" });
+  const [form, setForm] = useState({
+    nome: "",
+    email: "",
+    senha: "",
+    confirmarSenha: "",
+  });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -33,24 +34,28 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
 
   function validate() {
     const newErrors = {};
+    if (!form.nome.trim()) newErrors.nome = "Nome é obrigatório";
+    if (!/^[a-zA-Z0-9 _-]{3,20}$/.test(form.nome))
+      newErrors.nome =
+        "Nome deve ter 3-20 caracteres e não conter símbolos especiais";
     if (!form.email) newErrors.email = "E-mail é obrigatório";
     else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/.test(form.email))
       newErrors.email = "E-mail inválido";
     if (!form.senha) newErrors.senha = "Senha é obrigatória";
+    else if (form.senha.length < 6)
+      newErrors.senha = "Senha deve ter pelo menos 6 caracteres";
+    if (form.senha !== form.confirmarSenha)
+      newErrors.confirmarSenha = "As senhas são diferentes";
     return newErrors;
   }
-
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: undefined });
   }
-
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Tentando login com:", form);
     const validation = validate();
     if (Object.keys(validation).length > 0) {
-      console.log("Erros de validação:", validation);
       setErrors(validation);
       return;
     }
@@ -58,33 +63,24 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
     setErrors({});
     setAlert(null);
     try {
-      const data = await loginUser(form);
-      console.log("Login bem-sucedido, resposta:", data);
-      // Buscar dados completos do usuário
-      const user = await getUserByEmail(form.email);
-      setUser({ ...user, jwt: data.jwt });
-      setAlert({ type: "success", message: "Bem-vindo!" });
+      await registerUser({
+        nome: form.nome,
+        email: form.email,
+        senha: form.senha,
+        tipo: "User",
+      });
+      setAlert({ type: "success", message: "Cadastro realizado com sucesso!" });
       setTimeout(() => {
         setAlert(null);
-        setForm({ email: "", senha: "" }); // Limpa os campos do formulário
-        onClose();
-      }, 1200);
+        onSwitch();
+      }, 1500);
+      setForm({ nome: "", email: "", senha: "", confirmarSenha: "" });
     } catch (err) {
-      console.error("Erro ao fazer login:", err);
       setAlert({ type: "error", message: err.message });
     } finally {
       setLoading(false);
-      console.log("Finalizou tentativa de login");
     }
   }
-
-  const handleProfileClick = () => {
-    if (user) {
-      navigate(`/${user.nome.toLowerCase().replace(/\s+/g, "-")}`);
-    } else {
-      setShowLoginModal(true);
-    }
-  };
 
   if (!open) return null;
 
@@ -95,18 +91,18 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
         className="bg-zinc-900 rounded-2xl shadow-2xl p-8 w-full max-w-md  relative animate-fadeIn"
       >
         <button
-          className="absolute cursor-pointer top-4 right-5 text-zinc-400 hover:text-cyan-400 text-2xl font-bold transition"
+          className="absolute cursor-pointer top-4 right-5 text-zinc-400 hover:text-fuchsia-400 text-2xl font-bold transition"
           onClick={onClose}
           aria-label="Fechar"
         >
           ×
         </button>
         <div className="flex flex-col items-center px-8 py-10">
-          <h2 className="text-3xl font-extrabold text-cyan-400 bg-clip-text  mb-2 tracking-tight drop-shadow-lg text-center font-mono">
-            Entrar na conta
+          <h2 className="text-3xl font-extrabold bg-gradient-to-r  bg-clip-text text-fuchsia-400 mb-2 tracking-tight drop-shadow-lg text-center font-mono">
+            Crie sua conta
           </h2>
           <p className="text-zinc-400 text-center mb-7 text-sm font-mono">
-            Acesse sua conta e continue sua jornada gamer!
+            Junte-se à comunidade e compartilhe seus jogos favoritos!
           </p>
           {alert && (
             <div
@@ -125,18 +121,36 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
             noValidate
           >
             <input
+              type="text"
+              placeholder="Nome de usuário"
+              name="nome"
+              className={`bg-zinc-800 text-fuchsia-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
+                errors.nome
+                  ? "border-red-500 focus:ring-red-400"
+                  : "border-fuchsia-700 focus:ring-fuchsia-400"
+              }`}
+              value={form.nome}
+              onChange={handleChange}
+              required
+              autoFocus
+            />
+            {errors.nome && (
+              <span className="text-red-400 text-xs font-mono -mt-3">
+                {errors.nome}
+              </span>
+            )}
+            <input
               type="email"
               placeholder="E-mail"
               name="email"
-              className={`bg-zinc-800 text-cyan-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
+              className={`bg-zinc-800 text-fuchsia-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
                 errors.email
                   ? "border-red-500 focus:ring-red-400"
-                  : "border-cyan-700 focus:ring-cyan-400"
+                  : "border-fuchsia-700 focus:ring-fuchsia-400"
               }`}
               value={form.email}
               onChange={handleChange}
               required
-              autoFocus
             />
             {errors.email && (
               <span className="text-red-400 text-xs font-mono -mt-3">
@@ -147,10 +161,10 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
               type="password"
               placeholder="Senha"
               name="senha"
-              className={`bg-zinc-800 text-cyan-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
+              className={`bg-zinc-800 text-fuchsia-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
                 errors.senha
                   ? "border-red-500 focus:ring-red-400"
-                  : "border-cyan-700 focus:ring-cyan-400"
+                  : "border-fuchsia-700 focus:ring-fuchsia-400"
               }`}
               value={form.senha}
               onChange={handleChange}
@@ -161,21 +175,39 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
                 {errors.senha}
               </span>
             )}
+            <input
+              type="password"
+              placeholder="Confirmar senha"
+              name="confirmarSenha"
+              className={`bg-zinc-800 text-fuchsia-200 placeholder:text-zinc-500 rounded-lg px-4 py-3 border-2 focus:outline-none focus:ring-2 font-mono transition ${
+                errors.confirmarSenha
+                  ? "border-red-500 focus:ring-red-400"
+                  : "border-fuchsia-700 focus:ring-fuchsia-400"
+              }`}
+              value={form.confirmarSenha}
+              onChange={handleChange}
+              required
+            />
+            {errors.confirmarSenha && (
+              <span className="text-red-400 text-xs font-mono -mt-3">
+                {errors.confirmarSenha}
+              </span>
+            )}
             <Button
               type="submit"
-              className="bg-cyan-500 hover:bg-transparent cursor-pointer text-zinc-900 font-bold rounded-lg py-3 mt-2 transition"
+              className="bg-fuchsia-500 border-fuchsia-500 hover:bg-transparent hover:text-fuchsia-500 text-zinc-900 font-bold rounded-lg py-3 mt-2 transition"
               disabled={loading}
             >
-              {loading ? "Entrando..." : "Entrar"}
+              {loading ? "Registrando..." : "Registrar"}
             </Button>
           </form>
           <div className="mt-7 text-center text-zinc-400 text-sm font-mono">
-            Não tem conta?{" "}
+            Já tem conta?{" "}
             <button
-              className="text-fuchsia-400 cursor-pointer hover:underline font-semibold transition"
+              className="text-cyan-400 cursor-pointer hover:underline font-semibold transition"
               onClick={onSwitch}
             >
-              Cadastre-se
+              Entrar
             </button>
           </div>
         </div>
@@ -193,4 +225,4 @@ const LoginModal = ({ open, onClose, onSwitch }) => {
   );
 };
 
-export default LoginModal;
+export default RegisterModal;

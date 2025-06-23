@@ -15,7 +15,7 @@ export default function ProfileTabs({ tabs, activeTab, onTabChange }) {
     }
   }, [location.search]);
 
-  // Ao clicar vai atualiza a query string ?tab=nome-da-aba 
+  // Ao clicar vai atualiza a query string ?tab=nome-da-aba
   function handleTabClick(tabKey) {
     const params = new URLSearchParams(location.search);
     params.set("tab", tabKey);
@@ -28,7 +28,7 @@ export default function ProfileTabs({ tabs, activeTab, onTabChange }) {
       {tabs.map((tab) => (
         <button
           key={tab.key}
-          className={`px-4 py-2 font-semibold transition border-b-2 cursor-pointer ${
+          className={`px-3 py-2 text-sm font-semibold transition border-b-2 cursor-pointer ${
             activeTab === tab.key
               ? "border-pink-400 text-pink-400"
               : "border-transparent text-zinc-300 hover:text-cyan-400"

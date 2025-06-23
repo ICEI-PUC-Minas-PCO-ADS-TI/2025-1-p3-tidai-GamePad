@@ -34,7 +34,6 @@ namespace GamePad_TIDAI_2025.Models
 
         public void GetData()
         {
-            //Criar método
         }
     }
 }

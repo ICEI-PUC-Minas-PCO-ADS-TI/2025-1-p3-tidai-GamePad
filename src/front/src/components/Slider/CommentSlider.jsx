@@ -25,19 +25,18 @@ const CommentSlider = ({ comments }) => {
   const visibleComments = getVisibleComments();
 
   return (
-    <div className="w-full flex flex-col items-center relative">
+    <div className="w-full flex flex-col items-center relative max-w-xs sm:max-w-sm md:max-w-2xl mx-auto">
       <div className="relative w-full flex items-center justify-center">
         {/* Botão anterior */}
         <button
           onClick={handlePrev}
-          className="absolute left-0 z-10 bg-zinc-800/60 text-white rounded-full p-2 transition-all duration-200 cursor-pointer"
+          className="absolute left-0 z-10 bg-zinc-800/60 text-white rounded-full p-2 sm:p-2.5 md:p-3 transition-all duration-200 cursor-pointer "
           aria-label="Anterior"
           style={{ top: "50%", transform: "translateY(-50%)" }}
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={20} className="sm:w-6 sm:h-6 w-5 h-5" />
         </button>
-        {/* Comentários lado a lado, visual simples */}
-        <div className="flex flex-col md:flex-row gap-4 w-full justify-center transition-all duration-300">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-4 w-full justify-center transition-all duration-300">
           {visibleComments.map((comment, idx) => {
             // Tenta pegar o id do jogo do comentário
             const igdbGameId =
@@ -52,7 +51,9 @@ const CommentSlider = ({ comments }) => {
                 className="w-full md:w-1/2 hover:scale-[1.02] transition-transform duration-200"
                 style={{ textDecoration: "none" }}
               >
-                <SimpleComment {...comment} />
+                <div className="p-2 sm:p-3 md:p-4">
+                  <SimpleComment {...comment} compact={true} />
+                </div>
               </Link>
             );
           })}
@@ -60,11 +61,11 @@ const CommentSlider = ({ comments }) => {
         {/* Botão próximo */}
         <button
           onClick={handleNext}
-          className="absolute right-0 z-10 bg-zinc-800/60 text-white rounded-full p-2 transition-all duration-200 cursor-pointer"
+          className="absolute right-0 z-10 bg-zinc-800/60 text-white rounded-full p-2 sm:p-2.5 md:p-3 transition-all duration-200 cursor-pointer"
           aria-label="Próximo"
           style={{ top: "50%", transform: "translateY(-50%)" }}
         >
-          <ChevronRight size={24} />
+          <ChevronRight size={20} className="sm:w-6 sm:h-6 w-5 h-5" />
         </button>
       </div>
       <div className="flex gap-1 mt-3">

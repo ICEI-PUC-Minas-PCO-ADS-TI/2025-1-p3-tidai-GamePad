@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import ProfileTabs from "../../components/Profile/ProfileTabs";
 import ProfileBio from "../../components/Profile/ProfileBio";
@@ -32,69 +32,76 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState("profile");
   const [userGames, setUserGames] = useState([]);
   const [loadingGames, setLoadingGames] = useState(false);
+  const [profileUser, setProfileUser] = useState(null);
+  const [loadingProfile, setLoadingProfile] = useState(true);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
+  // Buscar dados do usuário pelo username da URL
   useEffect(() => {
-    async function loadUserGames() {
-      if (!user?.id) return;
-      setLoadingGames(true);
-      try {
-        const games = await fetchUserGamesWithStatuses(user.id);
-        setUserGames(games);
-      } catch {
-        setUserGames([]);
-      } finally {
-        setLoadingGames(false);
-      }
-    }
-    if (user?.id) {
-      loadUserGames();
-    }
-  }, [user]);
+    if (!username) return;
+    setLoadingProfile(true);
+    fetch(`http://localhost:5069/api/Usuarios/username/${username}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Usuário não encontrado");
+        return res.json();
+      })
+      .then((data) => {
+        setProfileUser(data);
+        setError("");
+      })
+      .catch(() => setError("Usuário não encontrado."))
+      .finally(() => setLoadingProfile(false));
+  }, [username]);
 
-  if (
-    user &&
-    username &&
-    username.toLowerCase() !== user.nome.toLowerCase().replace(/\s+/g, "-")
-  ) {
-    return (
-      <Navigate
-        to={`/profile/${user.nome.toLowerCase().replace(/\s+/g, "-")}`}
-        replace
-      />
-    );
-  }
+  // Buscar jogos do usuário do perfil
+  useEffect(() => {
+    if (!profileUser?.id) return;
+    setLoadingGames(true);
+    fetchUserGamesWithStatuses(profileUser.id)
+      .then(setUserGames)
+      .catch(() => setUserGames([]))
+      .finally(() => setLoadingGames(false));
+  }, [profileUser]);
 
   const TabComponent = TAB_COMPONENTS[activeTab] || (() => <div />);
 
-  const profileUser = user;
+  if (loadingProfile)
+    return <div className="text-zinc-400">Carregando perfil...</div>;
+  if (error) return <div className="text-red-400">{error}</div>;
+  if (!profileUser) return null;
 
   return (
-    <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-0 md:px-48 py-10">
+    <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-2 sm:px-4 md:px-12 lg:px-32 xl:px-48 py-6 sm:py-8 md:py-10">
       {/* Topo do perfil */}
-      <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mb-4">
+      <div className="flex flex-col md:flex-row items-center md:items-end gap-4 sm:gap-6 mb-4">
         {(() => {
           const navbarImg =
-            user.imgUser && user.imgUser.startsWith("/profile-images/")
-              ? `http://localhost:5069${user.imgUser}`
-              : user.imgUser;
+            profileUser.imgUser &&
+            profileUser.imgUser.startsWith("/profile-images/")
+              ? `http://localhost:5069${profileUser.imgUser}`
+              : profileUser.imgUser;
           return (
             <img
               src={navbarImg}
               alt="Avatar"
-              className="w-36 h-36 rounded-xl object-cover"
+              className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-xl object-cover"
             />
           );
         })()}
-        <div className="flex-1 flex flex-col md:flex-row md:items-end gap-2">
+        <div className="flex-1 flex flex-col md:flex-row md:items-end gap-2 sm:gap-4">
           <div>
-            <h2 className="text-3xl font-bold">{user.nome}</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold break-words max-w-xs sm:max-w-md md:max-w-none">
+              {profileUser.nome}
+            </h2>
           </div>
           <ProfileActionButton
             isOwner={
+              user &&
               username.toLowerCase() ===
-              user.nome.toLowerCase().replace(/\s+/g, "-")
+                user.nome.toLowerCase().replace(/\s+/g, "-")
             }
-            onEdit={() => {}}
+            onEdit={() => navigate("/settings")}
             onFollow={() => {}}
           />
         </div>
@@ -104,26 +111,28 @@ export default function Profile() {
         tabs={TABS}
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        className="grid grid-cols-2 gap-2 sm:flex sm:gap-2 text-xs sm:text-sm md:text-base"
       />
       {/* Conteúdo em duas colunas */}
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
         {/* Coluna esquerda */}
-        <aside className="w-full md:w-80 flex-shrink-0 flex flex-col gap-8">
+        <aside className="w-full md:w-80 flex-shrink-0 flex flex-col gap-6 sm:gap-8 mb-6 md:mb-0">
           {/* Bio */}
-          <ProfileBio user={user} onExpand={() => {}} />
+          <ProfileBio user={profileUser} onExpand={() => {}} />
           <ProfileStats userGames={userGames} />
         </aside>
         {/* Coluna direita */}
         <section className="flex-1 min-w-0">
-          {/* Passe o usuário para o TabComponent */}
           {activeTab === "reviews" ? (
-            <ReviewsTab userId={profileUser?.id} />
+            <ReviewsTab userId={profileUser?.id} userName={profileUser?.nome} />
           ) : activeTab === "games" ? (
             loadingGames ? (
               <div className="text-zinc-400">Carregando jogos...</div>
             ) : (
               <GamesTab userGames={userGames} />
             )
+          ) : activeTab === "lists" ? (
+            <ListsTab user={profileUser} />
           ) : (
             <TabComponent user={profileUser} />
           )}

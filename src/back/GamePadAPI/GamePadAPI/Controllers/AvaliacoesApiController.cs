@@ -15,7 +15,6 @@ namespace GamePadAPI.Controllers
             _context = context;
         }
 
-        // DTO para evitar referência circular
         public class AvaliacaoDto
         {
             public int Id { get; set; }
@@ -66,13 +65,13 @@ namespace GamePadAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Avaliacao>> PostAvaliacao(Avaliacao avaliacao)
         {
-            // Permite avaliação por estrelas sem comentário,
-            // mas se enviar comentário, nota deve ser maior que zero
+            // Permite avaliação por estrelas sem comentário
+            // mas se enviar comentario nota deve ser maior que zero
             if (!string.IsNullOrWhiteSpace(avaliacao.Comentario) && (string.IsNullOrWhiteSpace(avaliacao.Nota) || avaliacao.Nota == "0"))
             {
                 return BadRequest("Para comentar, é necessário dar uma nota ao jogo.");
             }
-            // Permite nota sem comentário
+            // Permite nota sem comentrio
             _context.Avaliacoes.Add(avaliacao);
             await _context.SaveChangesAsync();
 

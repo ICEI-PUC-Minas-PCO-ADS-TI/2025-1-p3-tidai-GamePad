@@ -14,7 +14,7 @@ export default function GameCard({
 
   return (
     <div
-      className={`relative rounded-xl overflow-hidden shadow-lg cursor-pointer bg-zinc-900 hover:scale-105 transition-transform ${className}`}
+      className={`relative rounded-xl overflow-hidden shadow-lg cursor-pointer bg-zinc-900 hover:scale-105 transition-transform  ${className}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={onClick}

@@ -1,6 +1,6 @@
 # Especificação do projeto
 
-Esta seção apresenta uma visão geral da especificação do Game Pede, descrevendo as técnicas e ferramentas utilizadas para definir os requisitos e funcionalidades do projeto. Para isso, foram utilizadas metodologias como análise de personas, histórias de usuários e levantamento de requisitos funcionais e não funcionais. A especificação busca garantir que a plataforma atenda às necessidades dos usuários, proporcionando uma experiência intuitiva e eficiente.
+Esta seção apresenta uma visão geral da especificação do Game Pad, descrevendo as técnicas e ferramentas utilizadas para definir os requisitos e funcionalidades do projeto. Para isso, foram utilizadas metodologias como análise de personas, histórias de usuários e levantamento de requisitos funcionais e não funcionais. A especificação busca garantir que a plataforma atenda às necessidades dos usuários, proporcionando uma experiência intuitiva e eficiente.
 
 ## Personas
 

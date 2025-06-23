@@ -6,7 +6,7 @@ import {
   deleteUser,
   verifyPasswordById,
 } from "../../service/userService";
-import PasswordConfirmModal from "../../components/Modals/PasswordConfirmModal";
+import PasswordConfirmModal from "../../components/Auth/PasswordConfirmModal";
 import { useNavigate, Navigate } from "react-router-dom";
 import {
   User,
@@ -191,10 +191,10 @@ export default function Settings() {
   }
 
   return (
-    <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-0 md:px-48 py-10">
-      <div className="flex flex-col md:flex-row gap-12">
+    <div className="min-h-[80vh] bg-zinc-900 text-zinc-200 px-2 sm:px-4 md:px-48 py-6 sm:py-8 md:py-10">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
         {/* Sidebar */}
-        <aside className="w-full md:w-80 max-w-xs flex-shrink-0">
+        <aside className="w-full max-w-full mb-6 lg:w-80 lg:max-w-xs lg:mb-0 flex-shrink-0">
           <h2 className="text-2xl font-bold text-zinc-100 mb-2">
             Configurações
           </h2>
@@ -270,7 +270,7 @@ export default function Settings() {
                           : user?.imgUser
                       }
                       alt="Avatar"
-                      className="w-32 h-32 rounded-xl object-cover  shadow-lg transition"
+                      className="w-20 h-20 rounded-xl object-cover  shadow-lg transition"
                     />
                     <label className="px-5 cursor-pointer py-3 rounded-lg bg-zinc-800 text-cyan-400 hover:bg-cyan-700 hover:text-white transition font-semibold text-base">
                       Alterar

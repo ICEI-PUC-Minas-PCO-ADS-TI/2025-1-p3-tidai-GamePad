@@ -1,17 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../Button/Button";
 
-/**
- * Modal para confirmação de senha antes de ações sensíveis (excluir conta, alterar email, etc)
- * Props:
- *   open: boolean
- *   onClose: () => void
- *   onConfirm: (senha: string) => Promise<void> | void
- *   loading: boolean (opcional)
- *   error: string (opcional)
- *   title: string (opcional)
- *   description: string (opcional)
- */
 const PasswordConfirmModal = ({
   open,
   onClose,

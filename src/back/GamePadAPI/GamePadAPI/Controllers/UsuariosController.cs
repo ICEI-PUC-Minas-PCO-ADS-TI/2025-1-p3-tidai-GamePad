@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -91,6 +90,20 @@ namespace GamePadAPI.Controllers
             return usuarios;
         }
 
+        // GET: api/Usuarios/username/{username}
+        [HttpGet("username/{username}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<Usuario>> GetUsuarioByUsername(string username)
+        {
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Nome.ToLower() == username.ToLower());
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+            return usuario;
+        }
+
         // DTO para atualização parcial do usuário
         public class UsuarioUpdateDto
         {
@@ -120,8 +133,15 @@ namespace GamePadAPI.Controllers
                     return BadRequest(new { message = "Já existe um usuário cadastrado com este e-mail." });
                 }
             }
-
-            // Atualize apenas os campos enviados (não sobrescreva com null)
+            // Se for alterar o nome, verifica se já existe outro usuário com o mesmo nome
+            if (!string.IsNullOrWhiteSpace(dto.Nome) && dto.Nome.ToLower() != usuarioDb.Nome.ToLower())
+            {
+                var nomeExists = await _context.Usuarios.AnyAsync(u => u.Nome.ToLower() == dto.Nome.ToLower() && u.Id != id);
+                if (nomeExists)
+                {
+                    return BadRequest(new { message = "Já existe um usuário cadastrado com este nome de usuário." });
+                }
+            }
             if (!string.IsNullOrWhiteSpace(dto.Nome)) usuarioDb.Nome = dto.Nome;
             if (!string.IsNullOrWhiteSpace(dto.Bio)) usuarioDb.Bio = dto.Bio;
             if (!string.IsNullOrWhiteSpace(dto.Email)) usuarioDb.Email = dto.Email;
@@ -150,7 +170,6 @@ namespace GamePadAPI.Controllers
         }
 
         // POST: api/Usuarios
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
@@ -160,17 +179,19 @@ namespace GamePadAPI.Controllers
             {
                 return BadRequest(new { message = "Já existe um usuário cadastrado com este e-mail." });
             }
-
+            // Verifica se já existe usuário com o mesmo nome (case-insensitive)
+            var nomeExists = await _context.Usuarios.AnyAsync(u => u.Nome.ToLower() == usuario.Nome.ToLower());
+            if (nomeExists)
+            {
+                return BadRequest(new { message = "Já existe um usuário cadastrado com este nome de usuário." });
+            }
             usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
-
             if (string.IsNullOrWhiteSpace(usuario.ImgUser))
             {
                 usuario.ImgUser = "/profile-images/default-profile.png";
             }
-
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
         }
 
@@ -216,8 +237,7 @@ namespace GamePadAPI.Controllers
             var claims = new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-                new Claim(ClaimTypes.Email, usuario.Email),
-                //new Claim(ClaimTypes.Role, usuario.PerfiL)
+                new Claim(ClaimTypes.Email, usuario.Email)
             });
 
             var tokenDescriptor = new SecurityTokenDescriptor

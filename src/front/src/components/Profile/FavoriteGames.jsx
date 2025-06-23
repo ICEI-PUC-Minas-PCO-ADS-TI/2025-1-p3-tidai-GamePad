@@ -79,12 +79,13 @@ export default function FavoriteGames({ user: userProp }) {
       ) : !games.length ? (
         <div className="text-zinc-500">Nenhum jogo favorito cadastrado.</div>
       ) : (
-        <div className="flex gap-4 flex-wrap">
+        <div className="grid grid-cols-5 xs:grid-cols-5 sm:grid-cols-5 md:grid-cols-5 gap-2 sm:gap-2 md:gap-2">
           {games.map((game, i) => (
             <div
               key={game.id || i}
-              className="w-52 h-72 bg-zinc-800 rounded-xl overflow-hidden flex flex-col items-center justify-between shadow-lg cursor-pointer hover:scale-105 transition"
+              className="aspect-[3/4] w-full bg-zinc-800 rounded-xl overflow-hidden flex flex-col items-center justify-between shadow-lg cursor-pointer hover:scale-105 transition"
               onClick={() => navigate(`/games/${game.id}`)}
+              style={{ minWidth: 0 }}
             >
               <img
                 src={

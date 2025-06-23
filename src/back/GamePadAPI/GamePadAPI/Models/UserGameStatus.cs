@@ -14,7 +14,6 @@ namespace GamePad_TIDAI_2025.Models
         [ForeignKey("UsuarioId")]
         public Usuario Usuario { get; set; }
 
-        // Para jogos IGDB
         [Required]
         public long IgdbGameId { get; set; }
 
