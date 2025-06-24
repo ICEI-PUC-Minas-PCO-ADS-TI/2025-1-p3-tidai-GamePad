@@ -142,8 +142,8 @@ Atualizado em: 18/06/2025
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
 | Pablo Marques         |    Refinamento do front-end        |    21/05/2025      | 18/06/2025     | ✔️ |     18/06/2025     |
 | Pablo Marques         |    Refinamento do back-end        |    21/05/2025      | 18/06/2025     | ✔️ |    18/06/2025        |
-| Ramon Pereira         |    Testes funcionais       |    21/05/2025      | 15/05/2025     | 📝 |          |
-| Andry Marques        |    Testes de usabilidade        |    -      | 20/05/2025     | ❌ |          |
+| Ramon Pereira         |    Testes funcionais       |    10/06/2025      | 15/06/2025     | ✔️ |     15/06/2025     |
+| Andry Marques        |    Testes de usabilidade        |     19/06/2025     | 22/06/2025     | ✔️ |     22/06/2025      |
 
 
 
