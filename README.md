@@ -27,13 +27,60 @@ Nosso projeto visa a criação de uma plataforma voltada para lazer e entretenim
 
 ## Instruções de utilização
 
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
+Para executar o projeto GamePad localmente, siga os passos abaixo:
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd 2025-1-p3-tidai-GamePad
+```
+
+### 2. Instale as dependências do backend
+
+```bash
+cd src/back/GamePadAPI/GamePadAPI
+dotnet restore
+```
+
+### 3. Crie o banco de dados
+
+Certifique-se de que o SQL Server está rodando e a string de conexão está correta em appsettings.json.
+Depois, execute:
+
+```bash
+dotnet ef database update
+```
+
+### 4. Inicie o backend
+
+```bash
+dotnet run
+```
+### 5. Instale as dependências do frontend
+
+Abra um novo terminal e execute:
+
+```bash
+cd src/front
+npm install
+```
+### 6. Inicie o frontend
+
+```bash
+npm run dev
+```
+### 7. Acesse a aplicação
+
+Abra o navegador e acesse: http://localhost:5173
+
+<!--Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
 
 Não deixe de informar o link onde a aplicação estará disponível para acesso (por exemplo: https://adota-pet.herokuapp.com/src/index.html).
 
 Se houver usuário de teste, o login e a senha também deverão ser informados aqui (por exemplo: usuário - admin / senha - admin).
 
-O link e o usuário/senha descritos acima são apenas exemplos de como tais informações deverão ser apresentadas.
+O link e o usuário/senha descritos acima são apenas exemplos de como tais informações deverão ser apresentadas.-->
 
 # Documentação
 
