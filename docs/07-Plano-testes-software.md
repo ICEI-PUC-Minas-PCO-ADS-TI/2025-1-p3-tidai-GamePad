@@ -114,7 +114,8 @@ Requisitos associados cê encontram em: <a href="02-Especificacao.md">Especifica
 | **Caso de teste**  | **CT-008 – Reviews**  |
 |:---: |:---: |
 | Requisito associado | RF-002 - Permitir que o usuário avalie jogos com notas e comentários |
-| Objetivo do teste | Verificar se o usuário dar notas e fazer comentários em jogos <br> - https://gamepad.com/games <br> - Selecionar o jogo no qual ele quer avaliar <br> - Clicar em fazer review <br> - Preencher os campos que ela quiser <br> - Clicar em "Salvar Review" |
+| Objetivo do teste | Verificar se o usuário dar notas e fazer comentários em jogos |
+| Passos |- https://gamepad.com/games <br> - Selecionar o jogo no qual ele quer avaliar <br> - Clicar em fazer review <br> - Preencher os campos que ela quiser <br> - Clicar em "Salvar Review" |
 | Critério de êxito | - Comentário salvo e aparece na página do jogo |
 | Responsável pela elaboração do caso de teste | Andry Marques |
 | Tela 1  | <img src="../docs/images/testes/ct8/p1.png" width="2000px">
