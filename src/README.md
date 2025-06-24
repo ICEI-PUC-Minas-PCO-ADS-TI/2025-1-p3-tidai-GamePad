@@ -8,8 +8,10 @@
 
 [Scripts SQL](../src/db)  -- repositório dos scripts SQL
 
+
+<!--
 > **Links úteis**:
-> - [Instruções sobre acesso a APIs externas](https://github.com/ICEI-PUC-Minas-PMV-SI/WebApplicationProject-Template/blob/main/help/apis.md)
+> - [Instruções sobre acesso a APIs externas](https://github.com/ICEI-PUC-Minas-PMV-SI/WebApplicationProject-Template/blob/main/help/apis.md)-->
 
 
 ## Instalação do Site
@@ -18,6 +20,6 @@
 
 ## Histórico de versões
 
-### [0.1.0] - DD/MM/AAAA
+### [0.1.0] - 24/06/2025
 #### Adicionado/Atualizado/Removido
 - Relação de artefatos ... 
