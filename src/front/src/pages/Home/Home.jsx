@@ -8,7 +8,7 @@ import { Button } from "../../components/Button/Button";
 import GameCard from "../../components/Cards/GameCard";
 import { Save, Hourglass, Telescope, HeartPlus, Joystick } from "lucide-react";
 import GlassButton from "../../components/GlassButton/GlassButton";
-import CommentSlider from "../../components/slider/CommentSlider";
+import CommentSlider from "../../components/Slider/CommentSlider";
 import { fetchGames, fetchGamesByIds } from "../../service/igdbService";
 import CardNews from "../../components/News/cardNews";
 import NewsPreviewGrid from "../../components/News/NewsPreviewGrid";
