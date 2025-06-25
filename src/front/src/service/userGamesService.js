@@ -8,7 +8,7 @@ import { fetchGamesByIds } from "./igdbService";
 export async function fetchUserGamesWithStatuses(userId) {
   // Busca todos os status do usuário
   const res = await fetch(
-    `http://localhost:5069/api/UserGameStatus/user/${userId}`
+    `${import.meta.env.VITE_API_URL}/api/UserGameStatus/user/${userId}`
   );
   const data = await res.json();
   // Mapeia os status para cada jogo

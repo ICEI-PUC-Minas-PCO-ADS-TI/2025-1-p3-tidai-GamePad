@@ -1,6 +1,6 @@
-const API_URL = "http://localhost:5069/api/igdb/games";
-const PLATFORMS_URL = "http://localhost:5069/api/igdb/platforms";
-const GENRES_URL = "http://localhost:5069/api/igdb/genres";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/igdb/games`;
+const PLATFORMS_URL = `${import.meta.env.VITE_API_URL}/api/igdb/platforms`;
+const GENRES_URL = `${import.meta.env.VITE_API_URL}/api/igdb/genres`;
 
 /**
  * Busca jogos por um array de IDs (via backend)

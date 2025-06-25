@@ -17,7 +17,7 @@ export default function ListEdit() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5069/api/GameLists/${listId}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/GameLists/${listId}`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         setList(data);
@@ -77,7 +77,7 @@ export default function ListEdit() {
         coverUrl: g.coverUrl,
       })),
     };
-    const res = await fetch(`http://localhost:5069/api/GameLists/${list.id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/GameLists/${list.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -94,7 +94,7 @@ export default function ListEdit() {
   // Apagar lista
   async function handleDelete() {
     if (!window.confirm("Tem certeza que deseja apagar esta lista?")) return;
-    const res = await fetch(`http://localhost:5069/api/GameLists/${list.id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/GameLists/${list.id}`, {
       method: "DELETE",
     });
     if (res.ok) {

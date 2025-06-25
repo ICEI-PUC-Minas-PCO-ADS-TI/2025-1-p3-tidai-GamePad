@@ -41,7 +41,7 @@ export default function Profile() {
   useEffect(() => {
     if (!username) return;
     setLoadingProfile(true);
-    fetch(`http://localhost:5069/api/Usuarios/username/${username}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/Usuarios/username/${username}`)
       .then((res) => {
         if (!res.ok) throw new Error("Usuário não encontrado");
         return res.json();
@@ -79,7 +79,7 @@ export default function Profile() {
           const navbarImg =
             profileUser.imgUser &&
             profileUser.imgUser.startsWith("/profile-images/")
-              ? `http://localhost:5069${profileUser.imgUser}`
+              ? `${import.meta.env.VITE_API_URL}${profileUser.imgUser}`
               : profileUser.imgUser;
           return (
             <img

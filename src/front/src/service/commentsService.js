@@ -1,7 +1,7 @@
 // Busca comentários reais do banco para o slider da Home
 export async function fetchRandomComments(limit = 5) {
   // Busca todas as avaliações
-  const res = await fetch("http://localhost:5069/api/AvaliacoesApi");
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/AvaliacoesApi`);
   const data = await res.json();
   // Filtra apenas avaliações com comentário não vazio
   const comments = data.filter((a) => a.comentario && a.comentario.trim());

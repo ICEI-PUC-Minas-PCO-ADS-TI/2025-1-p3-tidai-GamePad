@@ -76,7 +76,7 @@ const MobileMenu = ({
               <img
                 src={
                   user.imgUser && user.imgUser.startsWith("/profile-images/")
-                    ? `http://localhost:5069${user.imgUser}`
+                    ? `${import.meta.env.VITE_API_URL}${user.imgUser}`
                     : user.imgUser || "/default-avatar.png"
                 }
                 alt={user.nome || "Avatar"}

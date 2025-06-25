@@ -1,7 +1,7 @@
 // Verifica se a senha está correta para o usuário pelo ID
 export async function verifyPasswordById(id, senha) {
   const response = await fetch(
-    `http://localhost:5069/api/Usuarios/${id}/verify-password`,
+    `${import.meta.env.VITE_API_URL}/api/Usuarios/${id}/verify-password`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -14,7 +14,7 @@ export async function verifyPasswordById(id, senha) {
 export async function verifyPassword(email, senha) {
   // Usa o mesmo endpoint de autenticação, mas só para checar a senha
   const response = await fetch(
-    "http://localhost:5069/api/Usuarios/authenticate",
+    `${import.meta.env.VITE_API_URL}/api/Usuarios/authenticate`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -27,7 +27,7 @@ export async function verifyPassword(email, senha) {
   }
   return true;
 }
-const API_URL = "http://localhost:5069/api/Usuarios";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/Usuarios`;
 
 // Atualizar usuário
 export async function updateUser(id, data) {
@@ -90,7 +90,7 @@ export async function registerUser({ nome, email, senha, imgUser, tipo }) {
 // Função para fazer login de usuário
 export async function loginUser({ email, senha }) {
   const response = await fetch(
-    "http://localhost:5069/api/Usuarios/authenticate",
+    `${import.meta.env.VITE_API_URL}/api/Usuarios/authenticate`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

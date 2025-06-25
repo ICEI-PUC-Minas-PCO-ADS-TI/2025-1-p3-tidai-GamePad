@@ -15,7 +15,7 @@ const UserDropdownMenu = ({
       <img
         src={
           user.imgUser && user.imgUser.startsWith("/profile-images/")
-            ? `http://localhost:5069${user.imgUser}`
+            ? `${import.meta.env.VITE_API_URL}${user.imgUser}`
             : user.imgUser
         }
         alt="Perfil"
@@ -31,7 +31,7 @@ const UserDropdownMenu = ({
             <img
               src={
                 user.imgUser && user.imgUser.startsWith("/profile-images/")
-                  ? `http://localhost:5069${user.imgUser}`
+                  ? `${import.meta.env.VITE_API_URL}${user.imgUser}`
                   : user.imgUser
               }
               alt="Avatar"

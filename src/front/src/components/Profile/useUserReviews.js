@@ -10,7 +10,7 @@ export default function useUserReviews(userId, limit = 5) {
     async function fetchRecentReviews() {
       setLoading(true);
       try {
-        const res = await fetch("http://localhost:5069/api/AvaliacoesApi");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/AvaliacoesApi`);
         const data = await res.json();
         const userReviews = data
           .filter((a) => a.usuarioId === userId)

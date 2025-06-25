@@ -37,7 +37,7 @@ export default function Home() {
         setLoading(false);
       });
     // Busca todos os comentários reais do banco
-    fetch("http://localhost:5069/api/AvaliacoesApi")
+    fetch(`${import.meta.env.VITE_API_URL}/api/AvaliacoesApi`)
       .then((res) => res.json())
       .then(async (data) => {
         // Filtra apenas avaliações com comentário não vazio
@@ -48,7 +48,7 @@ export default function Home() {
         const commentsWithLikes = await Promise.all(
           commentsWithText.map(async (c) => {
             const res = await fetch(
-              `http://localhost:5069/api/AvaliacoesApi/likes/${c.id}`
+              `${import.meta.env.VITE_API_URL}/api/AvaliacoesApi/likes/${c.id}`
             );
             let likes = 0;
             if (res.ok) {
@@ -104,19 +104,19 @@ export default function Home() {
               : "-",
             userAvatar:
               c.UsuarioImg && c.UsuarioImg.startsWith("/profile-images/")
-                ? `http://localhost:5069${c.UsuarioImg}`
+                ? `${import.meta.env.VITE_API_URL}${c.UsuarioImg}`
                 : c.UsuarioImg && c.UsuarioImg.startsWith("http")
                 ? c.UsuarioImg
                 : c.UsuarioImg
                 ? `${window.location.origin}${c.UsuarioImg}`
                 : c.usuarioImg && c.usuarioImg.startsWith("/profile-images/")
-                ? `http://localhost:5069${c.usuarioImg}`
+                ? `${import.meta.env.VITE_API_URL}${c.usuarioImg}`
                 : c.usuarioImg && c.usuarioImg.startsWith("http")
                 ? c.usuarioImg
                 : c.usuarioImg
                 ? `${window.location.origin}${c.usuarioImg}`
                 : c.imgUser && c.imgUser.startsWith("/profile-images/")
-                ? `http://localhost:5069${c.imgUser}`
+                ? `${import.meta.env.VITE_API_URL}${c.imgUser}`
                 : c.imgUser && c.imgUser.startsWith("http")
                 ? c.imgUser
                 : c.imgUser

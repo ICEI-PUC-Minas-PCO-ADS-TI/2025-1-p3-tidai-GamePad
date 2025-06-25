@@ -17,7 +17,7 @@ export default function ListsTab({ user }) {
   useEffect(() => {
     if (!user?.id) return;
     setLoading(true);
-    fetch(`http://localhost:5069/api/GameLists/user/${user.id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/GameLists/user/${user.id}`)
       .then((res) => res.json())
       .then(setLists)
       .catch(() => setError("Erro ao carregar listas."))
@@ -27,7 +27,7 @@ export default function ListsTab({ user }) {
   // eslint-disable-next-line no-unused-vars
   const handleRemove = async (listId, itemId) => {
     await fetch(
-      `http://localhost:5069/api/GameLists/${listId}/remove/${itemId}`,
+      `${import.meta.env.VITE_API_URL}/api/GameLists/${listId}/remove/${itemId}`,
       { method: "DELETE" }
     );
     setLists((prev) =>

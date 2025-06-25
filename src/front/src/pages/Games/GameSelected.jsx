@@ -19,7 +19,7 @@ import {
 
 // Funções de serviço para backend
 async function postUserGameStatus({ usuarioId, igdbGameId, status }) {
-  const res = await fetch("http://localhost:5069/api/UserGameStatus", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/UserGameStatus`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -37,7 +37,7 @@ async function postUserGameStatus({ usuarioId, igdbGameId, status }) {
 }
 
 async function postAvaliacao({ usuarioId, igdbGameId, nota, comentario }) {
-  const res = await fetch("http://localhost:5069/api/AvaliacoesApi", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/AvaliacoesApi`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -56,7 +56,7 @@ async function postAvaliacao({ usuarioId, igdbGameId, nota, comentario }) {
 
 // Função para atualizar avaliação existente
 async function putAvaliacao({ id, usuarioId, igdbGameId, nota, comentario }) {
-  const res = await fetch(`http://localhost:5069/api/AvaliacoesApi/${id}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/AvaliacoesApi/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -76,7 +76,7 @@ async function putAvaliacao({ id, usuarioId, igdbGameId, nota, comentario }) {
 // Função para deletar status do usuário para um jogo
 async function deleteUserGameStatus({ usuarioId, igdbGameId, status }) {
   const res = await fetch(
-    `http://localhost:5069/api/UserGameStatus?usuarioId=${usuarioId}&igdbGameId=${igdbGameId}&status=${status}`,
+    `${import.meta.env.VITE_API_URL}/api/UserGameStatus?usuarioId=${usuarioId}&igdbGameId=${igdbGameId}&status=${status}`,
     { method: "DELETE" }
   );
   if (!res.ok) throw new Error("Erro ao remover status");
@@ -86,7 +86,7 @@ async function deleteUserGameStatus({ usuarioId, igdbGameId, status }) {
 // Funções para curtir/descurtir avaliação
 async function likeAvaliacao(avaliacaoId, usuarioId) {
   const res = await fetch(
-    `http://localhost:5069/api/AvaliacoesApi/${avaliacaoId}/like?usuarioId=${usuarioId}`,
+    `${import.meta.env.VITE_API_URL}/api/AvaliacoesApi/${avaliacaoId}/like?usuarioId=${usuarioId}`,
     {
       method: "POST",
     }
@@ -95,7 +95,7 @@ async function likeAvaliacao(avaliacaoId, usuarioId) {
 }
 async function unlikeAvaliacao(avaliacaoId, usuarioId) {
   const res = await fetch(
-    `http://localhost:5069/api/AvaliacoesApi/${avaliacaoId}/like?usuarioId=${usuarioId}`,
+    `${import.meta.env.VITE_API_URL}/api/AvaliacoesApi/${avaliacaoId}/like?usuarioId=${usuarioId}`,
     {
       method: "DELETE",
     }
@@ -104,7 +104,7 @@ async function unlikeAvaliacao(avaliacaoId, usuarioId) {
 }
 // Atualizado: agora retorna { count, isLiked }
 async function fetchLikes(avaliacaoId, usuarioId) {
-  let url = `http://localhost:5069/api/AvaliacoesApi/likes/${avaliacaoId}`;
+  let url = `${import.meta.env.VITE_API_URL}/api/AvaliacoesApi/likes/${avaliacaoId}`;
   if (usuarioId) url += `?usuarioId=${usuarioId}`;
   const res = await fetch(url);
   if (!res.ok) return { count: 0, isLiked: false };
@@ -114,13 +114,13 @@ async function fetchLikes(avaliacaoId, usuarioId) {
 // Funções para listas de jogos
 async function fetchUserLists(usuarioId) {
   const res = await fetch(
-    `http://localhost:5069/api/GameLists/user/${usuarioId}`
+    `${import.meta.env.VITE_API_URL}/api/GameLists/user/${usuarioId}`
   );
   if (!res.ok) throw new Error("Erro ao buscar listas");
   return res.json();
 }
 async function createUserList(usuarioId, title) {
-  const res = await fetch(`http://localhost:5069/api/GameLists`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/GameLists`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ usuarioId, title }),
@@ -129,7 +129,7 @@ async function createUserList(usuarioId, title) {
   return res.json();
 }
 async function addGameToList(listId, game) {
-  const res = await fetch(`http://localhost:5069/api/GameLists/${listId}/add`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/GameLists/${listId}/add`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(game),
@@ -139,7 +139,7 @@ async function addGameToList(listId, game) {
 }
 async function removeGameFromList(listId, itemId) {
   const res = await fetch(
-    `http://localhost:5069/api/GameLists/${listId}/remove/${itemId}`,
+    `${import.meta.env.VITE_API_URL}/api/GameLists/${listId}/remove/${itemId}`,
     { method: "DELETE" }
   );
   if (!res.ok) throw new Error("Erro ao remover jogo da lista");
@@ -191,14 +191,14 @@ export default function GameSelected() {
 
   // Função para buscar dados de usuário por ID
   async function fetchUserById(id) {
-    const res = await fetch(`http://localhost:5069/api/Usuarios/${id}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Usuarios/${id}`);
     if (!res.ok) return null;
     return res.json();
   }
 
   // Função para buscar avaliações do backend e atualizar estado
   const fetchAvaliacoes = async () => {
-    const res = await fetch(`http://localhost:5069/api/AvaliacoesApi`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/AvaliacoesApi`);
     const data = await res.json();
     // Filtra avaliações só deste jogo
     const avals = data.filter((a) => a.igdbGameId === Number(id));
@@ -232,7 +232,7 @@ export default function GameSelected() {
   // Busca todos os status deste jogo para estatísticas
   const fetchAllStatuses = async () => {
     const res = await fetch(
-      `http://localhost:5069/api/UserGameStatus/game/${id}`
+      `${import.meta.env.VITE_API_URL}/api/UserGameStatus/game/${id}`
     );
     if (!res.ok) return [];
     return res.json();
@@ -243,7 +243,7 @@ export default function GameSelected() {
     setLoading(true);
     setError(null);
     // Busca apenas pelo id
-    fetch(`http://localhost:5069/api/igdb/games?id=${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/igdb/games?id=${id}`)
       .then(async (res) => {
         if (res.ok) {
           const data = await res.json();
@@ -266,7 +266,7 @@ export default function GameSelected() {
       });
     // Busca status do usuário para o jogo atual
     if (user) {
-      fetch(`http://localhost:5069/api/UserGameStatus/user/${user.id}`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/UserGameStatus/user/${user.id}`)
         .then((res) => res.json())
         .then((data) => {
           if (!cancelled && Array.isArray(data)) {
@@ -1180,7 +1180,7 @@ export default function GameSelected() {
                         src={
                           c.usuario?.imgUser
                             ? c.usuario.imgUser.startsWith("/profile-images/")
-                              ? `http://localhost:5069${c.usuario.imgUser}`
+                              ? `${import.meta.env.VITE_API_URL}${c.usuario.imgUser}`
                               : c.usuario.imgUser
                             : "/profile-images/default-profile.png"
                         }

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 // Função para buscar jogos por média mínima de avaliação
 async function fetchGameIdsByMinRating(minRating) {
   const res = await fetch(
-    `http://localhost:5069/api/AvaliacoesApi/medias?minMedia=${minRating}`
+    `${import.meta.env.VITE_API_URL}/api/AvaliacoesApi/medias?minMedia=${minRating}`
   );
   if (!res.ok) return [];
   return res.json(); // [{ igdbGameId, media }]

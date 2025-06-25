@@ -95,7 +95,7 @@ export default function Settings() {
         const formData = new FormData();
         formData.append("image", selectedImage.file);
         const response = await fetch(
-          `http://localhost:5069/api/Usuarios/${user.id}/upload-image`,
+          `${import.meta.env.VITE_API_URL}/api/Usuarios/${user.id}/upload-image`,
           {
             method: "POST",
             body: formData,
@@ -266,7 +266,7 @@ export default function Settings() {
                           ? selectedImage.preview
                           : user?.imgUser &&
                             user.imgUser.startsWith("/profile-images/")
-                          ? `http://localhost:5069${user.imgUser}`
+                          ? `${import.meta.env.VITE_API_URL}${user.imgUser}`
                           : user?.imgUser
                       }
                       alt="Avatar"

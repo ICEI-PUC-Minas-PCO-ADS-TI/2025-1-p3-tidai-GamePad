@@ -12,7 +12,7 @@ export default function ListView() {
   const [sort, setSort] = useState(null); // null = ordem salva
 
   useEffect(() => {
-    fetch(`http://localhost:5069/api/GameLists/${listId}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/GameLists/${listId}`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         console.log("Dados recebidos da API:", data);
@@ -65,7 +65,7 @@ export default function ListView() {
           <img
             src={
               list.ownerImg && list.ownerImg.startsWith("/profile-images/")
-                ? `http://localhost:5069${list.ownerImg}`
+                ? `${import.meta.env.VITE_API_URL}${list.ownerImg}`
                 : list.ownerImg || "/profile-images/default-profile.png"
             }
             alt="Owner"
