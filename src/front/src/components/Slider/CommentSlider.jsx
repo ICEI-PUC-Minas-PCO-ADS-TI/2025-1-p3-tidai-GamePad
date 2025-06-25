@@ -25,7 +25,7 @@ const CommentSlider = ({ comments }) => {
   const visibleComments = getVisibleComments();
 
   return (
-    <div className="w-full flex flex-col items-center relative max-w-xs sm:max-w-sm md:max-w-2xl mx-auto">
+    <div className="w-full flex flex-col items-center relative">
       <div className="relative w-full flex items-center justify-center">
         {/* Botão anterior */}
         <button
@@ -36,7 +36,7 @@ const CommentSlider = ({ comments }) => {
         >
           <ChevronLeft size={20} className="sm:w-6 sm:h-6 w-5 h-5" />
         </button>
-        <div className="flex flex-col md:flex-row gap-2 md:gap-4 w-full justify-center transition-all duration-300">
+        <div className="flex flex-col md:flex-row gap-4 lg:gap-8 w-full justify-center transition-all duration-300">
           {visibleComments.map((comment, idx) => {
             // Tenta pegar o id do jogo do comentário
             const igdbGameId =
@@ -48,7 +48,7 @@ const CommentSlider = ({ comments }) => {
               <Link
                 key={idx}
                 to={igdbGameId ? `/games/${igdbGameId}` : "#"}
-                className="w-full md:w-1/2 hover:scale-[1.02] transition-transform duration-200"
+                className="w-full hover:scale-[1.02] transition-transform duration-200"
                 style={{ textDecoration: "none" }}
               >
                 <div className="p-2 sm:p-3 md:p-4">

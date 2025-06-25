@@ -132,7 +132,8 @@ const MobileMenu = ({
               <button className="w-full" onClick={() => handleNav("/settings")}>
                 Configurações
               </button>
-            </li>            <li className="w-full text-center p-3">
+            </li>{" "}
+            <li className="w-full text-center p-3">
               <button
                 className="text-red-500 font-bold hover:text-red-700 transition-all"
                 onClick={() => {

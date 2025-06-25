@@ -344,7 +344,7 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="w-full flex justify-center items-center max-w-xs sm:max-w-sm md:max-w-2xl mx-auto">
+          <div className="w-full flex justify-center items-center max-w-4xl mx-auto">
             <CommentSlider comments={comments} compact={true} />
           </div>
         </motion.section>

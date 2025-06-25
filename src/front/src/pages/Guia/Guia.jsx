@@ -3,11 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import guiaBanner from "../../assets/guiaBanner.png";
 import { Button } from "../../components/Button/Button";
 import GameCard from "../../components/Cards/GameCard";
-import { Newspaper, Star, Heart, List, MessageCircle, Gamepad as Gamepad2 } from "lucide-react";
+import {
+  Newspaper,
+  Star,
+  Heart,
+  List,
+  MessageCircle,
+  Gamepad as Gamepad2,
+} from "lucide-react";
 import { fetchGames } from "../../service/igdbService";
 import { UserContext } from "../../context/UserContext";
 import LoginModal from "../../components/Auth/LoginModal";
-
 
 export default function Home() {
   // Estado para jogos da IGDB
@@ -41,7 +47,10 @@ export default function Home() {
   };
   return (
     <main className="w-full flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 py-6 sm:py-8 gap-6 sm:gap-8">
-      <LoginModal open={showLoginModal} onClose={() => setShowLoginModal(false)} />
+      <LoginModal
+        open={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+      />
       <header className="flex justify-center items-start w-full max-w-[1440px]">
         <div className="relative w-full">
           <img
@@ -56,8 +65,9 @@ export default function Home() {
       </header>
 
       <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-8 text-cyan-400 text-center w-full max-w-[1440px]">
-        Seus controles disponíveis 
-      </h1>{/* Página de Jogos */}
+        Seus controles disponíveis
+      </h1>
+      {/* Página de Jogos */}
       <section className="mb-6 sm:mb-8 md:mb-10 bg-zinc-800 text-white rounded-xl p-4 sm:p-6 shadow-lg w-full max-w-5xl">
         <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 flex items-center gap-2">
           <Gamepad2 className="inline w-5 h-5 sm:w-6 sm:h-6" /> Página de Jogos
@@ -67,18 +77,20 @@ export default function Home() {
           <li>Veja detalhes de cada jogo que lhe interresou.</li>
           <li>
             <span className="inline-flex items-center gap-1">
-              <Star className="inline w-4 h-4 text-yellow-400" /> Avalie jogos com estrelas.
+              <Star className="inline w-4 h-4 text-yellow-400" /> Avalie jogos
+              com estrelas.
             </span>
           </li>
           <li>
             <span className="inline-flex items-center gap-1">
-              <Heart className="inline w-4 h-4 text-pink-400" /> Adicione aos seus favoritos
+              <Heart className="inline w-4 h-4 text-pink-400" /> Adicione aos
+              seus favoritos
             </span>
           </li>
           <li>Veja a média das avaliações dos usuários.</li>
         </ul>
         <div className="flex justify-center mt-4 sm:mt-6">
-          <Button onClick={() => window.location.href = "/games"}>
+          <Button onClick={() => (window.location.href = "/games")}>
             Ir para página de Jogos
           </Button>
         </div>
@@ -87,7 +99,8 @@ export default function Home() {
       {/* Reviews e Comentários */}
       <section className="mb-6 sm:mb-8 md:mb-10 bg-zinc-800 text-white rounded-xl p-4 sm:p-6 shadow-lg w-full max-w-5xl">
         <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 flex items-center gap-2">
-          <MessageCircle className="inline w-5 h-5 sm:w-6 sm:h-6" /> Reviews e Comentários
+          <MessageCircle className="inline w-5 h-5 sm:w-6 sm:h-6" /> Reviews e
+          Comentários
         </h2>
         <ul className="list-disc ml-4 sm:ml-6 space-y-2 text-sm sm:text-base">
           <li>Leia reviews e comentários de outros usuários.</li>
@@ -96,7 +109,8 @@ export default function Home() {
         </ul>
         <div className="flex justify-center mt-6 sm:mt-8 w-full">
           <h3 className="w-full text-lg sm:text-xl font-bold mb-6 sm:mb-8 text-center pt-6 sm:pt-8 text-white">
-            Quer avaliar ou comentar sobre estes jogos? Clique e faça seu review!
+            Quer avaliar ou comentar sobre estes jogos? Clique e faça seu
+            review!
           </h3>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 w-full">
@@ -107,7 +121,8 @@ export default function Home() {
           )}
           {error && (
             <div className="col-span-6 text-center text-red-500">{error}</div>
-          )}          {!loading &&
+          )}{" "}
+          {!loading &&
             !error &&
             games.slice(0, 6).map((game) => (
               <Link
@@ -131,31 +146,37 @@ export default function Home() {
       {/* Perfil Personalizável */}
       <section className="mb-6 sm:mb-8 md:mb-10 bg-zinc-800 text-white rounded-xl p-4 sm:p-6 shadow-lg w-full max-w-5xl">
         <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 flex items-center gap-2">
-          <List className="inline w-5 h-5 sm:w-6 sm:h-6" /> Perfil Personalizável
+          <List className="inline w-5 h-5 sm:w-6 sm:h-6" /> Perfil
+          Personalizável
         </h2>
         <ul className="list-disc ml-4 sm:ml-6 space-y-2 text-sm sm:text-base">
-          <li>Adicione seu nome, biografia, jogos favoritos, mude sua imagem de perfil.</li>
-          <li>Marque jogos como zerados, jogando ou na lista de desejos ou favoritos.</li>
+          <li>
+            Adicione seu nome, biografia, jogos favoritos, mude sua imagem de
+            perfil.
+          </li>
+          <li>
+            Marque jogos como zerados, jogando ou na lista de desejos ou
+            favoritos.
+          </li>
           <li>Veja e gerencie suas próprias avaliações e comentários.</li>
         </ul>
         <div className="flex justify-center mt-4 sm:mt-6">
-          <Button onClick={handleProfileClick}>
-            Ir para página de Perfil
-          </Button>
+          <Button onClick={handleProfileClick}>Ir para página de Perfil</Button>
         </div>
       </section>
 
       {/* News */}
       <section className="mb-6 sm:mb-8 md:mb-10 bg-zinc-800 text-white rounded-xl p-4 sm:p-6 shadow-lg w-full max-w-5xl">
         <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 flex items-center gap-2">
-          <Newspaper className="inline w-5 h-5 sm:w-6 sm:h-6" /> Noticias e Atualizações do mundo dos games
+          <Newspaper className="inline w-5 h-5 sm:w-6 sm:h-6" /> Noticias e
+          Atualizações do mundo dos games
         </h2>
         <ul className="list-disc ml-4 sm:ml-6 space-y-2 text-sm sm:text-base">
           <li>Acompanhe noticias fresacas dos maiores insiders do mundo</li>
           <li>Veja vazamentos e muito mais na nossa page de noticias</li>
         </ul>
         <div className="flex justify-center mt-4 sm:mt-6">
-          <Button onClick={() => window.location.href = "/news"}>
+          <Button onClick={() => (window.location.href = "/news")}>
             Ir para página de Noticias
           </Button>
         </div>

@@ -16,7 +16,6 @@ export default function ListEdit() {
   const [showAdd, setShowAdd] = useState(false);
   const [search, setSearch] = useState("");
 
-
   useEffect(() => {
     fetch(`http://localhost:5069/api/GameLists/${listId}`)
       .then((res) => (res.ok ? res.json() : null))
@@ -110,47 +109,53 @@ export default function ListEdit() {
   if (!list) return <div className="text-red-400">Lista não encontrada.</div>;
   return (
     <div className="w-full mx-auto px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 mt-8 bg-zinc-900 py-4 sm:py-6">
-      <h2 className="text-lg sm:text-xl font-bold text-white mb-4">Editar Lista</h2>
-      <label className="block text-zinc-300 text-sm sm:text-base mb-2">Nome da lista:</label>
+      <h2 className="text-lg sm:text-xl font-bold text-white mb-4">
+        Editar Lista
+      </h2>
+      <label className="block text-zinc-300 text-sm sm:text-base mb-2">
+        Nome da lista:
+      </label>
       <input
         className="w-full sm:w-3/4 md:w-1/2 p-2 sm:p-3 rounded mb-4 bg-zinc-800 text-white border border-cyan-400 text-sm sm:text-base"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <div className="mb-4">
-              {showAdd && (
-        <div className="mb-4">
-          <SearchBar
-            placeholder="Buscar jogo para adicionar..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onSelect={handleAddGame}
-            className="mb-2"
-          />
+        {showAdd && (
+          <div className="mb-4">
+            <SearchBar
+              placeholder="Buscar jogo para adicionar..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onSelect={handleAddGame}
+              className="mb-2"
+            />
+          </div>
+        )}
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <button
+            className="bg-cyan-700 cursor-pointer text-white px-3 py-2 sm:px-4 text-sm sm:text-base rounded font-semibold transition hover:bg-cyan-600"
+            onClick={() => setShowAdd((v) => !v)}
+          >
+            {showAdd ? "Cancelar" : "Adicionar Jogo"}
+          </button>
+          <button
+            className="bg-green-700 cursor-pointer text-white px-3 py-2 sm:px-4 text-sm sm:text-base rounded font-semibold transition hover:bg-green-600"
+            onClick={handleSave}
+          >
+            Salvar Alterações
+          </button>
+          <button
+            className="bg-red-700 cursor-pointer text-white px-3 py-2 sm:px-4 text-sm sm:text-base rounded font-semibold transition hover:bg-red-600"
+            onClick={handleDelete}
+          >
+            Apagar Lista
+          </button>
         </div>
-      )}
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-        <button
-          className="bg-cyan-700 cursor-pointer text-white px-3 py-2 sm:px-4 text-sm sm:text-base rounded font-semibold transition hover:bg-cyan-600"
-          onClick={() => setShowAdd((v) => !v)}
-        >
-          {showAdd ? "Cancelar" : "Adicionar Jogo"}
-        </button>
-        <button
-          className="bg-green-700 cursor-pointer text-white px-3 py-2 sm:px-4 text-sm sm:text-base rounded font-semibold transition hover:bg-green-600"
-          onClick={handleSave}
-        >
-          Salvar Alterações
-        </button>
-        <button
-          className="bg-red-700 cursor-pointer text-white px-3 py-2 sm:px-4 text-sm sm:text-base rounded font-semibold transition hover:bg-red-600"
-          onClick={handleDelete}
-        >
-          Apagar Lista
-        </button>
-      </div>
-        <h3 className="text-zinc-200 font-semibold text-sm sm:text-base mb-4 mt-6">Jogos na lista:</h3>
-          <DragDropContext onDragEnd={handleDragEnd}>
+        <h3 className="text-zinc-200 font-semibold text-sm sm:text-base mb-4 mt-6">
+          Jogos na lista:
+        </h3>
+        <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="games-list" direction="horizontal">
             {(provided) => (
               <div
@@ -191,7 +196,8 @@ export default function ListEdit() {
                         />
                         <div className="text-xs sm:text-sm md:text-base text-white text-center font-semibold truncate w-full mt-2 mb-2">
                           {item.gameTitle}
-                        </div>                        <button
+                        </div>{" "}
+                        <button
                           className="px-2 py-1 text-xs cursor-pointer bg-red-700 text-white rounded font-semibold transition hover:bg-red-600"
                           onClick={() => handleRemoveGame(idx)}
                         >
@@ -199,7 +205,8 @@ export default function ListEdit() {
                         </button>
                       </div>
                     )}
-                  </Draggable>                ))}
+                  </Draggable>
+                ))}
                 {games.length === 0 && (
                   <div className="text-zinc-400 col-span-full text-center py-8 text-sm sm:text-base">
                     Nenhum jogo adicionado à lista ainda.

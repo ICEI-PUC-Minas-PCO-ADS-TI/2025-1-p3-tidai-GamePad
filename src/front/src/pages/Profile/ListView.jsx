@@ -87,7 +87,9 @@ export default function ListView() {
           </button>
         )}
       </div>
-      <h1 className="text-xl sm:text-2xl font-bold text-white mb-4">{list.title}</h1>
+      <h1 className="text-xl sm:text-2xl font-bold text-white mb-4">
+        {list.title}
+      </h1>
       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2 mb-4">
         <span className="text-zinc-400 text-sm">Ordenar por:</span>
         <div className="flex flex-wrap gap-2">

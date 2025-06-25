@@ -591,8 +591,9 @@ export default function GameSelected() {
     if (!user || !newListTitle.trim()) return;
     setAddingToList(true);
     try {
-      const list = await createUserList(user.id, newListTitle);
-      setUserLists([...userLists, list]);
+      await createUserList(user.id, newListTitle);
+      const lists = await fetchUserLists(user.id);
+      setUserLists(lists || []);
       setNewListTitle("");
     } finally {
       setAddingToList(false);
