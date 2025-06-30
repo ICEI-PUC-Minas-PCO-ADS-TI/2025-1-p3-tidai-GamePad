@@ -29,7 +29,7 @@ namespace GamePadAPI
                     "AllowFrontend",
                     policy =>
                         policy
-                            .WithOrigins("http://localhost:5173")
+                            .WithOrigins("https://game-pad-ruby.vercel.app/")
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                 );
