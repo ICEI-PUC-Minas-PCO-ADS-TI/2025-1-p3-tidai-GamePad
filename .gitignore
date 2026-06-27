@@ -16,6 +16,12 @@ TestResults/
 
 .fake
 
+node_modules/
+.venv/
+__pycache__/
+.pytest_cache/
+
+
 # Docker (Andry)
 
 .dockerignore
